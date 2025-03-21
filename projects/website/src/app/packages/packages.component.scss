@@ -1,0 +1,172 @@
+.head {
+  background: #050111;
+  padding: 2em;
+
+  article {
+    color: white;
+    h2 {
+      font-family: Garamond, serif;
+      font-size: 2em;
+      text-align: center;
+
+    }
+    h3 {
+      font-family: Georgia, serif;
+      font-size: 1em;
+    }
+    div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      p {
+        text-align: justify;
+        font-family: 'Courier New', monospace;
+        font-size: 14px;
+        line-height: 1.5em;
+        width: 40%;
+      }
+    }
+
+    a {
+      color: white;
+      text-decoration: underline;
+      font-weight: bold;
+    }
+  }
+}
+
+
+.pricing-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  margin: 0 auto;
+  padding: 3rem 0;
+  max-width: 1200px;
+  .plan-card {
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    width: 100%;
+    max-width: 320px;
+    text-align: center;
+    padding: 2.5rem;
+    position: relative;
+
+    .plan-header h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      //color: #2a2a2a;
+      margin-bottom: 1rem;
+    }
+
+  .plan-price h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #ff9900;
+    margin-bottom: 1.5rem;
+  }
+
+    
+  .plan-description {
+    p {
+      text-align: left;
+      color: #6b6b6b;
+    }
+  }
+  
+  .plan-features {
+    p {
+      text-align: left;
+      color: #6b6b6b;
+    }
+    ul {
+      list-style-type: disc;
+      padding: 0;
+      margin: 0;
+      font-size: 1rem;
+      color: #6b6b6b;
+      text-align: left;
+      li {
+        margin-bottom: 0.8rem;
+      }
+    }
+  } 
+  
+}
+
+.plan-actions {
+  margin: 2rem 0;
+  button {
+    margin-right: 12px;
+  }
+}
+
+.plan-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Best Seller Styling */
+.best-seller {
+  border: 1px solid #ff9900;
+  position: relative;
+}
+    
+.best-seller-badge {
+  position: absolute;
+  top: -16px;
+  right:20px;
+  background-color: #ff9900;
+  color: #050111;
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: bold;
+}
+    
+.best-seller .plan-price h3 {
+  color: #d9534f;
+}
+}
+
+.cta-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3em 0;
+  background: rgba(0, 0, 0, 0.6);
+  a {
+    background: #ff9900;
+    color: #050111;
+  }
+}
+
+
+/* Media Queries */
+@media (max-width: 768px) {
+.head {
+  padding: 0 1em;
+
+  article {
+
+    div {
+      p {
+        width: 90%;
+
+      }
+    }
+  }
+}
+.pricing-container {
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.plan-card {
+  margin-bottom: 2rem;
+}
+ 
+}
+  

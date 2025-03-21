@@ -1,0 +1,232 @@
+<section class="breadcrumb-wrapper">
+    <div class="breadcrumb">
+      <a routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="scrollToTop()">Dashboard</a> &gt;
+      <a>Business</a> &gt;
+      <a>Ads</a> &gt;
+      <a routerLink="/dashboard/marketing/ads" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="scrollToTop()">Manage Ads</a> &gt;
+      <span>ads detail</span>
+    </div>
+</section>
+
+<section class="async-background">
+    <h2>Ad Details</h2>
+
+    <section class="async-container">
+        <div class="title">
+            <div class="control">
+                <div class="back" (click)="back()" title="Back">
+                    <mat-icon>arrow_back</mat-icon>
+                </div>
+                <!-- <button mat-raised-button><mat-icon>download</mat-icon>Download</button> -->
+            </div>
+            <h3>Ad Campaign Details</h3>
+        </div>
+
+            <section class="flex-container">  
+                <article class="flex-item">  
+                    <h2>Ads information</h2>  
+                    <!-- <p>Ads information</p> -->
+    
+                        <div class="list">
+                            <h5> Campaign </h5>
+                            <span class="data">{{adData.campaignName | titlecase}} </span>
+                        </div>
+                        <mat-divider></mat-divider>
+
+    
+                        <div class="list">
+                            <h5> Status </h5>
+                            <span class="data">{{adData.deliveryStatus | titlecase}} </span>
+                        </div>
+                        <mat-divider></mat-divider>
+
+    
+                        <div class="list">
+                            <h5> Created Date </h5>
+                            <span class="data">{{adData.updatedAt | date}} </span>
+                        </div>
+    
+                      
+                </article>  
+    
+                <article class="flex-item">  
+                    <h2>Ads Duration</h2>  
+                    <!-- <p>The campaign will run for 30 days starting from June 1, 2023.</p>   -->
+    
+                        <div class="list">
+                            <h5> Start Date </h5>
+                            <span class="data">{{adData.adDuration.campaignStartDate | date}} </span>
+                        </div>
+                        <mat-divider></mat-divider>
+
+    
+                        <div class="list">
+                            <h5> End Date </h5>
+                            <span class="data">{{ adData.adDuration.noEndDate ? 'No end date' : adData.adDuration.campaignEndDate | date}}</span>
+                        </div>
+                        <mat-divider></mat-divider>
+
+    
+                        <div class="list">
+                            <h5> Duration </h5>
+                            <span class="data">{{ adData.adDuration.campaignEndDate ? duration + ' days' : 'Continuous' }}</span>
+                        </div>
+    
+                </article>  
+    
+                <article class="flex-item">  
+                    <h2>Ads Objective</h2>  
+                    <!-- <p>The main objective is to increase brand awareness.</p>   -->
+    
+                    <div class="list">
+                        <h5> Campaign Objective </h5>
+                        <span class="data">{{adData.marketingObjectives.adObjective }} </span>
+                    </div>
+                    <mat-divider></mat-divider>
+
+    
+                    <div class="list" *ngIf="adData.marketingObjectives.successMeasurement">
+                        <h5> Campaign Measurement Metrics </h5>
+                        <span class="data">{{adData.marketingObjectives.successMeasurement}} </span>
+                    </div>
+                </article>   
+
+                <article class="flex-item">  
+                    <h2>Ads Result</h2>  
+                    <!-- <p>The main objective is to increase brand awareness.</p>   -->
+    
+                    <div class="list">
+                        <h5> Ads Progress </h5>
+                        <span class="data">{{ getProgression(adData) | number: '1.0-2' }}% </span>
+                    </div>
+                    <mat-divider></mat-divider>
+
+    
+                    <div class="list">
+                        <h5> Ads Converstion </h5>
+                        <span class="data">{{adData.leads }} </span>
+                    </div>
+                </article>  
+    
+                <article class="flex-item">  
+                    <h2>Ads Budget</h2>  
+                    <!-- <p>The budget for this campaign is $5000.</p>  --> 
+    
+                    <div class="list">
+                        <h5> Ads Budget Amount </h5>
+                        <span class="data">{{adData.budget.budgetAmount | currency:'₦':'symbol':'1.0-0' }} </span>
+                    </div>
+                    <mat-divider></mat-divider>
+
+    
+                    <div class="list">
+                        <h5> Ads Budget Type </h5>
+                        <span class="data">{{adData.budget.budgetType | titlecase}} </span>
+                    </div>
+                </article>  
+    
+               
+    
+                <article class="flex-item">  
+                    <h2>Ads Format</h2>  
+                    <!-- <p>Formats include video ads and carousel images.</p>  --> 
+    
+                    <div class="list">
+                        <h5> Ads Format </h5>
+                        <span class="data">{{adData.adFormat.adFormat | titlecase}} </span>
+                    </div>
+                    <mat-divider></mat-divider>
+
+    
+                    <div class="list">
+                        <h5> Target Device </h5>
+                        <span class="data">{{adData.adFormat.deviceType | titlecase}} </span>
+                    </div>
+                    <mat-divider></mat-divider>
+
+    
+                    <div class="list" *ngIf="adData.campaignName === 'Facebook'">
+                        <h5> Ads Preferences </h5>
+                        <span class="data">
+                            <ul>
+                                <li *ngFor="let preference of getSelectedAdPreferences()">{{ preference }} </li>
+                            </ul>
+                        </span>
+                    </div>
+    
+                </article>  
+    
+    
+    
+                <article class="flex-item">  
+                    <h2>Ads Target Audience</h2>  
+                    <!-- <p>The target audience is males and females aged 18-35.</p>   -->
+    
+                    <div class="list" *ngIf="adData.targetAudience.ageRangeTarget">
+                        <h5> Campaign Age Range </h5>
+                        <span class="data">{{adData.targetAudience.ageRangeTarget }} </span>
+                    </div>
+                    <mat-divider></mat-divider>
+
+    
+                    <div class="list" *ngIf="adData.targetAudience.educationTarget">
+                        <h5> Educational Level</h5>
+                        <span class="data">{{adData.targetAudience.educationTarget}} </span>
+                    </div>
+                    <mat-divider></mat-divider>
+
+
+                    <div class="list" *ngIf="adData.targetAudience.genderTarget">
+                        <h5> Gender </h5>
+                        <span class="data">{{adData.targetAudience.genderTarget}} </span>
+                    </div>
+                    <mat-divider></mat-divider>
+
+
+                    <div class="list" *ngIf="adData.targetAudience.industryTarget">
+                        <h5> Industry</h5>
+                        <span class="data">{{adData.targetAudience.industryTarget}} </span>
+                    </div>
+                    <mat-divider></mat-divider>
+
+
+                    <div class="list" *ngIf="adData.targetAudience.locationTarget">
+                        <h5> Location/Area</h5>
+                        <span class="data">{{adData.targetAudience.locationTarget}} </span>
+                    </div>
+                    <mat-divider></mat-divider>
+
+                    <div class="list" *ngIf="adData.targetAudience.relationshipTarget">
+                        <h5> Marital Status</h5>
+                        <span class="data">{{adData.targetAudience.relationshipTarget}} </span>
+                    </div>
+                </article>  
+    
+            </section>
+
+
+            <section class="accordion">
+                <mat-accordion>
+
+                    <mat-expansion-panel hideToggle>
+    
+                      <mat-expansion-panel-header>
+                        <mat-panel-title> More Action </mat-panel-title>
+                        <!-- <mat-panel-description> This is a summary of the content </mat-panel-description> -->
+                      </mat-expansion-panel-header>
+    
+                      <div class="delete">
+                        <small>Delete This Ad</small>
+                        <br>
+                        <button mat-flat-button (click)="deleteAd(adData)">Delete Ad</button>
+                      </div>
+                    </mat-expansion-panel>
+    
+                </mat-accordion>
+            </section>
+
+
+    </section>
+
+
+</section>

@@ -1,0 +1,164 @@
+
+<section class="head">
+
+    <article>
+        <h2>Book A One-on-One Session</h2>
+        <!-- <h3>{{course.subTitle}}</h3> -->
+         <div>
+          <p>
+            Need personalized guidance on growing your MarketSpase business? Our one-on-one sessions are designed to provide expert advice tailored to your needs.
+          </p>
+         </div>
+
+         <div>
+          <h3>What You’ll Get</h3>
+            <ul>
+                <li>Personalized business strategy</li>
+                <li>Expert insights on maximizing your business earnings</li>
+                <li>Answers to your specific questions</li>
+            </ul>
+         </div>
+            
+          <div>
+            <p>
+              Schedule a session today! Fill out the booking form to choose a time that works for you.
+            </p>
+          </div>
+        
+      </article>
+  
+    </section>
+  
+     <section class="breadcrumb-wrapper">
+        <div class="breadcrumb">
+            <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop()">Home</a> &gt;
+            <a routerLink="/contacts" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop()">Suppport</a> &gt;
+            <a routerLink="/contacts" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop()">Contacts</a> &gt;
+            <span>book 1 on 1</span>
+        </div>
+     </section>
+  
+  
+    <section class="body">
+      <article class="writeup">
+        <h3>Consultation Booking Form</h3>
+        
+        <form [formGroup]="bookinForm" (submit)="onSubmit()">
+
+          <div class="form-wrapper">
+              <mat-form-field appearance="outline">
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name">
+                <mat-error *ngIf="bookinForm.get('name')?.hasError('required') ">
+                  Name is required
+                </mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Surname</mat-label>
+                <input matInput formControlName="surname">
+                <mat-error *ngIf="bookinForm.get('surname')?.hasError('required') ">
+                  Surname is required
+                </mat-error>
+              </mat-form-field>
+          </div>
+
+          <div class="form-wrapper">
+            <mat-form-field appearance="outline">
+                <mat-label>Phone Number</mat-label>
+                <input matInput formControlName="phone">
+                <mat-error *ngIf="bookinForm.get('phone')?.hasError('required') ">
+                  Phone is required
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Email Address</mat-label>
+                <input matInput formControlName="email">
+                <mat-error *ngIf="bookinForm.get('email')?.hasError('email') ">
+                Email is invalid
+                </mat-error>
+            </mat-form-field>
+            </div>
+
+          <mat-form-field appearance="outline">
+            <mat-label> Leave a brief Description/Questions (Optional)</mat-label>
+            <textarea matInput formControlName="description"></textarea>
+          </mat-form-field>
+
+          
+          <div class="form-wrapper">
+            <!-- date -->
+            <mat-form-field appearance="outline">
+                <mat-label>Choose a date</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="consultDate" [min]="minDate">
+                <mat-hint>MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+                <mat-error *ngIf="bookinForm.get('consultDate')?.hasError('required') ">
+                    Date is required
+                  </mat-error>
+              </mat-form-field>
+
+              <!-- time -->
+            <mat-form-field appearance="outline">
+                <mat-label>Choose a time</mat-label>
+                <input matInput type="time" formControlName="consultTime">
+                <mat-hint>HH/MM/am/pm</mat-hint>
+                <mat-error *ngIf="bookinForm.get('consultTime')?.hasError('required') ">
+                    Time is required
+                </mat-error>
+            </mat-form-field>
+          </div>
+        
+  
+          <mat-form-field appearance="outline">
+            <mat-label>Preferred Contact Method </mat-label>
+            <mat-select formControlName="contactMethod">
+              <mat-option value="Email">Email</mat-option>
+              <mat-option value="Phone">Phone</mat-option>
+              <mat-option value="WhatsApp">WhatsApp</mat-option>
+              <mat-option value="Text Message">Text Message</mat-option>
+              <mat-option value="Video Call">Video Call (Zoom, Google Meet, etc.)</mat-option>
+              <mat-option value="Any Option">Any Option</mat-option>
+            </mat-select>
+            <mat-error *ngIf="bookinForm.get('contactMethod')?.hasError('required') ">
+            This answer is required
+              </mat-error>
+          </mat-form-field>
+
+
+
+          <!-- Add to calender options -->
+  
+        <mat-form-field appearance="outline">
+            <mat-label>How Did You Hear About Us?</mat-label>
+            <mat-select formControlName="referral">
+            <mat-option value="Search Engine">Search Engine (Google, Bing, etc.)</mat-option>
+              <mat-option value="Social Media">Social Media (Facebook, Twitter, Instagram, etc.)</mat-option>
+              <mat-option value="YouTube">YouTube</mat-option>
+              <mat-option value="Podcast">Podcast</mat-option>
+              <mat-option value="Referral">Referral from a Member/Friend/Family</mat-option>
+              <mat-option value="Online Advertisement">Online Advertisement</mat-option>
+              <mat-option value="Blog/Article">Blog/Article</mat-option>
+              <mat-option value="Mobile App">Mobile App</mat-option>
+              <mat-option value="Direct Mail/Email Marketing">Direct Mail/Email Marketing</mat-option>
+              <mat-option value="Radio">Radio</mat-option>
+              <mat-option value="TV/Cable Advertisement">TV/Cable Advertisement</mat-option>
+              <mat-option value="Magazine/Newspaper">Magazine/Newspaper</mat-option>
+              <mat-option value="cant say">Can't say</mat-option>
+            </mat-select>
+            <mat-error *ngIf="bookinForm.get('referral')?.hasError('required') ">
+            This answer is required
+              </mat-error>
+        </mat-form-field>
+         
+          <mat-progress-bar mode="indeterminate" *ngIf="isSpinning"></mat-progress-bar>
+  
+          <div class="btn">
+            <button mat-raised-button color="primary" [disabled]="isSpinning">Submit <i class="fa fa-angle-double-right"></i></button>
+          </div>
+  
+        </form>
+  
+      </article>
+  
+     </section>

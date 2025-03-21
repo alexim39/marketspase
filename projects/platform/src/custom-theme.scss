@@ -1,0 +1,113 @@
+:root {
+
+    /* Default black and white theme */
+  
+    --background-color-light: #ffffff;
+  
+    --background-color-dark: #313131;
+  
+    --text-color-light: #000000;
+  
+    --text-color-dark: #ffffff;
+  
+  
+  
+    /* Async light theme */
+  
+    --async-light-background: #dcdbdb;
+  
+  
+  
+  
+  
+    /* Async black theme */
+  
+    --async-dark-background: #181819;
+  
+  }
+  
+  
+  
+  [data-theme='light'] {
+  
+    --background-color: var(--background-color-light);
+  
+    --text-color: var(--text-color-light);
+  
+    /* Async light theme */
+  
+    --async-theme: var(--async-light-background)
+  
+  }
+  
+  
+  
+  [data-theme='dark'] {
+  
+    --background-color: var(--background-color-dark);
+  
+    --text-color: var(--text-color-dark);
+  
+    /* Async dark theme */
+  
+    --async-theme: var(--async-dark-background)
+  
+  }
+  
+  
+  
+  body {
+  
+    background-color: var(--background-color);
+  
+    color: var(--text-color);
+
+    .breadcrumb-wrapper {
+      background-color: var(--background-color);
+      color: var(--text-color);
+      a {
+        color: var(--text-color);
+      }
+    }
+  
+    mat-sidenav-container {
+  
+      mat-sidenav, mat-sidenav-content {
+  
+        background-color: var(--background-color);
+  
+        color: var(--text-color);
+  
+      }
+  
+    }
+  
+    .async-background {
+  
+      .async-container {
+  
+        background-color: var(--async-theme);
+  
+        color: var(--text-color);
+  
+        .plan-container {
+  
+          background-color: var(--background-color);
+  
+          color: var(--text-color);
+  
+        }
+  
+        .form-container, .content {
+  
+          background-color: var(--background-color);
+  
+          color: var(--text-color);
+  
+        }
+  
+      }
+  
+    } 
+  
+  }

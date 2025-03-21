@@ -1,0 +1,165 @@
+<section class="breadcrumb-wrapper">
+    <div class="breadcrumb">
+      <a routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="scrollToTop()">Dashboard</a> &gt;
+      <a>Business</a> &gt;
+      <a>Spase Plans</a> &gt;
+      <span>new plan</span>
+    </div>
+</section>
+
+
+<section class="async-background ">
+    <h2>New Spase Plan<mat-icon (click)="showDescription()">help</mat-icon></h2>
+
+    <section class="async-container">
+
+        <div class="title">
+            <h3>Buy new digital space</h3>
+        </div>
+
+        <div class="plan-container">
+                    
+        <div class="pricing-container">
+
+            <div class="plan-card">
+                <div class="plan-header">
+                    <h2>StarterSpase </h2>
+                </div>
+                
+                <div class="plan-price">
+                    <h3>₦10,000</h3>
+                </div>
+                
+                <div class="plan-description">
+                    <p>
+                    Entry-level plan for beginners looking to start their journey.
+                    </p>
+                </div>
+                
+                <div class="plan-features">
+                    <h3>Who Is This For?</h3>
+                    <p>
+                    Perfect for beginners looking to explore the online business models with minimal risk.
+                    </p>
+                    <ul>
+                    <li>Daily Profit Potential: ₦600 - ₦2,050</li>
+                    <li>1 Digital Space</li>
+                    <li>Access to our advance business platform </li>
+                    </ul>
+                </div>
+                
+                <div class="plan-actions">
+                    <button mat-flat-button color="primary" (click)="buy(10000)">Buy</button>
+                </div>
+            </div>
+
+
+            <div class="plan-card best-seller">
+                <div class="plan-header">
+                    <h2>GrowthSpase </h2>
+                    <span class="best-seller-badge">Most Popular Plan</span>
+                </div>
+                
+                <div class="plan-price">
+                    <h3>₦30,000</h3>
+                </div>
+                
+                <div class="plan-description">
+                    <p>
+                    A mid-tier level for those ready to expand their business.
+                    </p>
+                </div>
+            
+                <div class="plan-features">
+                    <h3>Who Is This For?</h3>
+                    <p>
+                    Perfect for those committed to growing their business with increased profit potential.
+                    </p>
+                    <ul>
+                    <li>Daily Profit Potential: ₦950 - ₦4,100</li>
+                    <li>3 Digital Space</li>
+                    <li>Access to our advance business platform </li>
+                    </ul>
+                </div>
+                
+                <div class="plan-actions">
+                    <button mat-flat-button color="primary" (click)="buy(30000)">Buy</button>
+                </div>
+            </div>
+
+
+            <div class="plan-card">
+                <div class="plan-header">
+                    <h2>EliteSpase </h2>
+                </div>
+                
+                <div class="plan-price">
+                    <h3>₦50,000</h3>
+                </div>
+                
+                <div class="plan-description">
+                    <p>
+                    A premium plan for serious entrepreneurs aiming for high profits.
+                    </p>
+                </div>
+                
+                <div class="plan-features">
+                    <h3>Who Is This For?</h3>
+                    <p>
+                    Ideal for entrepreneurs aiming for significant market growth and higher profits.
+                    </p>
+                    <ul>
+                    <li>Daily Profit Potential: ₦3,800 - ₦9,400</li>
+                    <li>5 Digital Space</li>
+                    <li>Access to our advance business platform </li>
+                    </ul>
+                </div>
+                
+                <div class="plan-actions">
+                    <button mat-flat-button color="primary" (click)="buy(50000)">Buy</button>
+                </div>
+            </div>
+
+
+            <div class="plan-card">
+                <div class="plan-header">
+                    <h2>EmpireSpase </h2>
+                </div>
+                
+                <div class="plan-price">
+                    <h3>₦100,000</h3>
+                </div>
+                
+                <div class="plan-description">
+                    <p>
+                    The ultimate level for top-tier business owners looking for maximum profit.          
+                    </p>
+                </div>
+                
+                <div class="plan-features">
+                    <h3>Who Is This For?</h3>
+                    <p>
+                    Best suited for seasoned entrepreneurs ready for high-level expansion and rewards.
+                    </p>
+                    <ul>
+                    <li>Daily Profit Potential: ₦10,300 - ₦23,200</li>
+                    <li>10 Digital Space</li>
+                    <li>Access to our advance business platform </li>
+                    </ul>
+                </div>
+
+                
+                <div class="plan-actions">
+                    <button mat-flat-button color="primary" (click)="buy(100000)">Buy</button>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        </div>
+    </section>
+    
+</section>

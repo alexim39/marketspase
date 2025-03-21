@@ -1,0 +1,139 @@
+
+.head {
+  background: #050111;
+  padding: 2em;
+  font-family: Garamond, serif;
+
+  article {
+    color: white;
+    h2 {
+      font-size: 2em;
+      text-align: center;
+
+    }
+    h3 {
+      font-family: Georgia, serif;
+      font-size: 1em;
+    }
+    div {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      p {
+        text-align: justify;
+        font-family: 'Courier New', monospace;
+        font-size: 14px;
+        line-height: 1.5em;
+        width: 40%;
+      }
+      ul {
+        li {
+          line-height: 2em;
+        }
+      }
+    }
+
+    a {
+      color: white;
+      text-decoration: underline;
+      font-weight: bold;
+    }
+  }
+}
+  
+  .body {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    text-align: center;
+  
+      .writeup {
+        padding: 2em;
+        width: 60%;
+        h3 {
+          color: #ffab40;
+        }
+        p {
+          text-align: justify;
+          /* font-family: 'Courier New', monospace; */
+          font-size: 14px;
+          line-height: 1.5em;
+        }
+        form {
+          display: flex;
+          flex-direction: column;
+          padding: 0 1em;
+          .form-wrapper {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            mat-form-field {
+              width: 49%;
+            }
+          }
+          .btn {
+            //text-align: center;
+            display: flex;
+            justify-content: center;
+            text-align: center;
+            button {
+              width: 50%;
+            }
+          }
+        }
+      }
+  }
+  
+  mat-progress-bar {
+    margin-bottom: 1em;
+  }
+  
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+.head {
+  padding: 1em;
+    article {
+      h2 {
+        font-size: 1em;
+      }
+      h3 {
+        font-size: 1em;
+      }
+    div {
+      p {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.body {
+    .writeup {
+      h3 {
+          padding-left: 1em;
+      }
+      width: 100%;
+      padding: 1em;
+      form {
+        .form-wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            mat-form-field {
+              width: 100%;
+            }
+          }
+      }
+    }
+  }
+  }
+  
+  /* iPads/tablet (portrait and landscape) */
+  /* @media only screen and (min-device-width: 601px) and (max-device-width: 1024px) {
+    .head {
+      article {
+        width: 100%;
+      }
+    }
+  } */

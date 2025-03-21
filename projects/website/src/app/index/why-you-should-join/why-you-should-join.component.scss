@@ -1,0 +1,111 @@
+.training-approach {
+    background-color: #03010f;
+    padding: 3em;
+    color: white;
+  
+    h1 {
+      margin-bottom: 2em;
+      text-align: center;
+    }
+  
+    .approach-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-gap: 2em;
+  
+      .approach-card {
+        background-color: #121212;
+        border-radius: 8px;
+        padding: 2em;
+  
+        .title {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+  
+          h1 {
+            font-size: 1.2em;
+            margin-top: -0.2em;
+            font-family: system-ui;
+          }
+  
+          mat-icon {
+            transform: scale(2);
+            margin: -2em 1em 0 0;
+          }
+        }
+  
+        .content {
+          font-size: 1em;
+          margin-top: 1em;
+  
+          p {
+            line-height: 2em;
+          }
+        }
+      }
+    }
+  
+    .call-to-action {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-top: 3em;
+  
+      p {
+        font-size: 1.5em;
+        color: #ffab40;
+        text-align: center;
+        max-width: 600px;
+      }
+  
+      button {
+        background-color: #075E54;
+        color: white;
+        margin-top: 2em;
+      }
+      a {
+        background-color: #ffab40;
+        color: rgb(0, 10, 34);
+        margin-top: 2em;
+      }
+    }
+  }
+  
+  .down-arrow {
+    animation: blink 1.5s infinite;
+    margin-top: 1em;
+  
+    mat-icon {
+      font-size: 1.2em;
+    }
+  }
+  
+  @keyframes blink {
+    0%, 50% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  
+  /* Media Queries */
+  @media only screen and (max-width: 768px) {
+    .training-approach {
+      padding: 1em;
+  
+      .approach-cards {
+        grid-template-columns: 1fr;
+      }
+  
+      .call-to-action {
+        p {
+          font-size: 1.2em;
+          max-width: 100%;
+        }
+      }
+    }
+  }

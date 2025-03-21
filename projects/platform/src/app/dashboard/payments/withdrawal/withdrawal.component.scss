@@ -1,0 +1,110 @@
+.async-background {
+    margin: 2em;
+    .help {
+        cursor: pointer;
+    }
+    .async-container {
+        border-radius: 1%;
+        height: 100%;
+        padding: 1em;
+        .title {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #ccc;
+            padding: 1em;
+            .action-area {
+                .action {
+                    font-weight: bold;
+                    margin-top: 1em;
+                }
+            }
+        }
+    }
+}
+
+
+.content {
+    display: flex;
+    justify-content: center;
+    margin-top: 1em;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+
+    .withdraw-container {
+
+
+      width: 50%;
+      form {
+        display: grid;
+        gap: 1.5em;
+
+        mat-form-field{
+          width: 100%;
+
+          .mat-mdc-form-field-subscript-wrapper {
+            min-height: 20px;
+          }
+        }
+
+        .btn {
+            display: flex;
+            justify-content: center;
+            button {
+                width: 30%;
+            }
+        }
+       
+      }
+    }
+
+    .footer {
+      margin-top: 2em;
+
+      mat-progress-bar {
+        width: 100%;
+      }
+    }
+}
+
+
+@media (max-width: 768px) {
+    .async-background {
+      margin: 1em; // Smaller margins on mobile
+  
+      .async-container {
+        padding: 1em; // Smaller padding on mobile
+  
+        .title {
+          flex-direction: column; // Stack title and action area
+          align-items: flex-start;
+  
+          .action-area {
+            margin-top: 1em;
+          }
+        }
+      }
+    }
+    .content {
+        display: flex;
+        justify-content: center;
+       // margin: 1em 0;
+        padding: 1em;
+        .withdraw-container {
+          width: 100%;
+          form {
+                .btn {
+                    display: flex;
+                    justify-content: center;
+                    button {
+                        width: 80%;
+                    }
+                }
+            }
+        }
+
+       
+
+    }
+
+}

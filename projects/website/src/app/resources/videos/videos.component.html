@@ -1,0 +1,57 @@
+<section class="head">
+    <article>
+        <h2>The Wealth Video Library        </h2>
+        <p>Unlock the secrets to life-changing wealth and self development within our growing and comprehensive video library. 
+            Whether you're just getting started or not, these powerful videos will provide you with the knowledge, motivation and proven strategies for lasting life success.
+      </article>
+</section>
+  
+<section class="breadcrumb-wrapper">
+    <div class="breadcrumb">
+        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop()">Home</a> &gt;
+        <a routerLink="../videos" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop()">Resources</a> &gt;
+        <span>vidoes</span>
+    </div>
+</section>
+
+
+<section class="body">
+    <article class="writeup">
+      <!-- <h3>Featured Testimonials</h3> -->
+      
+
+      <div class="video-gallery">
+        <div *ngFor="let video of filteredVideos" class="video-item" (click)="openVideoOnUrl(video)">
+          <div class="play-overlay">
+            <div class="play-button">&#9654;</div>
+          </div>
+          <img class="thumbnail" [src]="video.thumbnailUrl" alt="Video Thumbnail">
+          <div class="video-details">
+            <h4>{{ video.title }}</h4>
+            <p class="subtitle">{{ video.subtitle }}</p>
+            <p class="description">{{ video.description }}</p>
+          </div>
+        </div>
+      </div>
+
+    </article>
+
+    <nav class="side-menu">
+      <h4>Video Categories</h4>
+      <ul>
+          <li><a (click)="filterVideo('')">View All Categories</a></li>
+          <li><a (click)="filterVideo('motivation')">Motivation & Mindset</a></li>
+          <li><a (click)="filterVideo('wealth')">Wealth Principles</a></li>
+          <li><a (click)="filterVideo('self-development')">Self Development</a></li>
+          <li><a (click)="filterVideo('leadership')">Leadership</a></li>
+          <li><a (click)="filterVideo('events')">Live Event Replays</a></li>
+          <li><a (click)="filterVideo('lifestyles')">Financial Lifestyle</a></li>
+          <li><a (click)="filterVideo('founders-corner')">Founder's Corner</a></li>
+      </ul>
+    </nav>
+
+</section>
+  
+  
+
+  

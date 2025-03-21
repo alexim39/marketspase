@@ -1,0 +1,82 @@
+section {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    header {
+      background-size:cover;
+      width: 100%;
+      aside {
+        background-image: linear-gradient(to left, rgba(7, 3, 18, 0.7) 26.48%, rgba(124, 94, 36, 0.3) 73.52%);
+        min-height: 770px;
+        text-align: center;
+        position: relative;
+        height: 100%;
+        width: 100%;
+        video {
+          object-fit: cover;
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: -1;
+        }
+        article {
+          height: 80vh;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          h1 {
+            color: white;
+            font-size: 2em;
+            font-family: Vadana;
+            width: 70%;
+            em {
+              font-size: 0.5em;
+            }
+            span {
+              font-size: 2em;
+            }
+          }
+          h3 {
+            margin-bottom: 2em;
+            margin-top: -2em;
+          }
+          div {
+            a {
+              margin-left: 1em;
+            }
+          }
+        }
+      }
+    }
+  }
+  
+/* For mobile phones: */
+@media only screen and (max-width: 600px) {
+    section {
+      header {
+      margin-bottom: -3em;
+      margin-bottom: 1px;
+      aside {
+        article {
+          h1 {
+            font-size: 1.1em;
+            padding: 0 0.4em;
+          }
+        }
+      }
+     
+      }
+      .btn{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        #get-account {
+          margin-bottom: 1em;
+        }
+      }
+    }
+}

@@ -1,0 +1,44 @@
+mat-toolbar {
+    position: sticky;
+    position: -webkit-sticky; /* For macOS/iOS Safari */
+    top: 0;
+    z-index: 1000;
+  
+    .logo {
+      padding-left: 2em;
+    }
+  
+    .spacer {
+      flex: 1 1 auto;
+    }
+  
+    a {
+      //color: #00838F;
+      margin-left: 1em;
+    }
+  
+    mat-icon {
+      cursor: pointer;
+      color: #28D146;
+    }
+  
+    button {
+      margin-left: 2em;
+    }
+  
+    .cart {
+      margin: 0 1em;
+      color: #00838F;
+    }
+  
+    .fa-whatsapp {
+      color: #075E54;
+      font-size: 1.2em;
+      cursor:pointer;
+      margin-left: 1em;
+    }
+  
+    .fa-moon-o,.fa-sun-o {
+      margin-left: 1em;
+    }  
+}

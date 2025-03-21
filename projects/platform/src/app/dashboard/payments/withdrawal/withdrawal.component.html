@@ -1,0 +1,57 @@
+<section class="breadcrumb-wrapper">
+    <div class="breadcrumb">
+     <a routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="scrollToTop()">Dashboard</a> &gt;
+     <a>Business</a> &gt;
+     <a>Payments</a> &gt;
+     <span>withdraw </span>
+    </div>
+</section>
+  
+<section class="async-background">
+<h2>Withdrawal Request <mat-icon class="help" (click)="showDescription()">help</mat-icon></h2>
+
+<section class="async-container">
+    <div class="title">
+        <h3>Fund withdraw Request</h3>
+        <div class="action-area">
+            <a mat-list-item routerLink="../../payment/transactions" routerLinkActive="active" (click)="scrollToTop()" title="Create Campaign" mat-raised-button><mat-icon>receipt_long</mat-icon>Transactions</a>
+        </div>
+    </div>
+
+    <div class="content">
+    <section class="withdraw-container">
+        <form [formGroup]="withdrawForm" (ngSubmit)="onSubmit()">
+
+        <mat-form-field appearance="outline">
+            <mat-label>Select Bank</mat-label>
+            <mat-select #bankSelect formControlName="bank" (selectionChange)="onBankChange($event)">
+                <div class="search-container" style="font-size: 1em; margin-left: 2em; margin-right: 2em; margin-bottom: 0.5em; background: white; border-radius: 10px;">
+                <input #searchInput matInput type="search" (input)="onSearchChange($event)" placeholder="Search Bank" />
+                </div>
+                <mat-option *ngFor="let bank of filteredBanks" [value]="bank.code">{{ bank.name }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Account Number</mat-label>
+            <input matInput type="text" formControlName="accountNumber" (input)="resolveAccountName()" placeholder="Enter Account Number" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Account Name</mat-label>
+            <input matInput type="text" formControlName="accountName" readonly placeholder="Account Name will be auto-filled" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>Amount to Withdraw</mat-label>
+            <input matInput type="number" formControlName="amount" placeholder="Enter Amount" />
+        </mat-form-field>
+
+        <div class="btn">
+            <button mat-flat-button color="primary" type="submit" [disabled]="withdrawForm.invalid">Submit</button>
+        </div>
+        </form>
+    </section>
+    </div>
+</section>
+</section>

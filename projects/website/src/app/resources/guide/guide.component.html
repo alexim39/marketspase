@@ -1,0 +1,102 @@
+<section class="head">
+    <article>
+        <h2>
+          Download MarketSpase Business Guide
+        </h2>
+        <div>
+          <p>
+            Ready to learn how our business works? The Business Guide PDF provides all the information you need to start, manage, and grow your online business
+          </p>
+        </div>
+
+        <div>
+          <h3>What's Inside</h3>
+          <ul>
+            <li>
+              What's MarketSpase
+            </li>
+            <li>
+              How MarketSpase Works
+            </li>
+            <li>
+              Plan & Earning Potential
+            </li>
+            <li>
+              Step-by-Step Onboarding Guide
+            </li>
+            <li>
+              Business Growth Tips
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <p>
+            Get your free copy now! Fill out the download form below to download.
+          </p>
+        </div>
+    </article>
+</section>
+  
+<section class="breadcrumb-wrapper">
+    <div class="breadcrumb">
+        <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop()">Home</a> &gt;
+        <a routerLink="../guide-download" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop()">Resources</a> &gt;
+        <span>Business guide download</span>
+    </div>
+</section>
+
+
+<section class="body">
+    <article class="writeup">
+    <!-- <h3>Featured Testimonials</h3> -->
+
+
+    <div class="contact-form">
+        <form [formGroup]="downloadForm">
+          <div class="form-wrapper">
+                <mat-form-field appearance="outline">
+                  <mat-label>Name</mat-label>
+                  <input matInput formControlName="name">
+                  <mat-error *ngIf="downloadForm.get('name')?.hasError('required') ">
+                    Name is required
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Surname</mat-label>
+                  <input matInput formControlName="surname">
+                  <mat-error *ngIf="downloadForm.get('surname')?.hasError('required') ">
+                    Surname is required
+                  </mat-error>
+                </mat-form-field>
+            </div>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Your Email</mat-label>
+              <input matInput type="email" formControlName="email">
+              <mat-error *ngIf="downloadForm.get('email')?.hasError('email') ">
+                  Email is invalid
+              </mat-error>
+              <mat-error *ngIf="downloadForm.get('email')?.hasError('required') ">
+                  Email is required
+                </mat-error>
+            </mat-form-field>
+
+            <mat-progress-bar class="progress" mode="indeterminate" *ngIf="isSpinning"></mat-progress-bar>
+
+            <div class="btn">
+              
+              <button mat-raised-button color="primary" [disabled]="isSpinning" (click)="onSubmit()">Submit <i class="fa fa-angle-double-right"></i></button>
+
+              <button mat-raised-button color="accent" [disabled]="isDownloadReady" (click)="downloadPdf()">Download <i class="fa fa-download"></i></button>
+            </div>
+          </form>
+        </div>
+
+    </article>
+
+</section>
+  
+  
+
+  

@@ -1,0 +1,33 @@
+/* You can add global styles to this file, and also import other style files */
+html, body { height: 100%; }
+body { margin: 0;}
+//body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;}
+
+.breadcrumb-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    .breadcrumb {
+        padding: 10px;
+        //box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        font-size: 0.7em;
+        a {
+            text-decoration: none;
+            color: #002b8f;
+            padding: 0 0.5em;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        span {
+            color: #6e6e6e;
+            padding: 0 0.5em;
+        }
+    }
+}
+
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

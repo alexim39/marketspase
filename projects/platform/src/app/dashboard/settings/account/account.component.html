@@ -1,0 +1,72 @@
+<section class="breadcrumb-wrapper">
+  <div class="breadcrumb">
+    <a routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="scrollToTop()">Dashboard</a> &gt;
+    <a>Settings</a> &gt;
+    <!-- <a>Ads</a> &gt; -->
+    <span>account settings </span>
+  </div>
+</section>
+
+
+<section class="async-background">
+    <h2>Account Setting<mat-icon class="help" (click)="showDescription()">help</mat-icon></h2>
+
+    <section class="async-container">
+        <div class="title">
+            <h1>Profile Settings</h1>
+            <div class="fund-area">
+              <a mat-list-item routerLink="../system" routerLinkActive="active" (click)="scrollToTop()" title="Account Settings" mat-raised-button><mat-icon>manage_accounts</mat-icon>System Settings</a>
+            </div>
+        </div>
+
+        <!-- <div class="search">
+            <mat-form-field appearance="outline">
+                <mat-label>Filter by transanction amount</mat-label>
+                <input matInput placeholder="0.00" type="search">
+            </mat-form-field>
+        </div> -->
+
+
+        <mat-accordion>
+            <mat-expansion-panel [expanded]="true">
+              <mat-expansion-panel-header>
+                <mat-panel-title> Personal Information </mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <async-personal-infor *ngIf="partner" [partner]="partner"/>
+
+            </mat-expansion-panel>
+
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title> Profession Information </mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <async-professional-info *ngIf="partner" [partner]="partner"/>
+
+            </mat-expansion-panel>
+          
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title> Username </mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <async-username-info *ngIf="partner" [partner]="partner"/>
+
+            </mat-expansion-panel>
+          
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title> Password </mat-panel-title>
+              </mat-expansion-panel-header>
+
+              <async-password-changer *ngIf="partner" [partner]="partner"/>
+
+            </mat-expansion-panel>
+          </mat-accordion>
+
+
+    </section>
+
+
+</section>

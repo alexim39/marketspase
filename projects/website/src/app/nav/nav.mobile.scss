@@ -1,0 +1,57 @@
+/* hide on mible */
+.mobile-nav {
+  display: none;
+}
+  
+.fa-bars {
+  display: none;
+}
+  
+  
+  /* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .logo {
+      padding-left: 0;
+      margin-left: -2em;
+    }
+  
+    .mobile-nav {
+      display: flex;
+      //flex-wrap: wrap;
+      flex-direction: column;
+      justify-content: flex-end;
+      margin-bottom: 1em; 
+      height: auto;
+       .mobile-btn {
+        margin: 0.3em 0;
+       }
+    }
+  
+    .fa-bars {
+      display: block;
+    }
+  
+    .fa-whatsapp {
+      margin: 0 1em;
+    }
+  
+    .view-on-desktop {
+      display: none;
+    }
+    .fa-moon-o,.fa-sun-o {
+      margin-right: 1em;
+    }
+}
+  
+
+/* iPads/tablet (portrait and landscape) */
+@media only screen and (min-device-width: 601px) and (max-device-width: 1024px) {
+  .desktop-nav {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 1em; 
+  }
+  .mobile-nav {
+   display: none;
+  }
+}

@@ -1,0 +1,27 @@
+html, body { height: 100%; }
+/* body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } */
+body { margin: 0; }
+
+.breadcrumb-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  border-top: 1px solid #f3f3f3;
+  border-bottom: 1px solid #f3f3f3;
+  .breadcrumb {
+    padding: 10px;
+    //box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 0.7em;
+    a {
+      text-decoration: none;
+      padding: 0 0.5em;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    span {
+      color: #6e6e6e;
+      padding: 0 0.5em;
+    }
+  }
+}
