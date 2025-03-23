@@ -37,7 +37,6 @@ import { AccountBalanceComponent } from './account-balance/account-balance.compo
       box-shadow: 0 2px 10px rgba(0,0,0,0.1);
       margin: 8em 0 0 -1em;
       padding-right: 1em;
-      background-color: #f8f8f8;
 
     }
     .profile-avatar img {

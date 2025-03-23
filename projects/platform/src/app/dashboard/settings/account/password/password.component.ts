@@ -82,7 +82,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 styles: [`
     .form-container {
       padding: 20px;
-      background-color: white;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       border-radius: 5px;
     }

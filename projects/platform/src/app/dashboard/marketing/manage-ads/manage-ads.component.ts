@@ -11,7 +11,7 @@ import { PartnerInterface } from '../../../_common/services/partner.service';
 import { AdsInterface } from './manage-ads.service';
 import { CommonModule } from '@angular/common';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { timeAgo } from '../../../_common/date-util';
+import { timeAgo, expiration } from '../../../_common/date-util';
 
 /**
  * @title Manage Campaign
@@ -33,7 +33,7 @@ export class ManageAdsComponent implements OnInit {
 
   filterText: string = '';
 
-  displayedColumns: string[] = ['transactionId',  'deliveryStatus', 'budget', 'campaignDates', 'duration', 'progression', 'results', 'publishDate', 'action'];
+  displayedColumns: string[] = ['id',  'status', 'budget', 'campaignDates', 'duration', 'expiration', 'progression', 'results', 'publishDate', 'action'];
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -77,6 +77,11 @@ export class ManageAdsComponent implements OnInit {
   getDateAgo(element: any): string {
     return timeAgo(new Date(element.createdAt));
   }
+
+  getExpirationTime(element: any): string {
+   return expiration(element);
+  }
+  
 
 
   // scroll to top when clicked

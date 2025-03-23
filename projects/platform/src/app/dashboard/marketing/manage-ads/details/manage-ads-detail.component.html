@@ -71,6 +71,11 @@
                             <h5> Duration </h5>
                             <span class="data">{{ adData.adDuration.campaignEndDate ? duration + ' days' : 'Continuous' }}</span>
                         </div>
+
+                        <div class="list">
+                            <h5> Expiration </h5>
+                            <span class="data">{{ getExpirationTime(adData) }} </span>
+                        </div>
     
                 </article>  
     

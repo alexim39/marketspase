@@ -44,7 +44,7 @@ import { HttpErrorResponse } from '@angular/common/http';
         <div class="form-group"></div>
 
         <div class="btn-group">
-            <button mat-flat-button color="primary">Submit</button>
+            <button mat-flat-button>Submit</button>
         </div>
        
     </form>
@@ -53,7 +53,6 @@ import { HttpErrorResponse } from '@angular/common/http';
     styles: `
     .form-container {
       padding: 20px;
-      background-color: white;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       border-radius: 5px;
     }

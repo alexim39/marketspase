@@ -34,7 +34,6 @@ import { MatIconModule } from '@angular/material/icon';
   styles: [
     `
       .dashboard-card {
-        background: white;
         padding: 1em;
         border-radius: 10px;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);

@@ -14,6 +14,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
+import { expiration } from '../../../../_common/date-util';
 
 
 /** @title Disabled select */
@@ -161,6 +162,10 @@ export class ManageAdsDetailComponent implements OnInit, OnDestroy {
     });
    /*   */
   }
+
+    getExpirationTime(element: any): string {
+     return expiration(element);
+    }
 
   ngOnDestroy() {
     // unsubscribe list

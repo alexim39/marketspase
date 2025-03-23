@@ -37,7 +37,6 @@ import { MatButtonModule } from '@angular/material/button';
   styles: [
     `
       .card {
-        background: white;
         padding: 16px;
         border-radius: 8px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -55,7 +54,7 @@ import { MatButtonModule } from '@angular/material/button';
       }
 
       th {
-        background: #f5f5f5;
+        //background: #f5f5f5;
       }
 
      

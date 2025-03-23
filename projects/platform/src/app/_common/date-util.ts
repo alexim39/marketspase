@@ -22,3 +22,22 @@ export function timeAgo(date: Date): string {
         return `${yearsPast} years ago`;  
     }  
 }
+
+export function expiration(date: any): string {  
+    if (!date.adDuration || !date.adDuration.campaignEndDate) {
+        return 'No expiration';
+      }
+    
+      const endDate = new Date(date.adDuration.campaignEndDate).getTime();
+      const currentDate = new Date().getTime();
+      const timeDifference = endDate - currentDate;
+    
+      if (timeDifference <= 0) {
+        return 'Expired';
+      }
+    
+      const daysLeft = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+      const hoursLeft = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    
+      return daysLeft > 0 ? `${daysLeft} days left` : `${hoursLeft} hours left`;
+}

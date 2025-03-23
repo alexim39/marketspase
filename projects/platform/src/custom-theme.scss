@@ -1,113 +1,228 @@
 :root {
+  /* Default black and white theme */
+  --background-color-light: #ffffff;
+  --background-color-dark: #313131;
+  --text-color-light: #000000;
+  --text-color-dark: #ffffff;
 
-    /* Default black and white theme */
-  
-    --background-color-light: #ffffff;
-  
-    --background-color-dark: #313131;
-  
-    --text-color-light: #000000;
-  
-    --text-color-dark: #ffffff;
-  
-  
-  
-    /* Async light theme */
-  
-    --async-light-background: #dcdbdb;
-  
-  
-  
-  
-  
-    /* Async black theme */
-  
-    --async-dark-background: #181819;
-  
-  }
-  
-  
-  
-  [data-theme='light'] {
-  
-    --background-color: var(--background-color-light);
-  
-    --text-color: var(--text-color-light);
-  
-    /* Async light theme */
-  
-    --async-theme: var(--async-light-background)
-  
-  }
-  
-  
-  
-  [data-theme='dark'] {
-  
-    --background-color: var(--background-color-dark);
-  
-    --text-color: var(--text-color-dark);
-  
-    /* Async dark theme */
-  
-    --async-theme: var(--async-dark-background)
-  
-  }
-  
-  
-  
-  body {
-  
+  /* Async light theme */
+  --async-light-background: #dcdbdb;
+
+  /* Async black theme */
+  --async-dark-background: #181819;
+}
+
+[data-theme="light"] {
+  --background-color: var(--background-color-light);
+  --text-color: var(--text-color-light);
+  --async-theme: var(--async-light-background);
+  --mat-surface: #ffffff;
+  //--mat-primary: #000000; //#6200ea;
+  --mat-accent: #03dac6;
+  --mat-border: rgba(0, 0, 0, 0.12);
+}
+
+[data-theme="dark"] {
+  --background-color: var(--background-color-dark);
+  --text-color: var(--text-color-dark);
+  --async-theme: var(--async-dark-background);
+  --mat-surface: #424242;
+ // --mat-primary: #000000; //#6200ea;
+  --mat-accent: #03dac6;
+  --mat-border: rgba(255, 255, 255, 0.12);
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+
+  .breadcrumb-wrapper {
     background-color: var(--background-color);
-  
     color: var(--text-color);
 
-    .breadcrumb-wrapper {
-      background-color: var(--background-color);
+    a {
       color: var(--text-color);
-      a {
-        color: var(--text-color);
-      }
     }
-  
-    mat-sidenav-container {
-  
-      mat-sidenav, mat-sidenav-content {
-  
-        background-color: var(--background-color);
-  
-        color: var(--text-color);
-  
-      }
-  
-    }
-  
-    .async-background {
-  
-      .async-container {
-  
-        background-color: var(--async-theme);
-  
-        color: var(--text-color);
-  
-        .plan-container {
-  
-          background-color: var(--background-color);
-  
-          color: var(--text-color);
-  
-        }
-  
-        .form-container, .content {
-  
-          background-color: var(--background-color);
-  
-          color: var(--text-color);
-  
-        }
-  
-      }
-  
-    } 
-  
   }
+
+  mat-sidenav-container {
+    background-color: var(--background-color);
+
+    mat-sidenav,
+    mat-sidenav-content {
+      background-color: var(--mat-surface) !important;
+      color: var(--text-color) !important;
+    }
+  }
+
+  .async-background {
+    .async-container {
+      background-color: var(--async-theme);
+      color: var(--text-color);
+
+      .plan-container,
+      .form-container,
+      .content {
+        background-color: var(--background-color);
+        color: var(--text-color);
+      }
+    }
+  }
+
+  /* Angular Material Components */
+  
+  /* Buttons */
+  mat-button,
+  mat-raised-button,
+  mat-stroked-button,
+  mat-flat-button {
+    color: var(--text-color) !important;
+    background-color: var(--mat-primary) !important;
+  }
+
+  mat-icon-button {
+    color: var(--text-color) !important;
+  }
+
+  /* Toolbar */
+  mat-toolbar {
+    background-color: var(--mat-primary) !important;
+    color: var(--text-color) !important;
+  }
+
+  /* Cards */
+  mat-card {
+    background-color: var(--mat-surface) !important;
+    color: var(--text-color) !important;
+  }
+
+  /* Dialogs */
+  mat-dialog-container {
+    background-color: var(--mat-surface) !important;
+    color: var(--text-color) !important;
+  }
+
+  /* Forms & Inputs */
+  mat-form-field {
+    color: var(--text-color) !important;
+
+    .mat-input-element {
+      color: var(--text-color) !important;
+    }
+
+    .mat-form-field-label {
+      color: var(--text-color) !important;
+    }
+
+    .mat-form-field-underline {
+      background-color: var(--text-color) !important;
+    }
+  }
+
+  /* Material Table */
+  mat-table {
+    background-color: var(--mat-surface) !important;
+    color: var(--text-color) !important;
+
+    th,
+    td {
+      border-color: var(--mat-border) !important;
+    }
+
+    mat-header-row {
+      background-color: var(--mat-primary) !important;
+      color: var(--text-color) !important;
+    }
+
+    mat-row:hover {
+      background-color: rgba(255, 255, 255, 0.08) !important;
+    }
+  }
+
+  /* Menu */
+  mat-menu-panel {
+    background-color: var(--mat-surface) !important;
+    color: var(--text-color) !important;
+  }
+
+  /* Lists */
+  mat-list-item {
+    color: var(--text-color) !important;
+  }
+
+  /* Stepper */
+  mat-stepper {
+    background-color: var(--mat-surface) !important;
+    color: var(--text-color) !important;
+  }
+
+  mat-step-header {
+    background-color: var(--mat-primary) !important;
+    color: var(--text-color) !important;
+  }
+
+  /* Expansion Panel */
+  mat-expansion-panel {
+    background-color: var(--mat-surface) !important;
+    color: var(--text-color) !important;
+
+    .mat-expansion-panel-header {
+      background-color: var(--background-color) !important;
+      color: var(--text-color) !important;
+    }
+  }
+
+  /* Tree */
+  mat-tree {
+    background-color: var(--mat-surface) !important;
+    color: var(--text-color) !important;
+  }
+
+  .mat-tree-node {
+    color: var(--text-color) !important;
+  }
+
+  /* Progress Spinner */
+  mat-spinner {
+    circle {
+      stroke: var(--text-color) !important;
+    }
+  }
+
+  /* Tabs */
+  mat-tab-group {
+    background-color: var(--mat-surface) !important;
+    color: var(--text-color) !important;
+  }
+
+  mat-tab-label {
+    color: var(--text-color) !important;
+  }
+
+  mat-tab-label-active {
+    background-color: var(--mat-primary) !important;
+  }
+
+  /* Snackbar */
+  .mat-snack-bar-container {
+    background-color: var(--mat-surface) !important;
+    color: var(--text-color) !important;
+  }
+
+  /* Tooltip */
+  .mat-tooltip {
+    background-color: var(--mat-primary) !important;
+    color: var(--text-color) !important;
+  }
+
+  /* Divider */
+  mat-divider {
+    border-color: var(--mat-border) !important;
+  }
+
+  /* Chips */
+  mat-chip {
+    background-color: var(--mat-primary) !important;
+    color: var(--text-color) !important;
+  }
+}

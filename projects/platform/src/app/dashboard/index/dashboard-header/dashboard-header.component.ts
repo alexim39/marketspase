@@ -38,7 +38,7 @@ import { MatSelectModule } from '@angular/material/select';
       justify-content: space-between;
       align-items: center;
       padding: 10px 20px;
-      background: #f8f9fa;
+      //background: #f8f9fa;
       border-bottom: 1px solid #ddd;
     }
     .left-section {
