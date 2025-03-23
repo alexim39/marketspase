@@ -91,8 +91,8 @@ import Swal from 'sweetalert2';
         </div>
 
         <div class="form-group">
-          <mat-slide-toggle [checked]="status" [disabled]="disabled" (change)="onToggleChange($event)">
-            Active State
+          <mat-slide-toggle [checked]="status" [disabled]="partner.status" (change)="activateAccount($event)">
+            Active Account
           </mat-slide-toggle>
           <small style="color: gray;">Account Status</small>
         </div>
@@ -146,7 +146,7 @@ export class PersonalInfoComponent implements OnInit, OnDestroy {
   @Input() partner!: PartnerInterface;
   profileMgrForm!: FormGroup;
 
-  status = true;
+  status = false;
   disabled = false;
   minDate = new Date(1900, 0, 1);
   
@@ -158,6 +158,9 @@ export class PersonalInfoComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // Set the minimum date to today  
     this.minDate = new Date();
+
+    // set account status
+    this.status = this.partner.status;
 
     if (this.partner) {
         this.profileMgrForm = new FormGroup({
@@ -176,14 +179,38 @@ export class PersonalInfoComponent implements OnInit, OnDestroy {
 
   }
 
-  onToggleChange(event: MatSlideToggleChange) {
+  activateAccount(event: MatSlideToggleChange) {
     if (event.checked) {
-      console.log('Send email');
-      // Call your method when checked  
-    } else {
-      console.log('Do nothing');
-      // Call your method when unchecked  
-    }
+
+      const formObject = {
+        state: event.checked,
+        partnerId: this.partner._id 
+      }
+
+      this.subscriptions.push(
+        this.settingsService.activateAccount(formObject).subscribe({
+            next: () => {
+                Swal.fire({
+                    position: "bottom",
+                    icon: 'success',
+                    text: 'Check your email inbox now to activate your account',
+                    confirmButtonColor: 'rgb(5, 1, 17)',
+                    timer: 8000,
+                })
+            },
+            error: () => {
+                Swal.fire({
+                    position: "bottom",
+                    icon: 'error',
+                    text: 'Server error occured, please try again',
+                    showConfirmButton: false,
+                    timer: 4000
+                })
+            }
+        })
+    )
+
+    }    
   }
 
   onProfileSubmit() {

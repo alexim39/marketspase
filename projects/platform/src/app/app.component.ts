@@ -1,30 +1,20 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SpinnerComponent } from './_common/services/loader/spinner.component';
-
-
-
 @Component({
   selector: 'async-root',
-  standalone: true,
   imports: [RouterOutlet, SpinnerComponent],
   template: `
-  <async-spinner></async-spinner>
-  <div id="container">
-    <div class="body">
-      <router-outlet/>
-    </div>
+  <async-spinner/>
+  <div class="container">
+    <router-outlet/>
   </div>
+  
   `,
   styles: [`
 
-#container {
+.container {
   animation: fadeInAnimation ease 3s;
-  .body {
-    display: grid;
-    min-height: 100vh;
-    grid-template-rows: auto 1fr auto;
-  }
 }
 @keyframes fadeInAnimation {
   0% {
@@ -37,7 +27,7 @@ import { SpinnerComponent } from './_common/services/loader/spinner.component';
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
-  #container {
+  .container {
     display:flex;
     flex-direction: column;
   }

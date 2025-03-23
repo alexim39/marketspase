@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 
@@ -24,6 +24,8 @@ export interface PartnerInterface {
   hobby?: string;
   skill?: string;
   createdAt?: Date;
+  notification: boolean;
+  darkMode: boolean;
 }
 
 @Injectable()
@@ -44,10 +46,10 @@ export class PartnerService {
       return throwError(() => error); // Using factory function for lazy error creation.
     }
   
-    /**
-     * Constructs the PartnerService.
-     * @param http The HttpClient for making HTTP requests.
-     */
+   /**
+   * Constructs the PartnerService.
+   * @param http The HttpClient for making HTTP requests.
+   */
   
     constructor(private http: HttpClient) {}
 

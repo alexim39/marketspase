@@ -53,13 +53,24 @@ export class SettingsService {
     return this.apiService.put<any>(`partners/update-username`, dataObject);
   }
 
-    /**
+ /**
  * Submits the password form data to the backend.
  * @param dataObject The  form data.
  * @returns An observable of the submitted form data.
  */
    changePassword(dataObject: any): Observable<any> {
     return this.apiService.put<any>(`partners/change-password`, dataObject);
+  }
+
+
+  /**
+   * Submits the account activation form data to the backend.
+   * @param formObject The form data.
+   * @returns An observable of the submitted form data.
+   */
+  activateAccount(formObject: {state: boolean, partnerId: string}): Observable<any> {
+    console.log(formObject)
+    return this.apiService.post<any>('partners/activate', formObject);
   }
 
    

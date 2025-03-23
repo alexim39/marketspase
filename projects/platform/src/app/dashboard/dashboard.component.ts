@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnDestroy } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { AsyncPipe } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -20,6 +20,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { LogoLibrary } from '../../../../logo/src/public-api';
 import { HttpErrorResponse } from '@angular/common/http';
 import {MatBadgeModule} from '@angular/material/badge';
+import { DashboardFooterComponent } from './footer.component';
+import { SettingsService } from './settings/system/system.service';
+import { ThemeTogglerService } from './settings/system/dark-theme/theme-toggle.service';
 
 type SubmenuKey = 'tools' | 'community' | 'analytics' | 'settings' | 'activities' | 'mentorship' | 'help' | 'training' | 'wibinarsEvents' | 'dailyActivity' | 'achievements';
 
@@ -27,11 +30,10 @@ type SubmenuKey = 'tools' | 'community' | 'analytics' | 'settings' | 'activities
   selector: 'async-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
-  standalone: true,
-  providers: [PartnerService, AuthService],
+  providers: [PartnerService, AuthService, SettingsService, ThemeTogglerService],
   imports: [
     MatToolbarModule, MatMenuModule, MatButtonModule, ProfileComponent, MatSidenavModule, MatListModule, MatIconModule, AsyncPipe, RouterModule, CommonModule,
-    MatTooltipModule, LogoLibrary, MatBadgeModule
+    MatTooltipModule, LogoLibrary, MatBadgeModule, DashboardFooterComponent
   ],
   animations: [
     trigger('submenuToggle', [
@@ -83,11 +85,17 @@ export class DashboardComponent implements OnDestroy {
   // Set this to true to simulate a notification; false for no notifications.
   hasNotification: boolean = false;
 
+  isDarkMode: boolean = false;
+
+
   constructor(
     private deviceService: DeviceDetectorService,
     private router: Router,
     private authService: AuthService,
     private partnerService: PartnerService,
+    private settingsService: SettingsService,
+     private themeTogglerService: ThemeTogglerService,
+    private cdr: ChangeDetectorRef,
   ) {
     /* this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
@@ -99,6 +107,7 @@ export class DashboardComponent implements OnDestroy {
   }
 
   ngOnInit(): void {
+    
     this.isMobile = this.deviceService.isMobile();
     this.isTablet = this.deviceService.isTablet();
     this.isDesktop = this.deviceService.isDesktop();
@@ -109,6 +118,21 @@ export class DashboardComponent implements OnDestroy {
           this.partner = response as PartnerInterface;
           //Emitters.authEmitter.emit(true);
           this.partnerService.updatePartnerService(this.partner);
+
+          // Apply the right theme for user
+          this.settingsService.getUserTheme(this.partner._id).subscribe({
+            next: (res: any) => {
+              this.isDarkMode = res.darkMode; // Since res.darkMode is already a boolean
+              this.themeTogglerService.setTheme(this.isDarkMode ? 'dark' : 'light');
+              localStorage.setItem('selectedTheme', this.isDarkMode ? 'dark' : 'light'); // Store in localStorage for consistency
+              this.cdr.markForCheck(); // Ensures UI updates
+            },
+            error: () => {
+              // Default to light mode for new users
+              this.themeTogglerService.setTheme('light');
+            },
+          })
+
         },
         error: (error: HttpErrorResponse) => {
           //Emitters.authEmitter.emit(false);

@@ -40,10 +40,10 @@ import { NotificationSettingsComponent } from './notification/notification.compo
 
             <mat-tab-group>
                 <mat-tab label="System Settings">
-                    <async-dark-theme-settings/>
+                    <async-dark-theme-settings *ngIf="partner" [partner]="partner"/>
                 </mat-tab>
                 <mat-tab label="Notification Settings"> 
-                    <async-notification/>
+                    <async-notification *ngIf="partner" [partner]="partner"/>
                 </mat-tab>
             </mat-tab-group>
   

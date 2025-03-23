@@ -1,11 +1,7 @@
 import { CommonModule } from '@angular/common';
-import {AfterViewInit, Component, ElementRef, signal, ViewChild} from '@angular/core';
-import {MatBadgeModule} from '@angular/material/badge';
-import {MatButtonModule} from '@angular/material/button';
-import {MatInputModule} from '@angular/material/input';
+import {Component} from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
+import { DashboradMainComponent } from './main.component';
 
 /**
  * @title dashboard index
@@ -16,13 +12,15 @@ import { MatIconModule } from '@angular/material/icon';
   
   <!-- Add Content Here -->
   <router-outlet/>
+  <async-dashboard-main/>
+  
   `,
-  styles: [`
-  `],
-  standalone: true,
-  imports: [MatButtonModule, RouterModule, MatIconModule, MatCardModule, MatBadgeModule, CommonModule, MatInputModule],
+  styles: [``],
+  imports: [
+    RouterModule,
+    CommonModule, 
+    DashboradMainComponent,
+    
+  ],
 })
-export class DashboardIndexComponent  {
-  appName = 'MarketSpase Platform';
-  currentYear = new Date().getFullYear();
-}
+export class DashboardIndexComponent  {}

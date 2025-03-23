@@ -20,7 +20,6 @@ import { TiktokComponent } from "./tiktok/tiktok.component";
   selector: 'async-marketing-channels',
   templateUrl: 'marketing-channels.component.html',
   styleUrls: ['marketing-channels.component.scss'],
-  standalone: true,
   imports: [MatTabsModule, RouterModule, FacebookComponent, YoutubeComponent, GoogleComponent, LinkedinComponent, CommonModule, MatIconModule, TiktokComponent],
 })
 export class MarketingChannelsComponent implements OnInit, OnDestroy {

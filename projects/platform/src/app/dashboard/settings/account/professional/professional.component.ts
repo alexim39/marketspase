@@ -16,14 +16,14 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'async-professional-info',
   providers: [SettingsService],
-    imports: [
-      CommonModule,
-      ReactiveFormsModule,
-      MatFormFieldModule,
-      MatInputModule,
-      MatButtonModule,
-      MatSelectModule
-    ],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatSelectModule
+  ],
   template: `
   <div class="form-container">
     <form class="flex-form" [formGroup]="professionalForm" (ngSubmit)="onProfessionalSubmit()">
@@ -122,8 +122,8 @@ import Swal from 'sweetalert2';
 })
 export class ProfessionalInfoComponent implements OnInit, OnDestroy {
   professionalForm!: FormGroup;
-   subscriptions: Array<Subscription> = [];
-    @Input() partner!: PartnerInterface;
+  subscriptions: Array<Subscription> = [];
+  @Input() partner!: PartnerInterface;
 
    constructor(
       private settingsService: SettingsService
