@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiService } from '../../_common/services/api.service';
 
-export interface NewPlasnData {
+export interface PlanInterface {
   partnerId: string;
   amount: number;
   currency: string;
@@ -10,12 +10,12 @@ export interface NewPlasnData {
   status: string;
   message: string;
   trans: string;
+  createdAt?: Date;
 }
 
-@Injectable({
-  providedIn: 'root'
-})
-export class NewPlanService {
+
+@Injectable()
+export class PlanService {
  constructor(private apiService: ApiService) {}
    
   /**
@@ -23,7 +23,17 @@ export class NewPlanService {
  * @param formObject The plan form data.
  * @returns An observable of the submitted form data.
  */
-  submit(formObject: NewPlasnData): Observable<NewPlasnData> {
+  submit(formObject: PlanInterface): Observable<PlanInterface> {
     return this.apiService.post<any>('plan', formObject);
   }
+
+   /**
+   * Get the form data to the backend.
+   * @param formObject The form data.
+   * @returns An observable of the submitted form data.
+   */
+   getPlans(partnerId: string): Observable<PlanInterface[]> {
+    return this.apiService.get<any>(`plan/${partnerId}`);
+  }
+
 }

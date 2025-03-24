@@ -52,7 +52,7 @@
                     <ng-container matColumnDef="campaignDates">
                       <th mat-header-cell *matHeaderCellDef> Ads Dates </th>
                       <td mat-cell *matCellDef="let element"> 
-                        {{ element.adDuration.campaignEndDate ? (element.adDuration.campaignStartDate | date) + ' - ' + (element.adDuration.campaignEndDate | date) : 'No end date' }}  
+                        {{ element.adDuration.campaignEndDate ? (element.adDuration.campaignStartDate | date) + ' - ' + (element.adDuration.campaignEndDate | date) : (element.adDuration.campaignStartDate | date) + ' - ' + 'No end date'}}  
                       </td>
                     </ng-container>
 

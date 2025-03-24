@@ -5,7 +5,7 @@ import { HelpDialogComponent } from '../../../_common/help-dialog.component';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Router, RouterModule } from '@angular/router';
-import { NewPlanService } from '../new-plan.service';
+import { PlanService } from '../new-plan.service';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -26,7 +26,7 @@ import { AccountBalanceService } from '../../profile/account-balance/account-bal
   templateUrl: 'new-buy.component.html',
   styleUrls: ['new-buy.component.scss'],
   standalone: true,
-  providers: [NewPlanService],
+  providers: [PlanService],
   imports: [
     CommonModule,
     RouterModule,
@@ -45,7 +45,7 @@ export class NewBuyComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
   constructor(
-    private newPlanService: NewPlanService,
+    private planService: PlanService,
     private router: Router,
     private accountBalanceService: AccountBalanceService,
   ) {}
@@ -106,7 +106,7 @@ export class NewBuyComponent implements OnInit, OnDestroy {
 
     // TODO: Send transaction update to the backend
     this.subscriptions.push(
-      this.newPlanService.submit(transactionData).subscribe({
+      this.planService.submit(transactionData).subscribe({
         next: (res: any) => {
           Swal.fire({
             position: 'bottom',

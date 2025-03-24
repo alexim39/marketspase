@@ -43,7 +43,8 @@
 
         <a mat-list-item (click)="toggleSubSubmenu('analytics-toggle')" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Spase Plans</a>
         <div [@submenuToggle]="isSubSubmenuOpen('analytics-toggle') ? 'open' : 'closed'" class="subsubmenu">
-          <a mat-list-item  routerLink="business/plan" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop()" title="Business Plan">New Plan</a>
+          <a mat-list-item  routerLink="business/new" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop()" title="New Plan">New Plan</a>
+          <a mat-list-item  routerLink="business/plans" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop()" title="Business Plans">Manage Plan</a>
         </div>
     
         <a mat-list-item routerLink="campaign-analytics" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop()" title="Campaign Analytics">

@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
   template: `
     <footer class="footer">
-      <p>© {{ year }} MarketSpase. All rights reserved.</p>
+      <p>© {{ year }} MarketSpase by Async Groups. All rights reserved.</p>
     </footer>
   `,
   styles: [

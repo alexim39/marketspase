@@ -1,25 +1,26 @@
 import { Routes } from '@angular/router';
 import { NewBuyContainerComponent } from './new-buy/new-buy-container.component';
+import { ManagePlanContainerComponent } from './manage-plan/manage-plan-container.component';
 
 export const BusinessRoutes: Routes = [
   {
     path: '',
-    redirectTo: 'buy',
+    redirectTo: 'new',
     pathMatch: 'full',
   },
   {
     path: '',
     children: [
       {
-        path: 'plan',
+        path: 'new',
         component: NewBuyContainerComponent,
-        title: "Buy New Spase Plan - Buy a new digital space",
+        title: "New Spase Plan - Buy a new digital space",
       },
-      /* {
-        path: 'rent',
-        component: NewRentContainerComponent,
-        title: "Rent New Spase Plan - Rent a new digital space",
-      }, */
+      {
+        path: 'plans',
+        component: ManagePlanContainerComponent,
+        title: "Manage Plan - Manage all your spase plans",
+      },
      
     ],
   },

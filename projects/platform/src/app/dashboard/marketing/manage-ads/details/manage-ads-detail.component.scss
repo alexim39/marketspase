@@ -1,7 +1,6 @@
 .async-background {
     margin: 2em;
     .async-container {
-        background-color: #dcdbdb;
         border-radius: 1%;
         height: 100%;
         padding: 1em;
@@ -40,7 +39,6 @@ section.flex-container {
     flex-wrap: wrap; /* Allow items to wrap to the next line */  
     justify-content: space-around; /* Distribute space around items */  
     padding: 20px; /* Add padding around the container */  
-    background-color: #ffffff; /* White background for each article */  
     border-radius: 10px;
 }  
 
