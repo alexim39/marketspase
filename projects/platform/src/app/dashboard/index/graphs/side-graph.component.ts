@@ -45,7 +45,6 @@ import { MatIconModule } from '@angular/material/icon';
         justify-content: space-between;
         font-weight: bold;
         font-size: 14px;
-        color: #333;
       }
       .menu-icon {
         cursor: pointer;
@@ -62,7 +61,6 @@ import { MatIconModule } from '@angular/material/icon';
         position: absolute;
         font-size: 22px;
         font-weight: bold;
-        color: #333;
       }
       .progress-section {
         text-align: left;
@@ -78,7 +76,6 @@ import { MatIconModule } from '@angular/material/icon';
       }
       .progress-text {
         font-size: 12px;
-        color: #888;
       }
 
       @media (max-width: 1200px) {

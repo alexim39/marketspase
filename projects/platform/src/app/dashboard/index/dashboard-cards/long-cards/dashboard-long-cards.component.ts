@@ -1,13 +1,13 @@
-import { Component, Input, HostBinding } from '@angular/core';
+import { Component, Input, HostBinding, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
+import { PowerOfTenPipe } from '../../../../_common/pipes/power-of-ten';
 
 @Component({
-  selector: 'async-dashboard-cards',
-  standalone: true,
-  imports: [CommonModule, MatCardModule, MatProgressSpinnerModule, MatIconModule],
+  selector: 'async-dashboard-long-cards',
+  imports: [CommonModule, MatCardModule, MatProgressSpinnerModule, MatIconModule, PowerOfTenPipe],
   template: `
    <mat-card class="card" [ngStyle]="{'border-bottom-color': borderColor}">
       <div class="card-content">
@@ -17,17 +17,28 @@ import { MatIconModule } from '@angular/material/icon';
             <span class="arrow">
               <mat-icon>{{icon}}</mat-icon>
             </span>
-            <span class="percentage">{{ mainValue }}</span>
+            <span class="percentage">
+              {{ mainValue.count }} 
+              @if ( mainValue.total !== '' ) {
+                <span >/ {{mainValue.total | powerOfTen }}</span>
+              }
+            </span>
           </div>
         </div>
         <div class="progress-circle">
           <mat-spinner 
-            diameter="50" 
+            diameter="60" 
             mode="determinate" 
-            [value]="value"
+            [value]="((mainValue.count / mainValue.total) * 100) | number:'1.3-3'"
             class="spinner">
           </mat-spinner>
-          <span class="progress-text">{{ value }}%</span>
+          <span class="progress-text">
+            @if ( mainValue.total !== '' ) {
+              {{ ((mainValue.count / mainValue.total) * 100) | number:'1.3-3'  }}%
+            } @else {
+              0 %
+            }
+          </span>
         </div>
       </div>
     </mat-card>
@@ -49,7 +60,6 @@ import { MatIconModule } from '@angular/material/icon';
       }
       .title {
         font-size: 12px;
-        color: #777;
         margin: 0;
         text-transform: uppercase;
         margin-bottom: 10px;
@@ -72,9 +82,8 @@ import { MatIconModule } from '@angular/material/icon';
       }
       .progress-text {
         position: absolute;
-        font-size: 14px;
+        font-size: 10px;
         font-weight: bold;
-        color: #333;
       }
 
       ::ng-deep .spinner svg circle {
@@ -98,10 +107,10 @@ import { MatIconModule } from '@angular/material/icon';
     `
   ]
 })
-export class DashboardCardsComponent {
+export class DashboardLongCardsComponent implements OnInit {
   @Input() title!: string;
   @Input() value!: number;
-  @Input() mainValue!: number;
+  @Input() mainValue!: any;
   @Input() borderColor: string = 'green';  // Default color
   @Input() growthColor: string = '#2e7d32'; // Default text color
   @Input() icon: string = 'arrow_upward'; // Default text color
@@ -109,4 +118,9 @@ export class DashboardCardsComponent {
   @HostBinding('style.--spinner-color') get spinnerColor() {
     return this.borderColor;
   }
+
+  ngOnInit(): void {
+    // console.log(this.mainValue)
+  }
+
 }

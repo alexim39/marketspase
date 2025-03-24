@@ -20,7 +20,6 @@ import { PlanInterface } from '../new-plan.service';
 @Component({  
   selector: 'async-manage-plan',  
   styles: [`
-
 .async-background {
   margin: 2em;
   .help {
@@ -47,7 +46,6 @@ import { PlanInterface } from '../new-plan.service';
     }
   }
 }
-  
 .search {
   padding: 0.5em 0;
   text-align: center;
@@ -55,25 +53,20 @@ import { PlanInterface } from '../new-plan.service';
     width: 70%;
   }
 }
-
 .table {
   padding: 0 1em;
 }
-
 .no-campaign {
   text-align: center;
   color: rgb(196, 129, 4);
   font-weight: bold;
 }
-  
 .pending {
   background-color: rgb(254, 254, 244); /* Light yellow for pending */
 }
-
 .rejected {
   background-color: rgb(254, 246, 244); /* Light red for pending */
 }
-  
 .success {
   background-color: rgb(222, 251, 211); /* Green for success */
 }
@@ -93,19 +86,17 @@ import { PlanInterface } from '../new-plan.service';
     RouterModule
   ],  
 })  
-export class ManagePlanComponent implements OnInit, AfterViewInit {  
+export class ManagePlanComponent implements AfterViewInit {  
   @Input() partner!: PartnerInterface;  
   @Input() plans: Array<PlanInterface> = [];  
   readonly dialog = inject(MatDialog);  
 
   filterText: string = '';  
   displayedColumns: string[] = ['id', 'plan', 'amount', 'status', 'date', 'action'];
-  dataSource = new MatTableDataSource<any>([]); // Your data should be assigned here
+  dataSource = new MatTableDataSource<any>([]);
   isEmptyRecord = false;  
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-
-  constructor() {}  
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['plans'] && changes['plans'].currentValue) {
@@ -113,40 +104,40 @@ export class ManagePlanComponent implements OnInit, AfterViewInit {
     }
   }
 
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator; // Ensure paginator is assigned after view init
+  }
+
   private updateTableData() {
     if (this.plans.length) {
       this.dataSource.data = [...this.plans].sort((a: any, b: any) => {
         return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
       });
+
       this.isEmptyRecord = false;
     } else {
       this.isEmptyRecord = true;
     }
-  }
 
-  ngOnInit() {
-    this.updateTableData();
-  }  
+    // Ensure paginator is set AFTER data assignment
+    setTimeout(() => {
+      if (this.paginator) {
+        this.dataSource.paginator = this.paginator;
+      }
+    });
+  }
 
   applyFilter() {
     this.dataSource.filter = this.filterText.trim().toLowerCase();
   }
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-  }
-
-   // scroll to top when clicked
-   scrollToTop() {
+  scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
-   showDescription () {
-      this.dialog.open(HelpDialogComponent, {
-        data: {help: 'In this section, you can view and track you business spase plans'},
-      });
-    }
-
-
-  
+  showDescription() {
+    this.dialog.open(HelpDialogComponent, {
+      data: { help: 'In this section, you can view and track your business plans' },
+    });
+  }
 }

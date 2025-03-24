@@ -4,19 +4,20 @@ import { Observable } from 'rxjs';
 import { ApiService } from '../../../_common/services/api.service';
 
 export interface AdsInterface {
-    message: string;
-    data?: Array<{
-      targetAudience: any;
-      marketingObjectives: any;
-      budget: any;
-      adDuration: any;
-      adFormat: any;
-      _id: string;
-      visits?: number;
-      createdAt: Date;
-      campaignName: string;
-      leads: number;
-    }>;      
+  message: string;
+  data?: Array<{
+    targetAudience: any;
+    marketingObjectives: any;
+    budget: any;
+    adDuration: any;
+    adFormat: any;
+    _id: string;
+    visits?: number;
+    createdAt: Date;
+    campaignName: string;
+    leads: number;
+    isActive: boolean;
+  }>;      
 }
   
 @Injectable({

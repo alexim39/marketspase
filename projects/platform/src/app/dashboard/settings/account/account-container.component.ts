@@ -10,7 +10,7 @@ import { PartnerInterface, PartnerService } from '../../../_common/services/part
 @Component({
   selector: 'async-account-container',
   template: `
-  <async-account *ngIf="partner" [partner]="partner" ></async-account>
+  <async-account *ngIf="partner" [partner]="partner" />
   `,
   providers: [],
   imports: [CommonModule, AccountComponent],

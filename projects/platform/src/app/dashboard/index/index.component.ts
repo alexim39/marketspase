@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import {Component} from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { DashboradMainComponent } from './main.component';
+import { DashboradComponent } from './dashboard.component';
 
 /**
  * @title dashboard index
@@ -12,14 +12,14 @@ import { DashboradMainComponent } from './main.component';
   
   <!-- Add Content Here -->
   <router-outlet/>
-  <async-dashboard-main/>
+  <async-dashboard/>
   
   `,
   styles: [``],
   imports: [
     RouterModule,
     CommonModule, 
-    DashboradMainComponent,
+    DashboradComponent,
     
   ],
 })
