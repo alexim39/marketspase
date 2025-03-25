@@ -19,8 +19,58 @@ import { timeAgo, expiration } from '../../../_common/date-util';
 @Component({
   selector: 'async-manage-ads',
   templateUrl: 'manage-ads.component.html',
-  styleUrl: 'manage-ads.component.scss',
-  standalone: true,
+  styles: [`
+  .async-background {
+    margin: 2em;
+    .async-container {
+        border-radius: 1%;
+        height: 100%;
+        padding: 1em;
+        .title {
+            display: flex;
+            justify-content: space-between;
+            padding: 1em;
+            .action-area {
+                .action {
+                    font-weight: bold;
+                    margin-top: 1em;
+                }
+            }
+        }
+
+        .content {
+            border-radius: 6px;
+      
+            .search {
+              padding: 0.5em 0;
+              text-align: center;
+              mat-form-field {
+                width: 70%;
+              }
+            }
+      
+            .table {
+              padding: 0 1em;
+            }
+          }
+
+        .no-campaign {
+            text-align: center;
+            color: rgb(196, 129, 4);
+            font-weight: bold;
+        }
+        
+        .inactive {
+            background-color: rgb(254, 246, 244); /* Light red for pending */
+            text-decoration: line-through;
+        }
+        
+        .active {
+            background-color: rgb(222, 251, 211); /* Green for success */
+        }
+    }
+  }
+  `],
   imports: [MatSliderModule, CommonModule, MatPaginatorModule, MatInputModule, MatFormFieldModule, RouterModule, FormsModule, MatButtonModule, MatIconModule, MatTableModule],
 })
 export class ManageAdsComponent implements OnInit {

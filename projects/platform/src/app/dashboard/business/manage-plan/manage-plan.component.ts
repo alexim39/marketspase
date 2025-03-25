@@ -1,14 +1,14 @@
-import { AfterViewInit, Component, inject, Input, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';  
-import { MatInputModule } from '@angular/material/input';  
-import { MatFormFieldModule } from '@angular/material/form-field';  
-import { FormsModule } from '@angular/forms';  
-import { MatButtonModule } from '@angular/material/button';  
-import { MatIconModule } from '@angular/material/icon';  
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';  
-import { CommonModule } from '@angular/common';  
-import { MatDialog } from '@angular/material/dialog';  
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';  
-import {MatTabsModule} from '@angular/material/tabs';
+import { AfterViewInit, Component, inject, Input, SimpleChanges, ViewChild } from '@angular/core';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { CommonModule } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatTabsModule } from '@angular/material/tabs';
 import { PartnerInterface } from '../../../_common/services/partner.service';
 import { RouterModule } from '@angular/router';
 import { HelpDialogComponent } from '../../../_common/help-dialog.component';
@@ -16,9 +16,9 @@ import { PlanInterface } from '../new-plan.service';
 
 /**  
  * @title Manage plan  
- */  
-@Component({  
-  selector: 'async-manage-plan',  
+ */
+@Component({
+  selector: 'async-manage-plan',
   styles: [`
 .async-background {
   margin: 2em;
@@ -32,7 +32,6 @@ import { PlanInterface } from '../new-plan.service';
     .title {
         display: flex;
         justify-content: space-between;
-        border-bottom: 1px solid #ccc;
         padding: 1em;
         .action-area {
             .action {
@@ -43,19 +42,23 @@ import { PlanInterface } from '../new-plan.service';
     }
     .content {
       border-radius: 6px;
+
+      .search {
+        padding: 0.5em 0;
+        text-align: center;
+        mat-form-field {
+          width: 70%;
+        }
+      }
+
+      .table {
+        padding: 0 1em;
+      }
     }
   }
 }
-.search {
-  padding: 0.5em 0;
-  text-align: center;
-  mat-form-field {
-    width: 70%;
-  }
-}
-.table {
-  padding: 0 1em;
-}
+
+
 .no-campaign {
   text-align: center;
   color: rgb(196, 129, 4);
@@ -70,31 +73,31 @@ import { PlanInterface } from '../new-plan.service';
 .success {
   background-color: rgb(222, 251, 211); /* Green for success */
 }
-  `],  
-  templateUrl: 'manage-plan.component.html',  
-  providers: [],  
-  imports: [  
-    FormsModule,  
-    CommonModule,  
-    MatPaginatorModule,  
-    MatFormFieldModule,  
-    MatTableModule,  
-    MatInputModule,  
-    MatIconModule,  
-    MatButtonModule,  
+  `],
+  templateUrl: 'manage-plan.component.html',
+  providers: [],
+  imports: [
+    FormsModule,
+    CommonModule,
+    MatPaginatorModule,
+    MatFormFieldModule,
+    MatTableModule,
+    MatInputModule,
+    MatIconModule,
+    MatButtonModule,
     MatTabsModule,
     RouterModule
-  ],  
-})  
-export class ManagePlanComponent implements AfterViewInit {  
-  @Input() partner!: PartnerInterface;  
-  @Input() plans: Array<PlanInterface> = [];  
-  readonly dialog = inject(MatDialog);  
+  ],
+})
+export class ManagePlanComponent implements AfterViewInit {
+  @Input() partner!: PartnerInterface;
+  @Input() plans: Array<PlanInterface> = [];
+  readonly dialog = inject(MatDialog);
 
-  filterText: string = '';  
+  filterText: string = '';
   displayedColumns: string[] = ['id', 'plan', 'amount', 'status', 'date', 'action'];
   dataSource = new MatTableDataSource<any>([]);
-  isEmptyRecord = false;  
+  isEmptyRecord = false;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 

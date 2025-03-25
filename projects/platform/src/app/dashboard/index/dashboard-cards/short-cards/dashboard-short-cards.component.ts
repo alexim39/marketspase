@@ -17,7 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
               <mat-icon>{{icon}}</mat-icon>
             </span>
             <span class="percentage">
-              {{ mainValue }} 
+              {{ mainValue.range ? (mainValue.range | currency:'':'':'1.0-0') : '0' }}
             </span>
           </div>
         </div>
@@ -25,11 +25,15 @@ import { MatIconModule } from '@angular/material/icon';
           <mat-spinner 
             diameter="60" 
             mode="determinate" 
-            [value]="mainValue"
+            [value]="(mainValue.range/mainValue.total) * 100  | number:'1.1-1' "
             class="spinner">
           </mat-spinner>
           <span class="progress-text">
-            {{ mainValue }}%
+            @if ( mainValue.total !== 0 ) {
+              {{ (mainValue.range/mainValue.total) * 100  | number:'1.1-1'  }}%
+            } @else {
+              0%
+            }
           </span>
         </div>
       </div>

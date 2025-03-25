@@ -5,6 +5,11 @@ import { Observable } from 'rxjs';
 export interface NotificationInterface {
   state: boolean; partnerId: string; 
 }
+export interface IncomeTargetInterface {
+  partnerId: string;
+  targetAmount: number;
+  period: string;
+}
 
 
 @Injectable()
@@ -37,6 +42,15 @@ export class SettingsService {
    */
   getUserTheme(partnerId: string): Observable<any> {
     return this.apiService.get<any>(`settings/theme/${partnerId}`);
+  }
+
+   /**
+   * Submits the notification form data to the backend.
+   * @param formObject The form data.
+   * @returns An observable of the submitted form data.
+   */
+   setIncomeTarget(formObject: IncomeTargetInterface): Observable<any> {
+    return this.apiService.post<any>('settings/income-target', formObject);
   }
     
 }

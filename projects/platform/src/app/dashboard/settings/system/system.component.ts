@@ -9,6 +9,7 @@ import { HelpDialogComponent } from '../../../_common/help-dialog.component';
 import { DarkThemeSettingsComponent } from './dark-theme/dark-theme.component';
 import { CommonModule } from '@angular/common';
 import { NotificationSettingsComponent } from './notification/notification.component';
+import { IncomeTargetComponent } from './income-target/income-target.component';
 
 /**
  * @title System setting
@@ -45,6 +46,9 @@ import { NotificationSettingsComponent } from './notification/notification.compo
                 <mat-tab label="Notification Settings"> 
                     <async-notification *ngIf="partner" [partner]="partner"/>
                 </mat-tab>
+                <mat-tab label="Income Target"> 
+                    <app-income-target *ngIf="partner" [partner]="partner"/>
+                </mat-tab>
             </mat-tab-group>
   
               
@@ -65,19 +69,18 @@ import { NotificationSettingsComponent } from './notification/notification.compo
         .title {
             display: flex;
             justify-content: space-between;
-            border-bottom: 1px solid #ccc;
             padding: 1em;
             .action-area {
                 .action {
-                    font-weight: bold;
-                    margin-top: 1em;
+                  font-weight: bold;
+                  margin-top: 1em;
                 }
             }
         }
     }
 }
   `],
-  imports: [MatTabsModule, RouterModule, CommonModule, MatIconModule, MatButtonModule, DarkThemeSettingsComponent, NotificationSettingsComponent],
+  imports: [MatTabsModule, RouterModule, CommonModule, MatIconModule, MatButtonModule, DarkThemeSettingsComponent, NotificationSettingsComponent, IncomeTargetComponent],
 })
 export class SystemSettingComponent {
   @Input() partner!: PartnerInterface;

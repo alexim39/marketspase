@@ -29,12 +29,12 @@ import { PowerOfTenPipe } from '../../../../_common/pipes/power-of-ten';
           <mat-spinner 
             diameter="60" 
             mode="determinate" 
-            [value]="((mainValue.count / mainValue.total) * 100) | number:'1.3-3'"
+            [value]="((mainValue.count / mainValue.total) * 100) | number:'1.1-1'"
             class="spinner">
           </mat-spinner>
           <span class="progress-text">
             @if ( mainValue.total !== '' ) {
-              {{ ((mainValue.count / mainValue.total) * 100) | number:'1.3-3'  }}%
+              {{ ((mainValue.count / mainValue.total) * 100) | number:'1.1-1'  }}%
             } @else {
               0 %
             }

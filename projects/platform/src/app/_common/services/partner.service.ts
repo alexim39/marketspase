@@ -26,6 +26,10 @@ export interface PartnerInterface {
   createdAt?: Date;
   notification: boolean;
   darkMode: boolean;
+  incomeTarget: {
+    targetAmount: number;
+    period: string;
+  },
 }
 
 @Injectable()

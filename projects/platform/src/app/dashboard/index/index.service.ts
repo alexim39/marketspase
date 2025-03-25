@@ -14,8 +14,8 @@ export class IndexService {
      * @param formObject The form data.
      * @returns An observable of the submitted form data.
      */
-    getPlanDetailForDasboard(partnerId: string): Observable<any> {
-      return this.apiService.get<any>(`plan/dashboard/${partnerId}`);
+    getPlansCountForDasboard(partnerId: string): Observable<any> {
+      return this.apiService.get<any>(`dashboard/${partnerId}`);
     }
 
     /**
@@ -23,7 +23,16 @@ export class IndexService {
      * @param formObject The form data.
      * @returns An observable of the submitted form data.
      */
-    //  getAdsDetail(partnerId: string): Observable<any> {
-    //   return this.apiService.get<any>(`plan/${partnerId}`);
-    // }
+    getProfitForDasboard(partnerId: string): Observable<any> {
+      return this.apiService.get<any>(`dashboard/partner-profit/${partnerId}`);
+    }
+
+    /**
+     * Get the form data to the backend.
+     * @param formObject The form data.
+     * @returns An observable of the submitted form data.
+     */
+    getExpensesForDasboard(partnerId: string): Observable<any> {
+      return this.apiService.get<any>(`dashboard/partner-expenses/${partnerId}`);
+    }
 }

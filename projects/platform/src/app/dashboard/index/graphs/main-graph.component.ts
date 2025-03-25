@@ -19,13 +19,28 @@ import { MatButtonModule } from '@angular/material/button';
           <td mat-cell *matCellDef="let element"> {{ element.date }} </td>
         </ng-container>
 
-        <ng-container matColumnDef="websiteBlog">
-          <th mat-header-cell *matHeaderCellDef> Website Blog </th>
+        <ng-container matColumnDef="facebook">
+          <th mat-header-cell *matHeaderCellDef> Facebook</th>
           <td mat-cell *matCellDef="let element"> {{ element.websiteBlog }} </td>
         </ng-container>
 
-        <ng-container matColumnDef="socialMedia">
-          <th mat-header-cell *matHeaderCellDef> Social Media </th>
+        <ng-container matColumnDef="youtube">
+          <th mat-header-cell *matHeaderCellDef> Youtube</th>
+          <td mat-cell *matCellDef="let element"> {{ element.socialMedia }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="linkedin">
+          <th mat-header-cell *matHeaderCellDef> Linkedin</th>
+          <td mat-cell *matCellDef="let element"> {{ element.socialMedia }} </td>
+        </ng-container>
+        
+        <ng-container matColumnDef="google">
+          <th mat-header-cell *matHeaderCellDef> Google (Search Engine)</th>
+          <td mat-cell *matCellDef="let element"> {{ element.socialMedia }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="tiktok">
+          <th mat-header-cell *matHeaderCellDef> Tiktok</th>
           <td mat-cell *matCellDef="let element"> {{ element.socialMedia }} </td>
         </ng-container>
 
@@ -52,17 +67,12 @@ import { MatButtonModule } from '@angular/material/button';
       table {
         width: 100%;
       }
-
-      th {
-        //background: #f5f5f5;
-      }
-
      
     `,
   ],
 })
 export class MainGraphComponent {
-  displayedColumns: string[] = ['date', 'websiteBlog', 'socialMedia'];
+  displayedColumns: string[] = ['date', 'facebook', 'youtube', 'linkedin', 'google', 'tiktok'];
   dataSource = [
     { date: '01 Jan', websiteBlog: 500, socialMedia: 30 },
     { date: '02 Jan', websiteBlog: 600, socialMedia: 40 },

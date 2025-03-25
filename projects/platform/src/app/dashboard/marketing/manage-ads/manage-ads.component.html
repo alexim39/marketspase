@@ -18,7 +18,9 @@
             </div>
         </div>
 
-        <ng-container *ngIf="!isEmptyRecord">
+        <div class="content">
+
+          <ng-container *ngIf="!isEmptyRecord">
             <div class="search">
                 <mat-form-field appearance="outline">
                     <mat-label>Filter by ads name or status</mat-label>
@@ -27,7 +29,6 @@
             </div>
     
             <div class="table">
-    
     
                 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     
@@ -102,6 +103,9 @@
 
             </div>
         </ng-container>
+
+        </div>
+
         <ng-container *ngIf="isEmptyRecord">
             <p class="no-campaign">No campaign available yet</p>
         </ng-container>

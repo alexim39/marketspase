@@ -10,7 +10,6 @@
             padding: 1em;
             display: flex;
             flex-direction: column;  
-            //align-items: center; /* Vertically center the items */  
             justify-content: flex-start; 
             .control {
                 display: flex;
@@ -24,7 +23,6 @@
     
                 }
             }
-
            
             h3 {
                 margin-top: 1em; 
@@ -34,7 +32,7 @@
 }
 
 
-section.flex-container {  
+.flex-container {  
     display: flex;  
     flex-wrap: wrap; /* Allow items to wrap to the next line */  
     justify-content: space-around; /* Distribute space around items */  
@@ -42,7 +40,7 @@ section.flex-container {
     border-radius: 10px;
 }  
 
-article.flex-item {  
+.flex-item {  
     flex: 1 1 auto; /* Allow flex items to grow and shrink with a minimum width of 200px */  
     margin: 15px; /* Add space around items */  
     padding: 15px; /* Padding inside articles */  
@@ -52,7 +50,7 @@ article.flex-item {
     transition: transform 0.2s; /* Transition effect for hover */  
 }  
 
-article.flex-item:hover {  
+.flex-item:hover {  
     transform: translateY(-5px); /* Lift effect on hover */  
 }  
 

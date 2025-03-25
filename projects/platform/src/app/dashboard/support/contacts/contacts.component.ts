@@ -34,7 +34,6 @@ import { HttpErrorResponse } from '@angular/common/http';
         .title {
             display: flex;
             justify-content: space-between;
-            border-bottom: 1px solid #ccc;
             padding: 1em;
             .action-area {
                 .action {
@@ -51,7 +50,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 
 .form-container {
-  margin-top: 1em;
   padding: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 5px;

@@ -16,7 +16,6 @@ import { DashboardShortCardsComponent } from './short-cards/dashboard-short-card
 
     <async-dashboard-short-cards 
     [title]="expenseTitle" 
-    [value]="expenseValue"
     [mainValue]="expenseMainValue"
     [borderColor]="expenseBorderColor"
     [growthColor]="expenseGrowthColor"
@@ -25,7 +24,6 @@ import { DashboardShortCardsComponent } from './short-cards/dashboard-short-card
 
     <async-dashboard-short-cards 
     [title]="incomeTitle" 
-    [value]="incomeValue"
     [mainValue]="incomeMainValue"
     [borderColor]="incomeBorderColor"
     [growthColor]="incomeGrowthColor"
@@ -34,7 +32,6 @@ import { DashboardShortCardsComponent } from './short-cards/dashboard-short-card
 
     <async-dashboard-long-cards 
     [title]="planTitle" 
-    [value]="planValue"
     [mainValue]="planMainValue"
     [borderColor]="planBorderColor"
     [growthColor]="planGrowthColor"
@@ -43,7 +40,6 @@ import { DashboardShortCardsComponent } from './short-cards/dashboard-short-card
 
     <async-dashboard-long-cards 
     [title]="adsTitle" 
-    [value]="adsValue"
     [mainValue]="adsMainValue"
     [borderColor]="adsBorderColor"
     [growthColor]="adsGrowthColor"
@@ -89,25 +85,27 @@ import { DashboardShortCardsComponent } from './short-cards/dashboard-short-card
 export class DashboardCardsContainerComponent implements OnInit {
   @Input() partner!: PartnerInterface;
 
+// If you need the month as a string (e.g., "January", "February"):
+today = new Date();
+monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+currentMonthName = this.monthNames[this.today.getMonth()];
+
     // expense
-    expenseTitle = "Total Expenses";
-    expenseValue = 59;
-    expenseMainValue = 60.50;
+    expenseTitle = `${this.currentMonthName}  Expenses`;
+    expenseMainValue: any;
     expenseBorderColor = 'red';
     expenseGrowthColor = 'red';
     expenseIcon = '₦';
 
     // income
-    incomeTitle = "Total Income"
-    incomeValue = 59;
-    incomeMainValue = 60.43;
+    incomeTitle = `${this.currentMonthName} Income Stats`
+    incomeMainValue: any;
     incomeBorderColor = 'green';
     incomeGrowthColor = 'green';
     incomeIcon = '₦';
 
     // plan
     planTitle = "Plans Stats";
-    planValue = 59;
     planMainValue: any;
     planBorderColor = 'orange';
     planGrowthColor = 'orange';
@@ -115,7 +113,6 @@ export class DashboardCardsContainerComponent implements OnInit {
 
     // ads
     adsTitle = "Active / Total Ads";
-    adsValue = 39;
     adsMainValue: any;
     adsBorderColor = 'blue';
     adsGrowthColor = 'blue';
@@ -125,7 +122,7 @@ export class DashboardCardsContainerComponent implements OnInit {
     plans: Array<PlanInterface> = [];
     ads!: AdsInterface;
     hasActiveAds = false;
-  
+
     constructor(
       private indexService: IndexService,
       private planService: PlanService,
@@ -136,12 +133,24 @@ export class DashboardCardsContainerComponent implements OnInit {
     ngOnInit(): void {
       if (this.partner) {
 
-        this.indexService.getPlanDetailForDasboard(this.partner._id).subscribe({
+        /**
+        * Method to get the statistics of the plan on the dashboard
+        * @param {string} partnerId - The partner id  
+        * @returns {Observable} - The plan statistics: total number of plans, total number of user active plans, total of all plans on the system
+        * 
+        */
+        this.indexService.getPlansCountForDasboard(this.partner._id).subscribe({
           next: (getPlansCount: any) => {
             this.planMainValue = getPlansCount;
           }
         });
   
+
+        /**
+        * Method to get the statistics of the ads on the dashboard
+        * @param {string} partnerId - The partner id
+        *  @returns {Observable} - The ads statistics: total number of active ads, total of all user ads on the system
+        */
         this.adsService.getCampaignCreatedBy(this.partner._id).subscribe({
           next: (ads: AdsInterface) => {
             this.ads = ads;
@@ -162,6 +171,36 @@ export class DashboardCardsContainerComponent implements OnInit {
             this.adsMainValue = {
               count, total
             }
+          }
+        });
+
+
+        /**
+        * Method to get the statistics of the income on the dashboard
+        * @param {string} partnerId - The partner id  
+        * @param {Date} startDate - The start date of the income
+        * @param {Date} endDate - The end date of the income
+        * @returns {Observable} - The plan statistics: user income within the specified date range
+        * 
+        */
+         this.indexService.getProfitForDasboard(this.partner._id).subscribe({
+          next: (getProfit: any) => {
+            this.incomeMainValue = getProfit;
+          }
+        });
+
+
+        /**
+        * Method to get the statistics of the income on the dashboard
+        * @param {string} partnerId - The partner id  
+        * @param {Date} startDate - The start date of the income
+        * @param {Date} endDate - The end date of the income
+        * @returns {Observable} - The plan statistics: user income within the specified date range
+        * 
+        */
+        this.indexService.getExpensesForDasboard(this.partner._id).subscribe({
+          next: (getExpenses: any) => {
+            this.expenseMainValue = getExpenses;
           }
         });
   

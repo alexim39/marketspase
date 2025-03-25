@@ -35,7 +35,7 @@ import { CommonModule } from '@angular/common';
       <span>
         <strong>Book a Session: </strong>If needed, you can schedule a session for comprehensive clarification.
         <div class="more">
-          <a routerLink="one-on-one-booking" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop()">Book now <i class="fa fa-angle-double-right"></i></a>
+          <a routerLink="booking" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop()">Book now <i class="fa fa-angle-double-right"></i></a>
         </div>
       </span>
 

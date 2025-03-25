@@ -34,7 +34,6 @@ import { HelpDialogComponent } from '../../../_common/help-dialog.component';
     .title {
         display: flex;
         justify-content: space-between;
-        border-bottom: 1px solid #ccc;
         padding: 1em;
         .action-area {
             .action {

@@ -10,7 +10,6 @@ import { SystemSettingComponent } from './system.component';
  */
 @Component({
   selector: 'async-system-setting-container',
-  standalone: true,
   imports: [CommonModule, SystemSettingComponent],
   providers: [],
   template: `

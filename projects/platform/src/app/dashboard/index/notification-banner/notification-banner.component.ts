@@ -14,12 +14,12 @@ import { AdsInterface, AdsService } from '../../marketing/manage-ads/manage-ads.
 
     <!-- If user has no plan -->
     @if (plans.length === 0) {
-      <div *ngIf="visible" class="info-alert">
+      <div *ngIf="planVisible" class="info-alert">
       <mat-icon class="info-icon">info</mat-icon>
       <span>
       There are no plan running on your account. You will not be able to earn if no plan is active. Navigate to the business section to start a new plan.
       </span>
-      <mat-icon class="close-icon" (click)="closeAlert()">close</mat-icon>
+      <mat-icon class="close-icon" (click)="closePlanAlert()">close</mat-icon>
     </div>
     } <!-- @else {
       <div>The user is not logged in</div>
@@ -27,12 +27,12 @@ import { AdsInterface, AdsService } from '../../marketing/manage-ads/manage-ads.
 
     <!-- If no active ad running -->
     @if (!hasActiveAds) {
-      <div *ngIf="visible" class="info-alert">
+      <div *ngIf="adVisible" class="info-alert">
       <mat-icon class="info-icon">info</mat-icon>
       <span>
       There are no active ads running on your account. You will not be able to earn if no ads are active. Navigate to the marketing section to start an ad campaign.
       </span>
-      <mat-icon class="close-icon" (click)="closeAlert()">close</mat-icon>
+      <mat-icon class="close-icon" (click)="closeAdAlert()">close</mat-icon>
     </div>
     }
   `,
@@ -86,7 +86,8 @@ import { AdsInterface, AdsService } from '../../marketing/manage-ads/manage-ads.
   ]
 })
 export class NotificationBannerComponent implements OnInit {
-  visible = true;
+  planVisible = true;
+  adVisible = true;
   @Input() partner!: PartnerInterface;
   plans: Array<PlanInterface> = [];
   ads!: AdsInterface;
@@ -128,7 +129,11 @@ export class NotificationBannerComponent implements OnInit {
     }
   }
 
-  closeAlert() {
-    this.visible = false;
+  closePlanAlert() {
+    this.planVisible = false;
+  }
+
+  closeAdAlert() {
+    this.adVisible = false;
   }
 }

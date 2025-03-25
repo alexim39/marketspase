@@ -14,22 +14,22 @@ import { MatSelectModule } from '@angular/material/select';
         <mat-icon>dashboard</mat-icon>
         <div>
           <h3 class="title">MarketSpase Dashboard</h3>
-          <p class="breadcrumb">Dashboard / MarketSpase home </p>
+          <p class="breadcrumb">Dashboard / MarketSpase platform </p>
         </div>
       </div>
 
-      <!-- <div class="right-section">
-        <mat-form-field appearance="outline" class="period-select">
+      <div class="right-section">
+       <!--  <mat-form-field appearance="outline" class="period-select">
           <mat-select placeholder="Select period">
             <mat-option value="weekly">Weekly</mat-option>
             <mat-option value="monthly">Monthly</mat-option>
             <mat-option value="yearly">Yearly</mat-option>
           </mat-select>
-        </mat-form-field>
+        </mat-form-field> -->
         <button mat-icon-button class="settings-btn">
           <mat-icon>settings</mat-icon>
         </button>
-      </div> -->
+      </div>
     </div>
   `,
   styles: [`
@@ -38,7 +38,6 @@ import { MatSelectModule } from '@angular/material/select';
       justify-content: space-between;
       align-items: center;
       padding: 10px 20px;
-      //background: #f8f9fa;
       border-bottom: 1px solid #ddd;
     }
     .left-section {
