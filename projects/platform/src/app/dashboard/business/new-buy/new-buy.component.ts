@@ -16,6 +16,7 @@ import Swal from 'sweetalert2';
 import { MatIconModule } from '@angular/material/icon';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AccountBalanceService } from '../../profile/account-balance/account-balance.service';
+import { PaystackService } from '../../../_common/services/paystack.service';
 
 /**
  * @title New Plan Component
@@ -26,7 +27,7 @@ import { AccountBalanceService } from '../../profile/account-balance/account-bal
   templateUrl: 'new-buy.component.html',
   styleUrls: ['new-buy.component.scss'],
   standalone: true,
-  providers: [PlanService],
+  providers: [PlanService, PaystackService],
   imports: [
     CommonModule,
     RouterModule,
@@ -48,6 +49,7 @@ export class NewBuyComponent implements OnInit, OnDestroy {
     private planService: PlanService,
     private router: Router,
     private accountBalanceService: AccountBalanceService,
+    private paystackService: PaystackService
   ) {}
 
   ngOnInit(): void {
@@ -57,31 +59,9 @@ export class NewBuyComponent implements OnInit, OnDestroy {
   /**
    * Initiates the payment process using Paystack.
    * @param amount - The amount to be paid in Naira.
-   */
+  */
   buy(amount: number): void {
-    if (isNaN(amount) || amount <= 0) {
-      console.error('Invalid amount provided');
-      return;
-    }
-
-    const handler = (window as any).PaystackPop.setup({
-      key: 'pk_test_1d5627d8d06cb2c937cee6ce4b0ed56c7fe2159a', // Replace with your Paystack public key
-      //key: 'pk_live_ef4b274402e6786a901e106596f1904e3e08a713', // Replace with your Paystack public key
-      email: this.partner.email,
-      amount: amount * 100, // Paystack accepts amount in kobo
-      currency: 'NGN',
-      ref: `SPASE-${Date.now()}`, // Unique reference
-      metadata: {
-        custom_fields: [
-          { display_name: 'First Name', variable_name: 'first_name', value: this.partner.name },
-          { display_name: 'Surname', variable_name: 'surname', value: this.partner.surname },
-        ],
-      },
-      callback: (response: any) => this.handlePaymentSuccess(response, amount),
-      onClose: () => console.log('Payment dialog closed'),
-    });
-
-    handler.openIframe();
+    this.paystackService.initiatePayment(amount, this.partner, this.handlePaymentSuccess.bind(this));
   }
 
   /**

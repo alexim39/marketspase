@@ -3,7 +3,7 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import { Subscription } from 'rxjs';
 import { PartnerInterface, PartnerService } from '../../../_common/services/partner.service';
 import { TransactionsComponent } from './transactions.component';
-import { PaystackService, TransactionInterface } from '../paystack.service';
+import { PaymentService, TransactionInterface } from '../payment.service';
 
 
 /**
@@ -12,7 +12,7 @@ import { PaystackService, TransactionInterface } from '../paystack.service';
 @Component({
   selector: 'async-withdraw-container',
   imports: [CommonModule, TransactionsComponent],
-  providers: [],
+  providers: [PaymentService],
   template: `
   <async-transactions *ngIf="partner && transactions" [partner]="partner" [transactions]="transactions"/>
   `,
@@ -25,7 +25,7 @@ export class TransactionContainerComponent implements OnInit, OnDestroy {
 
   constructor(
     private partnerService: PartnerService,
-    private paystackService: PaystackService,
+    private paymentService: PaymentService,
   ) { }
 
   ngOnInit() {
@@ -34,7 +34,7 @@ export class TransactionContainerComponent implements OnInit, OnDestroy {
       this.partnerService.getSharedPartnerData$.subscribe({
         next: (partnerObject) => {
           this.partner = partnerObject as PartnerInterface;
-          this.paystackService.getTransactions(this.partner._id).subscribe({
+          this.paymentService.getTransactions(this.partner._id).subscribe({
             next: (transactions: TransactionInterface) => {
               //console.log('t=',transactions)
               this.transactions = transactions;

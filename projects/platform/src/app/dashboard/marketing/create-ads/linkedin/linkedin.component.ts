@@ -1,8 +1,8 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators, FormsModule, ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatStepperModule } from '@angular/material/stepper';
+import { MatStepper, MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -17,6 +17,8 @@ import Swal from 'sweetalert2';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AccountBalanceService } from '../../../profile/account-balance/account-balance.service';
+import { PaystackService } from '../../../../_common/services/paystack.service';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 /**
  * @title Stepper vertical
@@ -24,17 +26,76 @@ import { AccountBalanceService } from '../../../profile/account-balance/account-
 @Component({
   selector: 'async-linkedin',
   templateUrl: 'linkedin.component.html',
-  styleUrl: 'linkedin.component.scss',
-  standalone: true,
+  styles: `
+  
+.form {
+    display: flex;
+    flex-direction: row;
+    align-items:flex-start;
+    justify-content: flex-start;
+    mat-form-field {
+        padding: 0.5em;
+    }
+    .ad-preference {
+        border: 1px solid gray;
+        border-radius: 2%;
+        padding: 0 1em;
+        margin-top: 0.7em;
+    }
+
+    .no-end-date {
+        margin-top: 1em;
+    }
+}
+       
+.publish {
+    float: right;
+}
+
+.summary {  
+    display: flex;  
+    flex-wrap: wrap;  
+    div {  
+        flex: 1; /* Equal sizing for all elements */  
+        margin: 10px; /* Add spacing between elements */  
+        details {
+            summary {
+                font-size:small;
+                font-weight: bold;
+            }
+        }
+      }  
+}  
+  
+.togglePayment {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 1em;
+    margin-bottom: 1em;
+
+    .mat-slide-toggle {
+        margin-right: 1em;
+    }
+}
+
+  
+@media (max-width: 768px) {  
+.summary {  
+    flex-direction: column; /* Stack elements vertically on smaller screens */  
+}  
+}
+  `,
   imports: [
     MatButtonModule, MatSelectModule, MatCheckboxModule,
     MatStepperModule, MatDatepickerModule, CommonModule,
     FormsModule, RouterModule, MatProgressBarModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule, MatSlideToggleModule,
     MatFormFieldModule,
     MatInputModule,
   ],
-  providers: [provideNativeDateAdapter(), CreateCampaignService],
+  providers: [PaystackService, provideNativeDateAdapter(), CreateCampaignService],
 
 })
 export class LinkedinComponent implements OnInit, OnDestroy {
@@ -51,11 +112,14 @@ export class LinkedinComponent implements OnInit, OnDestroy {
 
   subscriptions: Array<Subscription> = [];
 
+  @ViewChild('stepper') stepper!: MatStepper;
+  isChecked = false;
+
   constructor(
     private _formBuilder: FormBuilder,
     private createCampaignService: CreateCampaignService,
     private accountBalanceService: AccountBalanceService,
-    
+    private paystackService: PaystackService
   ) { }
 
   ngOnInit() {
@@ -130,6 +194,35 @@ export class LinkedinComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
+    if (this.isChecked) {
+     // User wants to pay from card
+      this.paystackService.initiatePayment(this.budgetFormGroup.get('budgetAmount')?.value, this.partner, this.handlePaymentSuccess.bind(this));
+  
+    } else {
+      // User wants to pay from account balance
+      this.handleSubmit();
+    }
+  }
+
+  
+  /**
+   * Handles successful payment callback.
+   * @param response - Paystack response object.
+  */
+  private handlePaymentSuccess(response: any, amount: number): void {
+    // TODO: Send transaction update to the backend
+   this.handleSubmit();
+  }
+
+  ngOnDestroy() {
+    // unsubscribe list
+    this.subscriptions.forEach(subscription => {
+      subscription.unsubscribe();
+    });
+  }
+
+
+  private handleSubmit(): void {
 
     if (
       this.targetAudienceFormGroup.valid 
@@ -154,6 +247,7 @@ export class LinkedinComponent implements OnInit, OnDestroy {
           createdBy: this.partner._id,
           campaignName: 'LinkedIn',
           deliveryStatus: 'Pending',
+          isCard: this.isChecked
         };
     
         this.subscriptions.push(
@@ -203,14 +297,5 @@ export class LinkedinComponent implements OnInit, OnDestroy {
 
       }
   }
-
-  ngOnDestroy() {
-    // unsubscribe list
-    this.subscriptions.forEach(subscription => {
-      subscription.unsubscribe();
-    });
-  }
-
-
 
 }

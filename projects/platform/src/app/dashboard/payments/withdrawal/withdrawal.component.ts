@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { PartnerInterface } from '../../../_common/services/partner.service';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
-import { PaystackService } from '../paystack.service';
+import { PaymentService } from '../payment.service';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Subscription, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
@@ -24,7 +24,7 @@ import { AccountBalanceService } from '../../profile/account-balance/account-bal
  */
 @Component({
   selector: 'async-withdrawal',
-  providers: [PaystackService],
+  providers: [PaymentService],
   imports: [
     FormsModule,
     MatIconModule,
@@ -55,7 +55,7 @@ export class WithdrawalComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private paymentService: PaystackService,
+    private paymentService: PaymentService,
     private accountBalanceService: AccountBalanceService,
   ) { }
 

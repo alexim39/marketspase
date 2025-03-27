@@ -10,7 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';  
 import {MatTabsModule} from '@angular/material/tabs';
 import { PartnerInterface } from '../../../_common/services/partner.service';
-import { TransactionInterface } from '../paystack.service';
+import { TransactionInterface } from '../payment.service';
 import { TransactionFilterPipe } from './transaction.pipe';
 import { RouterModule } from '@angular/router';
 import { HelpDialogComponent } from '../../../_common/help-dialog.component';

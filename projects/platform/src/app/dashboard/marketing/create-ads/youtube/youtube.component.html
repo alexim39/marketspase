@@ -231,12 +231,22 @@
       <div>
         <button mat-button matStepperPrevious>Back</button>
         <button mat-button (click)="stepper.reset()">Reset</button>
-        <button mat-flat-button class="publish" (click)="onSubmit()" color="primary" [disabled]="
-        targetAudienceFormGroup.invalid || 
-        marketingObjectivesFormGroup.invalid || 
-        budgetFormGroup.invalid || 
-        adDurationFormGroup.invalid || 
-        adFormatFormGroup.invalid">Publish</button>
+        <div class="publish" >
+            <button mat-flat-button (click)="onSubmit()" color="primary" [disabled]="
+              targetAudienceFormGroup.invalid || 
+              marketingObjectivesFormGroup.invalid || 
+              budgetFormGroup.invalid || 
+              adDurationFormGroup.invalid || 
+              adFormatFormGroup.invalid">
+              Publish
+          </button>
+
+          <div class="togglePayment">
+            <mat-slide-toggle labelPosition="before" [(ngModel)]="isChecked">Charge My Account Balance</mat-slide-toggle>
+          </div>
+
+        </div>
+       
       </div>
     </mat-step>
 
