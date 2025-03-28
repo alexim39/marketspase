@@ -72,8 +72,11 @@ import { HttpErrorResponse } from '@angular/common/http';
       </button>
     </form>
     <p>
+      <a routerLink="../forgot-password" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" target="_blank">I can't remember my password</a>
+    </p>
+    <p>
       Is this your first time here?
-      <a href="https://marketspase.com" target="_blank">Sign up to Get Started</a>
+      <a href="https://marketspase.com/get-started" target="_blank">Sign up to Get Started</a>
     </p>
   </div>
 </div>
@@ -107,7 +110,7 @@ import { HttpErrorResponse } from '@angular/common/http';
          }
        }
        p {
-         margin: 2em 0;
+         margin: 1em 0;
          //font-family: cursive;
          font-size: 14px;
 
@@ -162,29 +165,23 @@ export class SigninComponent implements OnInit, OnDestroy {
         this.authService.signIn(formData).subscribe({
           next: (response) => {
             //console.log(response)
-            localStorage.setItem('authToken', response.message); // Save token to localStorage
-            this.router.navigateByUrl('dashboard');
+            if (response.success) {
+              localStorage.setItem('authToken', response.message); // Save token to localStorage
+              this.router.navigateByUrl('dashboard');
+            }
           },
           error: (error: HttpErrorResponse) => {
-            if (error.status === 400) {
-            
-              Swal.fire({
-                position: 'bottom',
-                icon: 'error',
-                text: 'Your email or password is incorrect',
-                showConfirmButton: false,
-                timer: 4000,
-              });
-
-            } else {
-              Swal.fire({
-                position: 'bottom',
-                icon: 'info',
-                text: error.statusText,
-                showConfirmButton: false,
-                timer: 4000,
-              });
+            let errorMessage = 'Server error occurred, please try again.'; // default error message.
+            if (error.error && error.error.message) {
+              errorMessage = error.error.message; // Use backend's error message if available.
             }
+            Swal.fire({
+              position: "bottom",
+              icon: 'error',
+              text: errorMessage,
+              showConfirmButton: false,
+              timer: 4000
+            });  
           }
         }
         )

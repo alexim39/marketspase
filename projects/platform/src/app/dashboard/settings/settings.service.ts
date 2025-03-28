@@ -58,8 +58,8 @@ export class SettingsService {
  * @param dataObject The  form data.
  * @returns An observable of the submitted form data.
  */
-   changePassword(dataObject: any): Observable<any> {
-    return this.apiService.put<any>(`partners/change-password`, dataObject);
+  changePassword(dataObject: any): Observable<any> {
+    return this.apiService.put<any>(`auth/change-password`, dataObject);
   }
 
 
@@ -69,7 +69,6 @@ export class SettingsService {
    * @returns An observable of the submitted form data.
    */
   activateAccount(formObject: {state: boolean, partnerId: string}): Observable<any> {
-    console.log(formObject)
     return this.apiService.post<any>('partners/activate', formObject);
   }
 

@@ -95,13 +95,12 @@ export class UsernameInfoComponent implements OnInit, OnDestroy {
     ) { }
 
     ngOnInit() {
-    
-        if (this.partner) {
-             this.usernameForm = new FormGroup({
-                username: new FormControl(this.partner.username, Validators.required),
-                id: new FormControl(this.partner._id),
-            });
-        }
+      if (this.partner) {
+            this.usernameForm = new FormGroup({
+              username: new FormControl(this.partner.username, Validators.required),
+              id: new FormControl(this.partner._id),
+          });
+      }
     }
 
       onUsernameSubmit() {
@@ -110,35 +109,30 @@ export class UsernameInfoComponent implements OnInit, OnDestroy {
         
             this.subscriptions.push(
               this.settingsService.updateUsername(usernameObject).subscribe({
-                next: () => {
+                next: (response) => {
+                  if (response.success) {
                     Swal.fire({
-                        position: "bottom",
-                        icon: 'success',
-                        text: 'Your username has been updated successfully',
-                        confirmButtonColor: 'rgb(5, 1, 17)',
-                        timer: 4000,
-                    })
+                      position: "bottom",
+                      icon: 'success',
+                      text: response.message,//'Your username has been updated successfully',
+                      confirmButtonColor: 'rgb(5, 1, 17)',
+                      timer: 4000,
+                  })
+                  }
                 },
                 error: (error: HttpErrorResponse) => {
-                    if (error.status === 401) {
-                        Swal.fire({
-                          position: "bottom",
-                          icon: 'info',
-                          text: 'This username is already in use, please try another username',
-                          showConfirmButton: false,
-                          timer: 4000
-                        })
-                    }
-                    else {
-                        Swal.fire({
-                          position: "bottom",
-                          icon: 'error',
-                          text: 'Server error occured, please try again',
-                          showConfirmButton: false,
-                          timer: 4000
-                        })
-                    }
-                }
+                  let errorMessage = 'Server error occurred, please try again.'; // default error message.
+                  if (error.error && error.error.message) {
+                    errorMessage = error.error.message; // Use backend's error message if available.
+                  }
+                  Swal.fire({
+                    position: "bottom",
+                    icon: 'error',
+                    text: errorMessage,
+                    showConfirmButton: false,
+                    timer: 4000
+                  });
+  }
               })
             )
 

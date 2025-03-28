@@ -18,7 +18,7 @@ export class ApiService {
  * @returns An Observable that emits the error.
  */
   private handleError(error: HttpErrorResponse): Observable<never> {
-  console.error('ContactService: An error occurred:', error);
+  console.error('Service: An error occurred:', error);
   return throwError(() => error); // Using factory function for lazy error creation.
   }
 

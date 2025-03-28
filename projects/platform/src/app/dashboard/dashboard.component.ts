@@ -96,15 +96,7 @@ export class DashboardComponent implements OnDestroy {
     private settingsService: SettingsService,
      private themeTogglerService: ThemeTogglerService,
     private cdr: ChangeDetectorRef,
-  ) {
-    /* this.router.events.subscribe(event => {
-      if (event instanceof NavigationStart) {
-        this.isLoading = true;
-      } else if (event instanceof NavigationEnd) {
-        this.isLoading = false;
-      }
-    }); */
-  }
+  ) {  }
 
   ngOnInit(): void {
     
@@ -115,14 +107,15 @@ export class DashboardComponent implements OnDestroy {
     this.subscriptions.push(
       this.partnerService.getPartner().subscribe({
         next: (response) => {
-          this.partner = response as PartnerInterface;
+         if (response.success) {
+          this.partner = response.user as PartnerInterface;
           //Emitters.authEmitter.emit(true);
           this.partnerService.updatePartnerService(this.partner);
 
           // Apply the right theme for user
           this.settingsService.getUserTheme(this.partner._id).subscribe({
-            next: (res: any) => {
-              this.isDarkMode = res.darkMode; // Since res.darkMode is already a boolean
+            next: (response: any) => {
+              this.isDarkMode = response.darkMode; // Since res.darkMode is already a boolean
               this.themeTogglerService.setTheme(this.isDarkMode ? 'dark' : 'light');
               localStorage.setItem('selectedTheme', this.isDarkMode ? 'dark' : 'light'); // Store in localStorage for consistency
               this.cdr.markForCheck(); // Ensures UI updates
@@ -132,7 +125,7 @@ export class DashboardComponent implements OnDestroy {
               this.themeTogglerService.setTheme('light');
             },
           })
-
+         }
         },
         error: (error: HttpErrorResponse) => {
           //Emitters.authEmitter.emit(false);
@@ -161,10 +154,12 @@ export class DashboardComponent implements OnDestroy {
     // Call backend signOut API
     this.subscriptions.push(
       this.authService.signOut({}).subscribe({
-        next: () => {
-          localStorage.removeItem('authToken'); // Remove token from localStorage
-          // Navigate to the login page
-          this.router.navigate(['/'], { replaceUrl: true });
+        next: (response) => {
+          if (response.success) {
+            localStorage.removeItem('authToken'); // Remove token from localStorage
+            // Navigate to the login page
+            this.router.navigate(['/'], { replaceUrl: true });
+          }
         },
         error: (error: HttpErrorResponse) => {
           console.error('Error during sign out:', error);

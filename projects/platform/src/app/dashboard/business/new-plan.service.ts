@@ -32,7 +32,7 @@ export class PlanService {
    * @param formObject The form data.
    * @returns An observable of the submitted form data.
    */
-   getPlans(partnerId: string): Observable<PlanInterface[]> {
+   getPlans(partnerId: string): Observable<any> {
     return this.apiService.get<any>(`plan/${partnerId}`);
   }
 

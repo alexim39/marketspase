@@ -62,8 +62,9 @@ export class PartnerService {
    * @param formObject The signin data to be submitted.
    * @returns An Observable that emits the API response or an error.
    */
-  getPartner(): Observable<PartnerInterface> {
-    const endpoint = `${this.apiUrl}/partners/partner`;
+  getPartner(): Observable<any> {
+    
+    const endpoint = `${this.apiUrl}/auth`;
 
     return this.http.get<PartnerInterface>(endpoint, { withCredentials: true }).pipe(
       retry({ count: 1, delay: 0 }), // Retry once immediately upon failure

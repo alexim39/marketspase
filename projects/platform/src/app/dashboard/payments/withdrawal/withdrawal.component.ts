@@ -110,7 +110,7 @@ export class WithdrawalComponent implements OnInit, OnDestroy {
         this.http.get(url, { headers }).subscribe({
           next: (response: any) => {
             if (response.status) {
-              console.log('resp ',response)
+              //console.log('resp ',response)
                 // Populate the account name field
                 this.withdrawForm.patchValue({
                 accountName: response.data.account_name
@@ -155,7 +155,7 @@ export class WithdrawalComponent implements OnInit, OnDestroy {
               icon: 'success',
               text: 'Thank you for the request. Your account will be credited soon',
               confirmButtonColor: "rgb(5, 1, 17)",
-              timer: 15000,
+              timer: 10000,
             }).then((result) => {
               if (result.isConfirmed) {
                 // reload the page.

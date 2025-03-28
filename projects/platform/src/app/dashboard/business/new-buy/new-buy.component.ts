@@ -40,7 +40,7 @@ import { PaystackService } from '../../../_common/services/paystack.service';
     MatIconModule
   ],
 })
-export class NewBuyComponent implements OnInit, OnDestroy {
+export class NewBuyComponent implements OnDestroy {
   @Input() partner!: PartnerInterface;
   readonly dialog = inject(MatDialog);
   private subscriptions: Subscription[] = [];
@@ -51,10 +51,6 @@ export class NewBuyComponent implements OnInit, OnDestroy {
     private accountBalanceService: AccountBalanceService,
     private paystackService: PaystackService
   ) {}
-
-  ngOnInit(): void {
-    // Initialization logic if needed
-  }
 
   /**
    * Initiates the payment process using Paystack.
@@ -91,9 +87,9 @@ export class NewBuyComponent implements OnInit, OnDestroy {
           Swal.fire({
             position: 'bottom',
             icon: 'success',
-            text: 'Spase plan purchase completed',
+            text: response.message,//'Spase plan purchase completed',
             confirmButtonColor: 'rgb(5, 1, 17)',
-            timer: 8000,
+            timer: 4000,
           }).then((result) => {
             //if (result.isConfirmed) {
               this.accountBalanceService.notifyBalanceUpdated();
@@ -101,10 +97,14 @@ export class NewBuyComponent implements OnInit, OnDestroy {
           })
         },
         error: (error: HttpErrorResponse) => {
+          let errorMessage = 'Server error occurred, please try again.'; // default error message.
+          if (error.error && error.error.message) {
+            errorMessage = error.error.message; // Use backend's error message if available.
+          }
           Swal.fire({
             position: "bottom",
             icon: 'error',
-            text: 'Server error occurred, please try again',
+            text: errorMessage,
             showConfirmButton: false,
             timer: 4000
           });
@@ -118,7 +118,7 @@ export class NewBuyComponent implements OnInit, OnDestroy {
    */
   showDescription(): void {
     this.dialog.open(HelpDialogComponent, {
-      data: { help: 'Choose any of the Spase plans to own or expand your digital assets.' },
+      data: { help: 'Choose any of the Spase plans to own or expand your plan.' },
     });
   }
 

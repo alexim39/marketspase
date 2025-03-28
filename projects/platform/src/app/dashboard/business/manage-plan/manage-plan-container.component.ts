@@ -37,9 +37,11 @@ export class ManagePlanContainerComponent implements OnInit, OnDestroy {
   
           if (this.partner) {
             this.planService.getPlans(this.partner._id).subscribe({
-              next: (plans: PlanInterface[]) => {
-                this.plans = [...plans]; // Ensure immutability for change detection
+              next: (response) => {
+               if (response.success) {
+                this.plans = [...response.plans]; // Ensure immutability for change detection
                 this.cdr.detectChanges(); // Manually trigger change detection
+                }
               }
             });
           }
