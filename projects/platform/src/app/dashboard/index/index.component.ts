@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import {Component} from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { DashboradComponent } from './dashboard.component';
+import { FloatingButtonComponent } from './floating-btn/floating-btn.component';
 
 /**
  * @title dashboard index
@@ -13,6 +14,7 @@ import { DashboradComponent } from './dashboard.component';
   <!-- Add Content Here -->
   <router-outlet/>
   <async-dashboard/>
+  <async-floating-btn/>
   
   `,
   styles: [``],
@@ -20,7 +22,7 @@ import { DashboradComponent } from './dashboard.component';
     RouterModule,
     CommonModule, 
     DashboradComponent,
-    
+    FloatingButtonComponent
   ],
 })
 export class DashboardIndexComponent  {}

@@ -79,7 +79,7 @@ import { Component, Input, OnDestroy, OnInit, OnChanges, SimpleChanges } from '@
 export class IncomeTargetComponent implements OnInit, OnDestroy, OnChanges {
   @Input() partner!: PartnerInterface;
   incomeTargetForm!: FormGroup;
-  //periods = ['Daily', 'Weekly', 'Monthly', 'Yearly'];
+  // periods = ['Daily', 'Weekly', 'Monthly', 'Yearly'];
   subscriptions: Array<Subscription> = [];
 
   constructor(

@@ -21,7 +21,7 @@ import { Subscription } from 'rxjs';
   <async-dashboard-header/>
   <async-notification-banner *ngIf="partner" [partner]="partner" />
   <async-dashboard-cards-container *ngIf="partner" [partner]="partner" />
-  <async-graphs-contaner/>
+  <async-graphs-contaner *ngIf="partner" [partner]="partner"/>
 
   `,
 styles: [``],

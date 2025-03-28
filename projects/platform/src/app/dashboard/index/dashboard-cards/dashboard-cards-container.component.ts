@@ -105,7 +105,7 @@ currentMonthName = this.monthNames[this.today.getMonth()];
     incomeIcon = '₦';
 
     // plan
-    planTitle = "Plans Stats";
+    planTitle = "Plans / Team Plans";
     planMainValue: any;
     planBorderColor = 'orange';
     planGrowthColor = 'orange';
@@ -191,11 +191,11 @@ currentMonthName = this.monthNames[this.today.getMonth()];
 
 
         /**
-        * Method to get the statistics of the income on the dashboard
+        * Method to get the statistics of the expenses on the dashboard
         * @param {string} partnerId - The partner id  
         * @param {Date} startDate - The start date of the income
         * @param {Date} endDate - The end date of the income
-        * @returns {Observable} - The plan statistics: user income within the specified date range
+        * @returns {Observable} - The plan statistics: user expenses within the specified date range
         * 
         */
         this.indexService.getExpensesForDasboard(this.partner._id).subscribe({

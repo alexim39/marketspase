@@ -35,4 +35,13 @@ export class IndexService {
     getExpensesForDasboard(partnerId: string): Observable<any> {
       return this.apiService.get<any>(`dashboard/partner-expenses/${partnerId}`);
     }
+
+     /**
+     * Get the form data to the backend.
+     * @param formObject The form data.
+     * @returns An observable of the submitted form data.
+     */
+     getProfitForAPeriodDasboard(partnerId: string): Observable<any> {
+      return this.apiService.get<any>(`dashboard/calculate-profit/${partnerId}`);
+    }
 }

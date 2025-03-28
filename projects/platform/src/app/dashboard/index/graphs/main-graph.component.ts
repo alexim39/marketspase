@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
+import { PartnerInterface } from '../../../_common/services/partner.service';
 
 @Component({
   selector: 'async-main-graph',
-  imports: [CommonModule, MatTableModule, MatButtonModule],
+  imports: [CommonModule, MatTableModule, CommonModule, MatButtonModule],
   template: `
     <div class="card">
       <div class="header">
@@ -72,6 +73,11 @@ import { MatButtonModule } from '@angular/material/button';
   ],
 })
 export class MainGraphComponent {
+  @Input() partner!: PartnerInterface;
+
+
+
+  
   displayedColumns: string[] = ['date', 'facebook', 'youtube', 'linkedin', 'google', 'tiktok'];
   dataSource = [
     { date: '01 Jan', websiteBlog: 500, socialMedia: 30 },

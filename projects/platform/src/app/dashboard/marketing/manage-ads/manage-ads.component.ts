@@ -29,6 +29,8 @@ import { timeAgo, expiration } from '../../../_common/date-util';
         .title {
             display: flex;
             justify-content: space-between;
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 1em;
             padding: 1em;
             .action-area {
                 .action {

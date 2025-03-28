@@ -46,7 +46,7 @@ import { PowerOfTenPipe } from '../../../../_common/pipes/power-of-ten';
   styles: [
     `
       .card {
-        width: 200px;
+        min-width: 250px;
         padding: 10px;
         border-radius: 8px;
         box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);

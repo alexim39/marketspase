@@ -1,26 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { SideGraphComponent } from './side-graph.component';
 import { MainGraphComponent } from './main-graph.component';
+import { PartnerInterface, PartnerService } from '../../../_common/services/partner.service';
+import { Subscription } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { IndexService } from '../index.service';
 
 /**
  * @title graphs container
  */
 @Component({
   selector: 'async-graphs-contaner',
+  providers: [IndexService],
   template: `
     <section class="container">
 
       <section class="main">
-        <async-main-graph/>
+        <async-main-graph *ngIf="partner" [partner]="partner"/>
       </section>
 
       <section class="side">
-        <async-side-graph/>
+        <async-side-graph *ngIf="partner && calculatedProfit" [partner]="partner" [calculatedProfit]="calculatedProfit"/>
       </section>
 
     </section>
   `,
-    imports: [SideGraphComponent, MainGraphComponent],
+    imports: [SideGraphComponent,CommonModule, MainGraphComponent],
   styles: [`
     .container {
       display: flex;
@@ -57,4 +62,35 @@ import { MainGraphComponent } from './main-graph.component';
     }
   `],
 })
-export class GraphsContainerComponent {}
+export class GraphsContainerComponent implements OnInit {
+  
+    @Input() partner!: PartnerInterface;
+    calculatedProfit: number = 0;
+
+    constructor(
+      private indexService: IndexService,
+    ) {
+
+    }
+
+    ngOnInit(): void {
+      if (this.partner) {
+
+        /**
+        * Method to get the statistics of the income on the dashboard
+        * @param {string} partnerId - The partner id  
+        * @param {Date} startDate - The start date of the income
+        * @param {Date} endDate - The end date of the income
+        * @returns {Observable} - The plan statistics: user income within the specified date range
+        * 
+        */
+         this.indexService.getProfitForAPeriodDasboard(this.partner._id).subscribe({
+          next: (getProfit: any) => {
+            this.calculatedProfit = getProfit.totalIncome;
+            //console.log(this.calculatedProfit)
+          }
+        });
+
+      }
+    }
+}
