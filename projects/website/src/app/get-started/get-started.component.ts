@@ -108,14 +108,16 @@ export class GetStartedComponent implements OnInit, OnDestroy {
               this.router.navigateByUrl('get-started/returning-confirmation');
 
             } else {
-              this.isSpinning = false;
-              
+              let errorMessage = 'Server error occurred, please try again.'; // default error message.
+              if (error.error && error.error.message) {
+                errorMessage = error.error.message; // Use backend's error message if available.
+              }
               Swal.fire({
-                position: 'bottom',
-                icon: 'info',
-                text: 'Server error occured, please try again',//error.statusText,
+                position: "bottom",
+                icon: 'error',
+                text: errorMessage,
                 showConfirmButton: false,
-                timer: 4000,
+                timer: 4000
               });
             }
           },

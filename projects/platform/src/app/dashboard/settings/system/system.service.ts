@@ -40,7 +40,7 @@ export class SettingsService {
    * @param formObject The form data.
    * @returns An observable of the submitted form data.
    */
-  getUserTheme(partnerId: string): Observable<any> {
+  getThemeSetting(partnerId: string): Observable<any> {
     return this.apiService.get<any>(`settings/theme/${partnerId}`);
   }
 

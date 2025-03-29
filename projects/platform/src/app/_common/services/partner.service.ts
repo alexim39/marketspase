@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { retry, catchError } from 'rxjs/operators';
+import { BehaviorSubject, catchError, Observable, retry, throwError } from 'rxjs';
+import { ApiService } from './api.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 export interface PartnerInterface {
   _id: string;
@@ -34,52 +34,22 @@ export interface PartnerInterface {
 
 @Injectable()
 export class PartnerService {
-   /**
-     * The base URL for the API endpoints.
-     */
-    // private readonly apiUrl = 'https://diamondprojectapi-y6u04o8b.b4a.run/';
-    private readonly apiUrl = 'http://localhost:3000'; // For local testing
-  
-    /**
-   * Handles HTTP errors by logging and re-throwing them.
-   * @param error The HttpErrorResponse.
-   * @returns An Observable that emits the error.
-   */
-    private handleError(error: HttpErrorResponse): Observable<never> {
-      console.error('PartnerService: An error occurred:', error);
-      return throwError(() => error); // Using factory function for lazy error creation.
-    }
-  
-   /**
-   * Constructs the PartnerService.
-   * @param http The HttpClient for making HTTP requests.
-   */
-  
-    constructor(private http: HttpClient) {}
+  constructor(private apiService: ApiService) {}
+
 
   /**
    * Get partner data to the backend API.
-   * @param formObject The signin data to be submitted.
    * @returns An Observable that emits the API response or an error.
    */
   getPartner(): Observable<any> {
-    
-    const endpoint = `${this.apiUrl}/auth`;
-
-    return this.http.get<PartnerInterface>(endpoint, { withCredentials: true }).pipe(
-      retry({ count: 1, delay: 0 }), // Retry once immediately upon failure
-      catchError(this.handleError)
-    );
+    return this.apiService.get<PartnerInterface>(`auth`, undefined, undefined, true);
   }
 
-  private partnerSubject = new BehaviorSubject<any>(null); // Initial value can be anything
+  private partnerSubject = new BehaviorSubject<PartnerInterface | null>(null);
 
   getSharedPartnerData$ = this.partnerSubject.asObservable();
 
   updatePartnerService(data: PartnerInterface) {
-    //console.log('login ',data)
     this.partnerSubject.next(data);
   }
-
-
 }

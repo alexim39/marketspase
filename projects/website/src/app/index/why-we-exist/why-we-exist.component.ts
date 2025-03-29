@@ -42,7 +42,7 @@ import { CommonModule } from '@angular/common';
       </div>
 
 
-      <h1>MarketSpase: Your Online Business Space!</h1>
+      <h1>MarketSpase: Your Online Business for passive income!</h1>
 
       <!-- <a mat-flat-button color="primary" routerLink="plans" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop()">Start Your Own Business Now</a> -->
     </aside>

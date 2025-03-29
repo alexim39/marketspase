@@ -107,18 +107,21 @@ export class DashboardComponent implements OnDestroy {
     this.subscriptions.push(
       this.partnerService.getPartner().subscribe({
         next: (response) => {
+
          if (response.success) {
           this.partner = response.user as PartnerInterface;
           //Emitters.authEmitter.emit(true);
           this.partnerService.updatePartnerService(this.partner);
 
           // Apply the right theme for user
-          this.settingsService.getUserTheme(this.partner._id).subscribe({
-            next: (response: any) => {
+          this.settingsService.getThemeSetting(this.partner._id).subscribe({
+            next: (response) => {
+             if (response.success) {
               this.isDarkMode = response.darkMode; // Since res.darkMode is already a boolean
               this.themeTogglerService.setTheme(this.isDarkMode ? 'dark' : 'light');
               localStorage.setItem('selectedTheme', this.isDarkMode ? 'dark' : 'light'); // Store in localStorage for consistency
               this.cdr.markForCheck(); // Ensures UI updates
+            }
             },
             error: () => {
               // Default to light mode for new users

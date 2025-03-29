@@ -26,7 +26,6 @@ import { minDigitsValidator } from '../_common/services/minimum-digit';
   selector: 'async-booking',
   templateUrl: 'booking.component.html',
   styleUrls: ['booking.component.scss'],
-  standalone: true,
   providers: [BookingService],
   imports: [MatButtonModule, MatDividerModule, MatProgressBarModule, CommonModule, ReactiveFormsModule, RouterModule, MatIconModule, MatExpansionModule, MatFormFieldModule, MatInputModule, MatDatepickerModule, MatNativeDateModule, MatSelectModule],
 })
@@ -99,12 +98,11 @@ export class BookingComponent implements OnInit, OnDestroy {
       this.subscriptions.push(
         this.bookingService.submit(formData).subscribe({
 
-          next: () => {
-
+          next: (response) => {
             Swal.fire({
               position: "bottom",
               icon: 'success',
-              text: 'Thank you for booking a session with us. We hope to meet with you at your booked date and time',
+              text: response.message, // 'Thank you for booking a session with us. We hope to meet with you at your booked date and time',
               confirmButtonColor: "rgb(5, 1, 17)",
               timer: 10000
             });
@@ -112,12 +110,14 @@ export class BookingComponent implements OnInit, OnDestroy {
 
           },
           error: (error: HttpErrorResponse) => {
-
-            this.isSpinning = false;
+            let errorMessage = 'Server error occurred, please try again.'; // default error message.
+            if (error.error && error.error.message) {
+              errorMessage = error.error.message; // Use backend's error message if available.
+            }
             Swal.fire({
               position: "bottom",
               icon: 'error',
-              text: 'Server error occured, please try again',
+              text: errorMessage,
               showConfirmButton: false,
               timer: 4000
             });

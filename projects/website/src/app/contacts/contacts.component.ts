@@ -15,13 +15,13 @@ import { Subscription } from 'rxjs';
 import { ContactFormData, ContactService } from './contacts.service';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { CommonModule } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
 
 /**
  * @title Customer feedback
  */
 @Component({
   selector: 'async-contacts',
-  standalone: true,
   providers: [ContactService],
   imports: [
     MatButtonModule,
@@ -86,11 +86,11 @@ export class ContactComponent implements OnInit, OnDestroy {
 
     const formData: ContactFormData = this.contactForm.value;
     const subscription = this.contactService.submit(formData).subscribe({
-      next: (res: any) => {
+      next: (response: any) => {
         Swal.fire({
           position: "bottom",
           icon: 'success',
-          text: 'Thank you for reaching out to us. We will respond to your message via email shortly',
+          text: response.message, //'Thank you for reaching out to us. We will respond to your message via email shortly',
           confirmButtonColor: "rgb(5, 1, 17)",
           timer: 10000
         });
@@ -98,12 +98,16 @@ export class ContactComponent implements OnInit, OnDestroy {
         // Uncomment if you want to navigate after a successful submission:
         // this.router.navigateByUrl('get-started/connected-economy');
       },
-      error: (error: Error) => {
+      error: (error: HttpErrorResponse) => {
         this.isSpinning = false;
+        let errorMessage = 'Server error occurred, please try again.'; // default error message.
+        if (error.error && error.error.message) {
+          errorMessage = error.error.message; // Use backend's error message if available.
+        }
         Swal.fire({
           position: "bottom",
-          icon: 'info',
-          text: 'Server error occurred, please try again',
+          icon: 'error',
+          text: errorMessage,
           showConfirmButton: false,
           timer: 4000
         });

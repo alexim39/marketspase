@@ -75,7 +75,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 
           <div class="btn-container">
             <button mat-raised-button class="back-button" (click)="onPrevious()">Back</button>
-            <button mat-raised-button color="primary" type="submit" [disabled]="passwordForm.invalid">
+            <button mat-flat-button color="primary" type="submit" [disabled]="passwordForm.invalid">
               Set Password <i class="fa fa-angle-double-right"></i>
             </button>
           </div>
@@ -141,8 +141,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
       }
     }
 
-    button[mat-raised-button] {
-      width: 100%;
+    button{
+      width: 70%;
     }
 
     .btn-container {

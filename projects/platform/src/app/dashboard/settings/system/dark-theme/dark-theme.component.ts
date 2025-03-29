@@ -93,7 +93,7 @@ export class DarkThemeSettingsComponent implements OnInit, OnDestroy {
 
     this.subscriptions.push(
       // Step 1: Fetch theme setting from the backend
-      this.settingsService.getUserTheme(this.partner._id).subscribe({
+      this.settingsService.getThemeSetting(this.partner._id).subscribe({
         next: (res: any) => {
           this.isDarkMode = res.darkMode; // Since res.darkMode is already a boolean
           this.themeTogglerService.setTheme(this.isDarkMode ? 'dark' : 'light');

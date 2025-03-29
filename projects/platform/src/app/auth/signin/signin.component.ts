@@ -164,7 +164,6 @@ export class SigninComponent implements OnInit, OnDestroy {
       this.subscriptions.push(
         this.authService.signIn(formData).subscribe({
           next: (response) => {
-            //console.log(response)
             if (response.success) {
               localStorage.setItem('authToken', response.message); // Save token to localStorage
               this.router.navigateByUrl('dashboard');

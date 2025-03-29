@@ -83,7 +83,7 @@ export class NewBuyComponent implements OnDestroy {
     // TODO: Send transaction update to the backend
     this.subscriptions.push(
       this.planService.submit(transactionData).subscribe({
-        next: (res: any) => {
+        next: (response: any) => {
           Swal.fire({
             position: 'bottom',
             icon: 'success',
