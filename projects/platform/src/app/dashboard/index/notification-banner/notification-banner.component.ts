@@ -103,8 +103,8 @@ export class NotificationBannerComponent implements OnInit {
   ngOnInit(): void {
     if (this.partner) {
       this.planService.getPlans(this.partner._id).subscribe({
-        next: (plans: PlanInterface[]) => {
-          this.plans = plans;
+        next: (response) => {
+          this.plans = response.plans;
         }
       });
 

@@ -221,11 +221,11 @@ export class GoogleComponent implements OnInit, OnDestroy {
     */
     private handlePaymentSuccess(response: any, amount: number): void {
       // TODO: Send transaction update to the backend
-      this.handleSubmit();
+      this.handleSubmit(response);
     }
 
 
-    private handleSubmit(): void {
+    private handleSubmit(paymentGateway: any = null): void {
       if (
         this.targetAudienceFormGroup.valid 
         && this.marketingObjectivesFormGroup.valid 
@@ -250,16 +250,17 @@ export class GoogleComponent implements OnInit, OnDestroy {
             createdBy: this.partner._id,
             campaignName: 'Google',
             deliveryStatus: 'Pending',
-            isCard: this.isChecked
+            isCard: this.isChecked,
+            paymentGateway: paymentGateway
           };
       
           this.subscriptions.push(
             this.createCampaignService.google(campaignData).subscribe({
-              next: () => {
+              next: (response) => {
                 Swal.fire({
                   position: "bottom",
                   icon: 'success',
-                  text: 'Your Google ads published successfully',
+                  text: response.message,//text: 'Your Google ads published successfully',
                   confirmButtonColor: 'rgb(5, 1, 17)',
                   timer: 8000,
                 }).then((result) => {
@@ -271,31 +272,17 @@ export class GoogleComponent implements OnInit, OnDestroy {
                 this.stepper.reset();
               },
               error: (error: HttpErrorResponse) => {
-                if (error.status == 401) {
-                  Swal.fire({
-                    position: "bottom",
-                    icon: 'info',
-                    text: 'Insufficient balance, please fund your account',
-                    showConfirmButton: false,
-                    timer: 4000
-                  })
-                } else if (error.status == 402) {
-                  Swal.fire({
-                    position: "bottom",
-                    icon: 'info',
-                    text: 'Invalid amount, please enter a valid account',
-                    showConfirmButton: false,
-                    timer: 4000
-                  })
-                } else {
+                  let errorMessage = 'Server error occurred, please try again.'; // default error message.
+                  if (error.error && error.error.message) {
+                    errorMessage = error.error.message; // Use backend's error message if available.
+                  }
                   Swal.fire({
                     position: "bottom",
                     icon: 'error',
-                    text: 'Server error occured, please and try again',
+                    text: errorMessage,
                     showConfirmButton: false,
                     timer: 4000
-                  })
-                }
+                  });
               }
             })
           )

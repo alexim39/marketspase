@@ -27,7 +27,7 @@ import { HttpErrorResponse } from '@angular/common/http';
     ],
   template: `
     <div class="form-container">
-    <form class="flex-form" [formGroup]="passwordForm" (ngSubmit)="onPasswordSubmit()">
+    <form class="flex-form" [formGroup]="passwordForm" (ngSubmit)="onChangeSubmit()">
         <div class="form-group">
             <mat-form-field appearance="outline">
                 <mat-label>Current Password</mat-label>
@@ -142,7 +142,7 @@ export class PasswordChangeComponent implements OnInit, OnDestroy {
       }
     }
 
-    onPasswordSubmit() {
+    onChangeSubmit() {
       if (this.passwordForm.valid) {
        const passwordObject = this.passwordForm.value;
 
@@ -156,8 +156,16 @@ export class PasswordChangeComponent implements OnInit, OnDestroy {
                     text: response.message,
                     confirmButtonColor: 'rgb(5, 1, 17)',
                     timer: 4000,
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                    // Reset the form and clear validation errors
+                    this.passwordForm.reset();
+                    this.passwordForm.markAsPristine(); // Mark the form as pristine
+                    this.passwordForm.markAsUntouched(); // Mark the form as untouched
+                    }
                   })
                 }
+
               },
               error: (error: HttpErrorResponse) => {
                 let errorMessage = 'Server error occurred, please try again.'; // default error message.

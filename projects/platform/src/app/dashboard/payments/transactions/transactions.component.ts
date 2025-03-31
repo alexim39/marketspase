@@ -102,7 +102,7 @@ export class TransactionsComponent implements OnInit, AfterViewInit {
   readonly dialog = inject(MatDialog);  
 
   filterText: string = '';  
-  displayedColumns: string[] = ['transactionId', 'dateOfPayment', 'amount', 'paymentMethod', 'paymentStatus', 'transactionType', 'action'];  
+  displayedColumns: string[] = ['transactionId', 'dateOfPayment', 'amount', 'paymentMethod', 'purpose', 'paymentStatus', 'transactionType', 'action'];  
   dataSource = new MatTableDataSource<any>([]);  
   isEmptyRecord = false;  
 

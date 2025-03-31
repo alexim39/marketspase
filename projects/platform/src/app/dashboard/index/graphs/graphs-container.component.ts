@@ -87,7 +87,6 @@ export class GraphsContainerComponent implements OnInit {
          this.indexService.getProfitForAPeriodDasboard(this.partner._id).subscribe({
           next: (getProfit: any) => {
             this.calculatedProfit = getProfit.totalIncome;
-            //console.log(this.calculatedProfit)
           }
         });
 
