@@ -14,7 +14,7 @@ import { AnalyticsService } from './analytics.services';
   imports: [CommonModule, AnalyticsComponent],
   providers: [AnalyticsService],
   template: `
-  <async-analytics *ngIf="partner" [partner]="partner"/>
+  <async-analytics *ngIf="partner && analyticsData" [partner]="partner" [analyticsData]="analyticsData"/>
   `,
 })
 export class AnalyticsContainerComponent implements OnInit, OnDestroy {
@@ -22,8 +22,11 @@ export class AnalyticsContainerComponent implements OnInit, OnDestroy {
   partner!: PartnerInterface;
   subscriptions: Subscription[] = [];
 
+  analyticsData: any = {};
+
   constructor(
     private partnerService: PartnerService,
+    private analyticsService: AnalyticsService
   ) { }
 
   ngOnInit() {
@@ -33,7 +36,9 @@ export class AnalyticsContainerComponent implements OnInit, OnDestroy {
           this.partner = partnerObject as PartnerInterface;
   
           if (this.partner) {
-           
+            this.analyticsService.getBusinessAnalytics(this.partner._id).subscribe((data) => {
+              this.analyticsData = data;
+            });
           }
         }
       })

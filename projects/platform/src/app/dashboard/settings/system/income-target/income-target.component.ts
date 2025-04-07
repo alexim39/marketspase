@@ -27,6 +27,7 @@ import { Component, Input, OnDestroy, OnInit, OnChanges, SimpleChanges } from '@
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Target Amount</mat-label>
       <input matInput type="number" formControlName="targetAmount" placeholder="Enter target amount" />
+      <mat-hint class="current">Current target amount: {{partner.incomeTarget.targetAmount | currency:'₦':'symbol':'1.2-2'}}</mat-hint>
       <mat-error *ngIf="incomeTargetForm.get('targetAmount')?.hasError('required')">
         Target amount is required.
       </mat-error>
@@ -44,6 +45,7 @@ import { Component, Input, OnDestroy, OnInit, OnChanges, SimpleChanges } from '@
         <mat-option value="Monthly">Monthly</mat-option>
         <mat-option value="Yearly">Yearly</mat-option>
       </mat-select>
+      <mat-hint class="current">Current period: {{partner.incomeTarget.period | titlecase}}</mat-hint>
       <mat-error *ngIf="incomeTargetForm.get('period')?.hasError('required')">
         Period is required.
       </mat-error>
@@ -67,6 +69,10 @@ import { Component, Input, OnDestroy, OnInit, OnChanges, SimpleChanges } from '@
 .full-width {
   width: 100%;
   margin-bottom: 16px;
+  .current {
+    font-size: 0.9em;
+    color: #111;
+  }
 }
 .btn {
   width: 60%;

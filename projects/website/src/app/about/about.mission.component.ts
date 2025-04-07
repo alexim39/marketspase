@@ -217,13 +217,13 @@ export class MissionCorevaluesComponent {
     { 
       icon: 'rocket_launch', 
       title: 'Our Mission', 
-      content: `Empowering individuals to achieve financial success through innovative and simplified digital solutions`, 
+      content: `We provide innovative, simplified digital solutions for creating sustainable passive income.`, 
       state: 'default' 
     },
     { 
       icon: 'visibility', 
       title: 'Our Vision', 
-      content: `To be the leading platform that transforms lives by making entrepreneurship accessible and profitable for everyone.`, 
+      content: `We are committed to providing a leading platform that makes profitable digital entrepreneurship a reality for all.`, 
       state: 'default' 
     }
   ];

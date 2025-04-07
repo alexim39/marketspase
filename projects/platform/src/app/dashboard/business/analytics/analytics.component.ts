@@ -75,7 +75,7 @@ import { MatButtonModule } from '@angular/material/button';
                 <h3>Plan Distribution</h3>
                 <ul>
                 <li *ngFor="let plan of analyticsData.planDistribution">
-                    {{ plan._id }}: {{ plan.count }} users
+                    {{ plan._id }}: {{ plan.count }} plans
                 </li>
                 </ul>
             </div>
@@ -84,6 +84,8 @@ import { MatButtonModule } from '@angular/material/button';
     </div>
     </section>
 </section>
+
+<canvas id="planChart"></canvas>
 
 
 
@@ -149,18 +151,17 @@ styles: [`
 })
 export class AnalyticsComponent implements OnInit {
   @Input() partner!: PartnerInterface;  
-  analyticsData: any = {};
+  @Input() analyticsData: any = {};
   planChart: any;
 
   readonly dialog = inject(MatDialog);
 
-  constructor(private analyticsService: AnalyticsService) {}
+  constructor() {}
 
   ngOnInit() {
-    this.analyticsService.getBusinessAnalytics().subscribe((data) => {
-      this.analyticsData = data;
-      this.createPlanChart();
-    });
+    this.analyticsData = this.analyticsData;
+    this.createPlanChart();
+   
   }
 
   createPlanChart() {
@@ -179,13 +180,13 @@ export class AnalyticsComponent implements OnInit {
     });
   }
 
-   scrollToTop() {
+  scrollToTop() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
-   }
+  }
   
-    showDescription() {
-      this.dialog.open(HelpDialogComponent, {
-        data: { help: 'In this section, you can view and track your business plans' },
-      });
-    }
+  showDescription() {
+    this.dialog.open(HelpDialogComponent, {
+       data: { help: 'In this section, you can view and track your business plans' },
+    });
+  }
 }
