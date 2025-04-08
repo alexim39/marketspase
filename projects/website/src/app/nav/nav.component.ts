@@ -58,15 +58,16 @@ import { NotificationBannerComponent } from './notification-banner/notification-
     <a class="view-on-desktop" mat-button [matMenuTriggerFor]="resources">Resources <i class="fa fa-angle-double-down"></i></a>
     <a class="view-on-desktop" mat-button [matMenuTriggerFor]="support">Support <i class="fa fa-angle-double-down"></i></a>
     <!-- <a class="view-on-desktop" color="accent" mat-raised-button routerLink="booking" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop()">Book 1:1 Session</a> -->
-    <a class="view-on-desktop" mat-stroked-button href="https://platform.marketspase.com" target="_blank">Login</a>
+    <!-- <a class="view-on-desktop" mat-stroked-button href="https://platform.marketspase.com" target="_blank">Login</a> -->
     
 
+    <a class="" mat-stroked-button href="https://platform.marketspase.com" target="_blank">Login</a>
 
     <!-- light and dark theme toggle -->
     <i matTooltip="Toggle light to dark mode" class="fa fa-moon-o" (click)="toggleTheme()" *ngIf="!isDarkMode"></i>
     <i matTooltip="Toggle dark to light mode" class="fa fa-sun-o" (click)="toggleTheme()" *ngIf="isDarkMode"></i>
 
-      <i class="fa fa-bars" (click)="toggleMobileNav()" id="toggle"></i>
+    <i class="fa fa-bars" (click)="toggleMobileNav()" id="toggle"></i>
 
     </mat-toolbar-row>
 
@@ -81,7 +82,7 @@ import { NotificationBannerComponent } from './notification-banner/notification-
       <a mat-button [matMenuTriggerFor]="resources">Resources <i class="fa fa-angle-double-down"></i></a>
       <a mat-button [matMenuTriggerFor]="support">Support <i class="fa fa-angle-double-down"></i></a>
       <!-- <a class="mobile-btn" color="accent" mat-raised-button routerLink="booking" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop()">Book 1:1 Session</a> -->
-      <a class="mobile-btn partners" mat-stroked-button href="https://platform.marketspase.com" target="_blank">Login</a>
+      <!-- <a class="mobile-btn partners" mat-stroked-button href="https://platform.marketspase.com" target="_blank">Login</a> -->
       
       <span class="spacer"></span>
 

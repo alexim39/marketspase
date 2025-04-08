@@ -6,7 +6,7 @@ import { catchError, Observable, retry, throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
-  //private readonly baseUrl = 'https://marketspase-96hm2qxb.b4a.run/';
+  //private readonly baseUrl = 'https://marketspase-96hm2qxb.b4a.run';
   private readonly baseUrl = 'http://localhost:3000'; // For local testing
 
   private handleError(error: HttpErrorResponse): Observable<never> {
