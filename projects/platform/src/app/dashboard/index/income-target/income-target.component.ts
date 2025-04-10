@@ -5,7 +5,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { PartnerInterface } from '../../../_common/services/partner.service';
 
 @Component({
-  selector: 'async-side-graph',
+  selector: 'async-income-target',
   imports: [CommonModule, MatProgressSpinnerModule, MatProgressBarModule],
   template: `
     <div class="dashboard-card">
@@ -129,7 +129,7 @@ import { PartnerInterface } from '../../../_common/services/partner.service';
     `
   ]
 })
-export class SideGraphComponent implements OnInit {
+export class IncomeTargetComponent implements OnInit {
   @Input() partner!: PartnerInterface;
   @Input() calculatedProfit: number = 0; // default
   incomeTarget: number = 0; // default

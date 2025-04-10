@@ -9,6 +9,12 @@ export interface TestimonialInterface {
   message: string;
   avatar: string;
 }
+
+export interface PayoutsInterface {
+  name: string;
+  amount: string;
+  time: string;
+}
 @Injectable()
 export class IndexService {
   constructor(private apiService: ApiService) {}
@@ -57,5 +63,14 @@ export class IndexService {
     */
      getRandomTestimonials(): Observable<any> {
       return this.apiService.get<any>(`dashboard/random-testimonials`);
+    }
+
+     /**
+     * Get the form data to the backend.
+     * @param formObject The form data.
+     * @returns An observable of the submitted form data.
+    */
+     getRecentPayout(): Observable<any> {
+      return this.apiService.get<any>(`dashboard/recent-payouts`);
     }
 }

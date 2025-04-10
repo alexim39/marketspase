@@ -8,7 +8,7 @@ import { PartnerInterface, PartnerService } from '../../_common/services/partner
 import { Subscription } from 'rxjs';
 import { TestimonialsComponent } from './testimonial/testimonial.component';
 import { IndexService, TestimonialInterface } from './index.service';
-import { SideGraphComponent } from './graphs/side-graph.component';
+import { IncomeTargetComponent } from './income-target/income-target.component';
 import {MatButtonModule} from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 
@@ -23,7 +23,7 @@ import { RouterModule } from '@angular/router';
     DashboardHeaderComponent,
     GraphsContainerComponent,
     TestimonialsComponent,
-    SideGraphComponent,
+    IncomeTargetComponent,
     MatButtonModule,
     RouterModule,
   ],
@@ -36,7 +36,7 @@ import { RouterModule } from '@angular/router';
 <div class="testimonial-container">
   <div class="left-section">
     <div class="action-button">
-      <a mat-stroked-button  routerLink="settings/social-pages" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop()" title="Add testimonial">Add</a>
+      <a mat-stroked-button  routerLink="settings/social-pages" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop()" title="Add testimonial">Submit</a>
     </div>
     <async-dashboard-testimonials *ngIf="partner" [partner]="partner" [testimonials]="testimonials"/>
   </div>
@@ -44,7 +44,7 @@ import { RouterModule } from '@angular/router';
     <div class="action-button">
       <a mat-stroked-button  routerLink="settings/system" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop()" title="Add testimonial">Set</a>
     </div>
-    <async-side-graph *ngIf="partner" [partner]="partner" [calculatedProfit]="calculatedProfit"/> 
+    <async-income-target *ngIf="partner" [partner]="partner" [calculatedProfit]="calculatedProfit"/> 
   </div>
 </div>
 

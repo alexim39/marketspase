@@ -4,6 +4,7 @@ import { PartnerInterface } from '../../../_common/services/partner.service';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { IndexService } from '../index.service';
+import { RecentPayoutsComponent } from './recent-payment.component';
 
 /**
  * @title graphs container
@@ -19,12 +20,12 @@ import { IndexService } from '../index.service';
       </section>
 
       <section class="side">
-        <!-- <async-side-graph *ngIf="partner && calculatedProfit" [partner]="partner" [calculatedProfit]="calculatedProfit"/> -->
+        <async-recent-payouts *ngIf="payouts" [payouts]="payouts"/>
       </section>
 
     </section>
   `,
-    imports: [CommonModule, MainGraphComponent],
+    imports: [CommonModule, MainGraphComponent, RecentPayoutsComponent],
   styles: [`
     .container {
       display: flex;
@@ -63,13 +64,19 @@ import { IndexService } from '../index.service';
 })
 export class GraphsContainerComponent implements OnInit {
   
-    @Input() partner!: PartnerInterface;
+  @Input() partner!: PartnerInterface;
+  payouts = [];
 
-    constructor() {
+  constructor(
+    private indexService: IndexService,
+  ) {}
 
-    }
-
-    ngOnInit(): void {
-      
-    }
+  ngOnInit(): void {
+      this.indexService.getRecentPayout().subscribe({
+      next: (getPayout: any) => {
+        this.payouts = getPayout.data;
+        //console.log('payouts', this.payouts);
+      }
+    })
+  }
 }
