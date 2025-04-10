@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { DashboardLongCardsComponent } from './long-cards/dashboard-long-cards.component';
 import { PartnerInterface } from '../../../_common/services/partner.service';
-import { PlanInterface, PlanService } from '../../business/new-plan.service';
+import { PlanInterface } from '../../business/new-plan.service';
 import { AdsInterface, AdsService } from '../../marketing/manage-ads/manage-ads.service';
 import { IndexService } from '../index.service';
 import { DashboardShortCardsComponent } from './short-cards/dashboard-short-cards.component';
@@ -80,7 +80,7 @@ import { DashboardShortCardsComponent } from './short-cards/dashboard-short-card
       }
     `
   ],
-  providers: [IndexService, PlanService, AdsService]
+  providers: [IndexService, AdsService]
 })
 export class DashboardCardsContainerComponent implements OnInit {
   @Input() partner!: PartnerInterface;
@@ -125,7 +125,6 @@ currentMonthName = this.monthNames[this.today.getMonth()];
 
     constructor(
       private indexService: IndexService,
-      private planService: PlanService,
       private adsService: AdsService,
       
     ) {}

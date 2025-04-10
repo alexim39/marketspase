@@ -1,7 +1,6 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { SideGraphComponent } from './side-graph.component';
+import { Component, Input,  OnInit } from '@angular/core';
 import { MainGraphComponent } from './main-graph.component';
-import { PartnerInterface, PartnerService } from '../../../_common/services/partner.service';
+import { PartnerInterface } from '../../../_common/services/partner.service';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { IndexService } from '../index.service';
@@ -20,12 +19,12 @@ import { IndexService } from '../index.service';
       </section>
 
       <section class="side">
-        <async-side-graph *ngIf="partner && calculatedProfit" [partner]="partner" [calculatedProfit]="calculatedProfit"/>
+        <!-- <async-side-graph *ngIf="partner && calculatedProfit" [partner]="partner" [calculatedProfit]="calculatedProfit"/> -->
       </section>
 
     </section>
   `,
-    imports: [SideGraphComponent,CommonModule, MainGraphComponent],
+    imports: [CommonModule, MainGraphComponent],
   styles: [`
     .container {
       display: flex;
@@ -65,31 +64,12 @@ import { IndexService } from '../index.service';
 export class GraphsContainerComponent implements OnInit {
   
     @Input() partner!: PartnerInterface;
-    calculatedProfit: number = 0;
 
-    constructor(
-      private indexService: IndexService,
-    ) {
+    constructor() {
 
     }
 
     ngOnInit(): void {
-      if (this.partner) {
-
-        /**
-        * Method to get the statistics of the income on the dashboard
-        * @param {string} partnerId - The partner id  
-        * @param {Date} startDate - The start date of the income
-        * @param {Date} endDate - The end date of the income
-        * @returns {Observable} - The plan statistics: user income within the specified date range
-        * 
-        */
-         this.indexService.getProfitForAPeriodDasboard(this.partner._id).subscribe({
-          next: (getProfit: any) => {
-            this.calculatedProfit = getProfit.totalIncome;
-          }
-        });
-
-      }
+      
     }
 }

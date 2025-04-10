@@ -64,17 +64,43 @@ export class SocialMediaSettingsComponent implements OnInit, OnDestroy, OnChange
     private socialMediaSettingsService: SocialMediaSettingsService,
   ) {}
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['partner'] && this.partner?.socialMedia) {
-      this.initializeForms();
+    ngOnChanges(changes: SimpleChanges): void {
+      if (changes['partner'] && this.partner) {
+        // Ensure the socialMedia object exists
+        if (!this.partner.socialMedia) {
+          this.partner.socialMedia = {
+            whatsappGroupLink: '',
+            whatsappChatLink: '',
+            facebookPage: '',
+            linkedinPage: '',
+            youtubePage: '',
+            instagramPage: '',
+            tiktokPage: '',
+            twitterPage: '',
+          };
+        }
+        this.initializeForms();
+      }
     }
-  }
-
-  ngOnInit(): void {
-    if (this.partner?.socialMedia) {
-      this.initializeForms();
+    
+    ngOnInit(): void {
+      if (this.partner) {
+        // Ensure the socialMedia object exists
+        if (!this.partner.socialMedia) {
+          this.partner.socialMedia = {
+            whatsappGroupLink: '',
+            whatsappChatLink: '',
+            facebookPage: '',
+            linkedinPage: '',
+            youtubePage: '',
+            instagramPage: '',
+            tiktokPage: '',
+            twitterPage: '',
+          };
+        }
+        this.initializeForms();
+      }
     }
-  }
 
   private initializeForms(): void {
     const socialMediaKeyMap: { [key: string]: keyof PartnerInterface['socialMedia'] } = {

@@ -42,11 +42,10 @@ import { TestimonialWriteupSettingsComponent } from './testimonial-writeup/testi
 
             <mat-tab-group>
                 <mat-tab label="Social Medial Settings">
-                    <async-social-media-settings *ngIf="partner" [partner]="partner"></async-social-media-settings>
+                    <async-social-media-settings *ngIf="partner" [partner]="partner"/>
                 </mat-tab>
-                <!-- <mat-tab label="Testimonial Video Upload"> Content 2 </mat-tab> -->
                 <mat-tab label="Testimonial Write Up"> 
-                    <async-testimonial-writeup-settings *ngIf="partner" [partner]="partner"></async-testimonial-writeup-settings>
+                    <async-testimonial-writeup-settings *ngIf="partner" [partner]="partner"/>
                 </mat-tab>
             </mat-tab-group>
   

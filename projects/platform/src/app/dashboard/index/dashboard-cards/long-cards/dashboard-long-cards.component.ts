@@ -9,39 +9,47 @@ import { PowerOfTenPipe } from '../../../../_common/pipes/power-of-ten';
   selector: 'async-dashboard-long-cards',
   imports: [CommonModule, MatCardModule, MatProgressSpinnerModule, MatIconModule, PowerOfTenPipe],
   template: `
-   <mat-card class="card" [ngStyle]="{'border-bottom-color': borderColor}">
-      <div class="card-content">
-        <div class="text-section">
-          <p class="title">{{ title }}</p>
-          <div class="growth" [ngStyle]="{'color': growthColor}">
-            <span class="arrow">
-              <mat-icon>{{icon}}</mat-icon>
-            </span>
-            <span class="percentage">
-              {{ mainValue.count }} 
-              @if ( mainValue.total !== '' ) {
-                <span >/ {{mainValue.total | powerOfTen }}</span>
-              }
-            </span>
-          </div>
-        </div>
-        <div class="progress-circle">
-          <mat-spinner 
-            diameter="60" 
-            mode="determinate" 
-            [value]="((mainValue.count / mainValue.total) * 100) | number:'1.1-1'"
-            class="spinner">
-          </mat-spinner>
-          <span class="progress-text">
-            @if ( mainValue.total !== '' ) {
-              {{ ((mainValue.count / mainValue.total) * 100) | number:'1.1-1'  }}%
-            } @else {
-              0 %
-            }
-          </span>
-        </div>
+
+
+<mat-card class="card" [ngStyle]="{'border-bottom-color': borderColor}">
+  <div class="card-content">
+    <div class="text-section">
+      <p class="title">{{ title }}</p>
+      <div class="growth" [ngStyle]="{'color': growthColor}">
+        <span class="arrow">
+          <mat-icon>{{ icon }}</mat-icon>
+        </span>
+        <span class="percentage">
+          {{ mainValue.count }}
+          <span *ngIf="mainValue?.total && mainValue.total > 0">/ {{ mainValue.total | powerOfTen }}</span>
+        </span>
       </div>
-    </mat-card>
+    </div>
+    <div class="progress-circle">
+      <!-- Background Circle -->
+      <div class="background-circle"></div>
+
+      <!-- Progress Spinner -->
+      <mat-spinner 
+        diameter="60" 
+        mode="determinate" 
+        [value]="mainValue.total && mainValue.total > 0 ? (mainValue.count / mainValue.total) * 100 : 0"
+        class="spinner">
+      </mat-spinner>
+
+      <!-- Progress Text -->
+      <span class="progress-text">
+        <ng-container *ngIf="mainValue?.total && mainValue.total > 0; else zeroProgress">
+          {{ ((mainValue.count / mainValue.total) * 100) | number:'1.1-1' }}%
+        </ng-container>
+        <ng-template #zeroProgress>
+          0%
+        </ng-template>
+      </span>
+    </div>
+  </div>
+</mat-card>
+
   `,
   styles: [
     `
@@ -74,16 +82,33 @@ import { PowerOfTenPipe } from '../../../../_common/pipes/power-of-ten';
         font-size: 18px;
         margin-right: 5px;
       }
+
       .progress-circle {
         position: relative;
         display: flex;
         align-items: center;
         justify-content: center;
-      }
-      .progress-text {
-        position: absolute;
-        font-size: 10px;
-        font-weight: bold;
+
+        .background-circle {
+          position: absolute;
+          width: 60px; /* Match the diameter of the spinner */
+          height: 60px; /* Match the diameter of the spinner */
+          border-radius: 50%;
+          border: 5px solid #e0e0e0; /* Light gray background circle */
+          box-sizing: border-box;
+        }
+
+        .spinner {
+          position: relative;
+          z-index: 1; /* Ensure the spinner is above the background circle */
+        }
+
+        .progress-text {
+          position: absolute;
+          font-size: 10px;
+          font-weight: bold;
+          z-index: 2; /* Ensure the text is above both the spinner and background circle */
+        }
       }
 
       ::ng-deep .spinner svg circle {
@@ -110,17 +135,19 @@ import { PowerOfTenPipe } from '../../../../_common/pipes/power-of-ten';
 export class DashboardLongCardsComponent implements OnInit {
   @Input() title!: string;
   @Input() value!: number;
-  @Input() mainValue!: any;
+  @Input() mainValue: { count: number; total: number } = { count: 0, total: 1 }; // Default values
   @Input() borderColor: string = 'green';  // Default color
   @Input() growthColor: string = '#2e7d32'; // Default text color
-  @Input() icon: string = 'arrow_upward'; // Default text color
+  @Input() icon: string = 'arrow_upward'; // Default icon
 
   @HostBinding('style.--spinner-color') get spinnerColor() {
     return this.borderColor;
   }
 
   ngOnInit(): void {
-    // console.log(this.mainValue)
+    // Ensure mainValue is properly initialized
+    if (!this.mainValue) {
+      this.mainValue = { count: 0, total: 1 };
+    }
   }
-
 }

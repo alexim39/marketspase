@@ -2,35 +2,39 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatIconModule } from '@angular/material/icon';
 import { PartnerInterface } from '../../../_common/services/partner.service';
 
 @Component({
   selector: 'async-side-graph',
-  imports: [CommonModule, MatProgressSpinnerModule, MatProgressBarModule, MatIconModule],
+  imports: [CommonModule, MatProgressSpinnerModule, MatProgressBarModule],
   template: `
     <div class="dashboard-card">
       <div class="header">
-        <span>{{partner.incomeTarget.period.toLocaleUpperCase()}} INCOME TARGET</span>
-        <mat-icon class="menu-icon">more_vert</mat-icon>
+        <span>{{ partner.incomeTarget.period ? partner.incomeTarget.period.toLocaleUpperCase() : 'N/A' }} INCOME TARGET</span>
       </div>
 
       <div class="chart-container">
+        <!-- Background Circle -->
+        <div class="background-circle"></div>
+
+        <!-- Progress Spinner -->
         <mat-progress-spinner 
           mode="determinate" 
           [value]="progressPercentage" 
           diameter="100" 
           color="primary">
         </mat-progress-spinner>
-        <div class="percentage-text">{{progressPercentage}}%</div>
+
+        <!-- Percentage Text -->
+        <div class="percentage-text">{{ progressPercentage }}%</div>
       </div>
 
       <div class="progress-section">
-        <span class="progress-label">{{progressPercentage}}%</span>
+        <span class="progress-label">{{ progressPercentage }}%</span>
         <mat-progress-bar mode="determinate" [value]="progressPercentage" color="warn"></mat-progress-bar>
         <span class="progress-text">
-          Current progress towards a {{ partner.incomeTarget.period | titlecase }} income target of 
-          {{ partner.incomeTarget.targetAmount | currency:'₦':'symbol':'1.2-2' }}.
+          Current progress towards a {{ partner.incomeTarget.period ? (partner.incomeTarget.period | titlecase) : 'N/A' }} income target of 
+          {{ partner.incomeTarget.targetAmount ? (partner.incomeTarget.targetAmount | currency:'₦':'symbol':'1.2-2') : 'N/A' }}.
         </span>
       </div>
     </div>
@@ -53,17 +57,34 @@ import { PartnerInterface } from '../../../_common/services/partner.service';
       cursor: pointer;
       font-size: 20px;
     }
+
     .chart-container {
       position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
       margin-top: 10px;
-    }
-    .percentage-text {
-      position: absolute;
-      font-size: 22px;
-      font-weight: bold;
+
+      .background-circle {
+        position: absolute;
+        width: 100px; /* Match the diameter of the spinner */
+        height: 100px; /* Match the diameter of the spinner */
+        border-radius: 50%;
+        border: 10px solid #e0e0e0; /* Light gray background circle */
+        box-sizing: border-box;
+      }
+
+      mat-progress-spinner {
+        position: relative;
+        z-index: 1; /* Ensure the spinner is above the background circle */
+      }
+
+      .percentage-text {
+        position: absolute;
+        font-size: 22px;
+        font-weight: bold;
+        z-index: 2; /* Ensure the text is above both the spinner and background circle */
+      }
     }
     .progress-section {
       text-align: left;
@@ -111,18 +132,27 @@ import { PartnerInterface } from '../../../_common/services/partner.service';
 export class SideGraphComponent implements OnInit {
   @Input() partner!: PartnerInterface;
   @Input() calculatedProfit: number = 0; // default
-  @Input() incomeTarget: number = 10000; // default
-
-  
+  incomeTarget: number = 0; // default
 
   ngOnInit(): void {
+    // Ensure partner and incomeTarget are properly initialized
+    if (!this.partner) {
+      this.partner = {
+        incomeTarget: {
+          period: 'N/A',
+          targetAmount: 0,
+        },
+      } as PartnerInterface;
+    }
 
+    if (!this.partner.incomeTarget) {
+      this.partner.incomeTarget = {
+        period: 'N/A',
+        targetAmount: 0,
+      };
+    }
 
-    this.incomeTarget = this.partner.incomeTarget.targetAmount;
-
-    // console.log(this.calculatedProfit)
-    // console.log(this.incomeTarget)
-    // console.log(this.partner.incomeTarget.period)
+    this.incomeTarget = this.partner.incomeTarget.targetAmount || 10000;
   }
 
   get progressPercentage(): number {

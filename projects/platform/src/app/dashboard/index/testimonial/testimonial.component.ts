@@ -10,7 +10,11 @@ import { TestimonialInterface } from '../index.service';
  
  <div class="testimonial-section">
   <h3 class="section-title">What Our Members Say</h3>
-  <div class="testimonial-carousel">
+  <div 
+    class="testimonial-carousel" 
+    (mouseenter)="pauseProgress()" 
+    (mouseleave)="resumeProgress()"
+  >
     <button class="nav-button" (click)="prevTestimonial()">&#8249;</button>
 
     <div class="testimonial-card">
@@ -143,40 +147,30 @@ import { TestimonialInterface } from '../index.service';
 
 export class TestimonialsComponent implements OnInit {
   @Input() partner!: PartnerInterface;
-  @Input() testimonials!: TestimonialInterface[]; // Accept testimonials as input
-  
-  /* testimonials = [
-    {
-      name: 'Jane Doe',
-      location: 'Lagos, Nigeria',
-      message: 'This platform changed the way I do my business online. Truly amazing!',
-      avatar: 'assets/avatars/jane.jpg',
-    },
-    {
-      name: 'Samuel Okoro',
-      location: 'Abuja, Nigeria',
-      message: 'I love how easy it is to track my team performance and income!',
-      avatar: 'assets/avatars/samuel.jpg',
-    },
-    {
-      name: 'Grace Uche',
-      location: 'Port Harcourt, Nigeria',
-      message: 'The trainings and support helped me scale faster than I expected.',
-      avatar: 'assets/avatars/grace.jpg',
-    },
-  ]; */
+  @Input() testimonials: TestimonialInterface[] = []; // Default to an empty array
 
   currentIndex = 0;
   progress = 0; // Progress percentage
   intervalTime = 20000; // 20 seconds for each testimonial
   progressInterval: any;
+  autoSwitchInterval: any;
+  isPaused = false; // Flag to track if the progress is paused
 
   ngOnInit() {
-    //console.log('Partner:', this.partner);
-
+    if (!this.testimonials || this.testimonials.length === 0) {
+      // Provide a default testimonial if none are provided
+      this.testimonials = [
+        {
+          avatar: 'assets/default-avatar.png', // Path to a default avatar image
+          message: 'No testimonials available.',
+          name: 'Anonymous',
+          location: '',
+        },
+      ];
+    }
 
     this.startProgress();
-    setInterval(() => {
+    this.autoSwitchInterval = setInterval(() => {
       this.nextTestimonial();
     }, this.intervalTime);
   }
@@ -206,6 +200,29 @@ export class TestimonialsComponent implements OnInit {
   resetProgress() {
     clearInterval(this.progressInterval);
     this.progress = 0;
-    this.startProgress();
+
+    // Only restart progress if not paused
+    if (!this.isPaused) {
+      this.startProgress();
+    }
+  }
+
+  pauseProgress() {
+    this.isPaused = true; // Set the paused flag
+    clearInterval(this.progressInterval); // Stop the progress bar
+    clearInterval(this.autoSwitchInterval); // Stop auto-switching testimonials
+  }
+
+  resumeProgress() {
+    this.isPaused = false; // Clear the paused flag
+    this.startProgress(); // Resume the progress bar
+    this.autoSwitchInterval = setInterval(() => {
+      this.nextTestimonial();
+    }, this.intervalTime); // Resume auto-switching testimonials
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.progressInterval);
+    clearInterval(this.autoSwitchInterval);
   }
 }

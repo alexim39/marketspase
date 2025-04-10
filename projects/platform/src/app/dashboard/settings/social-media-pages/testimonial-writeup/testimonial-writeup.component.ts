@@ -34,7 +34,7 @@ import { MatSelectModule } from '@angular/material/select';
         <mat-form-field appearance="outline">
           <mat-label>Write your testimonial</mat-label>
           <textarea matInput formControlName="message" #message maxlength="500" class="custom-textarea"></textarea>
-          <mat-hint align="start"><strong>Write your experience to motivate prospects</strong></mat-hint>
+          <mat-hint align="start"><strong>Write your experience to motivate others</strong></mat-hint>
           <mat-hint align="end">{{message.value.length}} / 500</mat-hint>
         </mat-form-field>
         <br>

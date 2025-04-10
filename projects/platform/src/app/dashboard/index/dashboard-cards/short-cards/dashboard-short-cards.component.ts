@@ -22,6 +22,9 @@ import { MatIconModule } from '@angular/material/icon';
           </div>
         </div>
         <div class="progress-circle">
+          <!-- Background Circle -->
+          <div class="background-circle"></div>
+
           <mat-spinner 
             diameter="60" 
             mode="determinate" 
@@ -36,6 +39,7 @@ import { MatIconModule } from '@angular/material/icon';
             }
           </span>
         </div>
+
       </div>
     </mat-card>
   `,
@@ -70,17 +74,34 @@ import { MatIconModule } from '@angular/material/icon';
         font-size: 18px;
         margin-right: 5px;
       }
-      .progress-circle {
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+
+    .progress-circle {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .background-circle {
+        position: absolute;
+        width: 60px; /* Match the diameter of the spinner */
+        height: 60px; /* Match the diameter of the spinner */
+        border-radius: 50%;
+        border: 5px solid #e0e0e0; /* Light gray background circle */
+        box-sizing: border-box;
       }
+
+      .spinner {
+        position: relative;
+        z-index: 1; /* Ensure the spinner is above the background circle */
+      }
+
       .progress-text {
         position: absolute;
         font-size: 10px;
         font-weight: bold;
+        z-index: 2; /* Ensure the text is above both the spinner and background circle */
       }
+    }
 
       ::ng-deep .spinner svg circle {
         stroke: var(--spinner-color) !important;
@@ -106,17 +127,19 @@ import { MatIconModule } from '@angular/material/icon';
 export class DashboardShortCardsComponent implements OnInit {
   @Input() title!: string;
   @Input() value!: number;
-  @Input() mainValue!: any;
+  @Input() mainValue: { range: number; total: number } = { range: 0, total: 1 }; // Default values
   @Input() borderColor: string = 'green';  // Default color
   @Input() growthColor: string = '#2e7d32'; // Default text color
-  @Input() icon: string = 'arrow_upward'; // Default text color
+  @Input() icon: string = 'arrow_upward'; // Default icon
 
   @HostBinding('style.--spinner-color') get spinnerColor() {
     return this.borderColor;
   }
 
   ngOnInit(): void {
-    // console.log(this.mainValue)
+    // Ensure mainValue is properly initialized
+    if (!this.mainValue) {
+      this.mainValue = { range: 0, total: 1 };
+    }
   }
-
 }
