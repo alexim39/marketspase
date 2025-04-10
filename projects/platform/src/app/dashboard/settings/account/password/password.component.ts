@@ -148,38 +148,38 @@ export class PasswordChangeComponent implements OnInit, OnDestroy {
 
       this.subscriptions.push(
           this.settingsService.changePassword(passwordObject).subscribe({
-              next: (response) => {
-                if (response.success) {
-                  Swal.fire({
-                    position: "bottom",
-                    icon: 'success',
-                    text: response.message,
-                    confirmButtonColor: 'rgb(5, 1, 17)',
-                    timer: 4000,
-                  }).then((result) => {
-                    if (result.isConfirmed) {
-                    // Reset the form and clear validation errors
-                    this.passwordForm.reset();
-                    this.passwordForm.markAsPristine(); // Mark the form as pristine
-                    this.passwordForm.markAsUntouched(); // Mark the form as untouched
-                    }
-                  })
-                }
-
-              },
-              error: (error: HttpErrorResponse) => {
-                let errorMessage = 'Server error occurred, please try again.'; // default error message.
-                if (error.error && error.error.message) {
-                  errorMessage = error.error.message; // Use backend's error message if available.
-                }
+            next: (response) => {
+              if (response.success) {
                 Swal.fire({
                   position: "bottom",
-                  icon: 'error',
-                  text: errorMessage,
-                  showConfirmButton: false,
-                  timer: 4000
-                });                
+                  icon: 'success',
+                  text: response.message,
+                  confirmButtonColor: 'rgb(5, 1, 17)',
+                  timer: 4000,
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                  // Reset the form and clear validation errors
+                  this.passwordForm.reset();
+                  this.passwordForm.markAsPristine(); // Mark the form as pristine
+                  this.passwordForm.markAsUntouched(); // Mark the form as untouched
+                  }
+                })
               }
+
+            },
+            error: (error: HttpErrorResponse) => {
+              let errorMessage = 'Server error occurred, please try again.'; // default error message.
+              if (error.error && error.error.message) {
+                errorMessage = error.error.message; // Use backend's error message if available.
+              }
+              Swal.fire({
+                position: "bottom",
+                icon: 'error',
+                text: errorMessage,
+                showConfirmButton: false,
+                timer: 4000
+              });                
+            }
           })
         )
       }

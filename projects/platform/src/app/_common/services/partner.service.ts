@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, Observable, retry, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, } from 'rxjs';
 import { ApiService } from './api.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 export interface PartnerInterface {
   _id: string;
@@ -30,6 +29,21 @@ export interface PartnerInterface {
     targetAmount: number;
     period: string;
   },
+  socialMedia: {
+    whatsappGroupLink: string;  
+    whatsappChatLink: string;
+    facebookPage: string;
+    linkedinPage: string;
+    youtubePage: string;
+    instagramPage: string;
+    tiktokPage: string;
+    twitterPage: string;
+  },
+  testimonial?: {
+    message: string;
+    country: string;
+    state: string;
+  }
 }
 
 @Injectable()

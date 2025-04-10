@@ -140,9 +140,9 @@ import { RouterOutlet } from '@angular/router';
 export class BannerComponent implements OnInit, OnDestroy {
 
   carouselItems = [
-    { title: 'Welcome to MarketSpase', description: 'Your partner in Online Business Space. Get started today to join millions of online business owners worldwide!' },
-    { title: 'Effortless Business Management', description: 'Experience fast, reliable tools and support to manage and grow your digital assets.' },
-    { title: 'Low Startup Costs', description: 'Launch and grow a digital real estate business with minimal capital and start earning residual income right away.' }
+    { title: 'Welcome to MarketSpase', description: 'Your online business space for passive income. Get started today to join millions of online business owners worldwide!' },
+    { title: 'Effortless Business Management', description: 'Experience fast, reliable tools and support to manage and grow your business.' },
+    { title: 'Low Startup Costs', description: 'Launch and grow an online business with minimal capital and start earning passive income right away.' }
   ];
 
   currentIndex = 0;

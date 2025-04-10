@@ -1,0 +1,24 @@
+<section>
+  <mat-accordion>
+    <mat-expansion-panel *ngFor="let formKey of Object.keys(forms)" [expanded]="formKey === 'whatsappGroup'">
+      <mat-expansion-panel-header>
+        <mat-panel-title> Set up {{ formConfigs[formKey].label }} </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <form [formGroup]="forms[formKey]" (ngSubmit)="onSubmit(formKey)">
+        <mat-form-field appearance="outline">
+          <mat-label>Enter your {{ formConfigs[formKey].label }}</mat-label>
+          <input matInput formControlName="profileLink" />
+          <mat-hint>Example of link: {{ getExampleLink(formKey) }}</mat-hint>
+          <mat-error *ngIf="forms[formKey].get('profileLink')?.hasError('required')">
+            Link is required.
+          </mat-error>
+          <mat-error *ngIf="forms[formKey].get('profileLink')?.hasError('pattern')">
+            Link must be in the format: {{ getPatternHint(formKey) }}
+          </mat-error>
+        </mat-form-field>
+        <button mat-flat-button color="primary" type="submit">Submit</button>
+      </form>
+    </mat-expansion-panel>
+  </mat-accordion>
+</section>

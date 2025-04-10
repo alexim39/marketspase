@@ -1,9 +1,14 @@
 import { Injectable } from '@angular/core';
-import { HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { ApiService } from '../../_common/services/api.service';
 
+
+export interface TestimonialInterface {
+  name: string;
+  location: string;
+  message: string;
+  avatar: string;
+}
 @Injectable()
 export class IndexService {
   constructor(private apiService: ApiService) {}
@@ -43,5 +48,14 @@ export class IndexService {
      */
      getProfitForAPeriodDasboard(partnerId: string): Observable<any> {
       return this.apiService.get<any>(`dashboard/calculate-profit/${partnerId}`);
+    }
+
+    /**
+     * Get the form data to the backend.
+     * @param formObject The form data.
+     * @returns An observable of the submitted form data.
+    */
+     getRandomTestimonials(): Observable<any> {
+      return this.apiService.get<any>(`dashboard/random-testimonials`);
     }
 }

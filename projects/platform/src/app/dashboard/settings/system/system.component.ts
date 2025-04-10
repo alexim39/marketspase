@@ -47,7 +47,7 @@ import { IncomeTargetComponent } from './income-target/income-target.component';
                     <async-notification *ngIf="partner" [partner]="partner"/>
                 </mat-tab>
                 <mat-tab label="Income Target"> 
-                    <app-income-target *ngIf="partner" [partner]="partner"/>
+                    <async-income-target *ngIf="partner" [partner]="partner"/>
                 </mat-tab>
             </mat-tab-group>
   

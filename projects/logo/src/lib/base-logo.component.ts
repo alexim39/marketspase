@@ -10,7 +10,6 @@ import { RouterModule } from '@angular/router';
     <a [routerLink]="['/']" [style.color]="color">
       <span alt="MarketSpase Logo">
         <mat-icon [style.margin-top]="marginTop">sync</mat-icon>
-        <!-- <img src="img/logo.PNG" alt="Diamond Project Logo"> -->
         MarketSpase
       </span>
     </a>

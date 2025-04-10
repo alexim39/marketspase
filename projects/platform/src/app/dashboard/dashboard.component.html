@@ -67,7 +67,12 @@
         </div>
       </a>
       <div [@submenuToggle]="isSubmenuOpen('settings') ? 'open' : 'closed'" class="submenu">
-        <a mat-list-item routerLink="settings/account" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop()" title="Account settings">Account Settings</a>
+        <!-- <a mat-list-item routerLink="settings/account" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop()" title="Account settings">Account Settings</a> -->
+        <a mat-list-item (click)="toggleSubSubmenu('profile-settings')" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Account Settings</a>
+        <div [@submenuToggle]="isSubSubmenuOpen('profile-settings') ? 'open' : 'closed'" class="subsubmenu">
+          <a mat-list-item routerLink="settings/account" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop()" title="Profile Setting">Profile Setting</a>
+          <a mat-list-item routerLink="settings/social-pages" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop()" title="Social Media Setting">Social Media Setting</a>
+        </div>
         <a mat-list-item routerLink="settings/system" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop()" title="System settings">System Settings</a>
       </div>
       

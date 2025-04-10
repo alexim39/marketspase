@@ -85,8 +85,7 @@ import { AccountBalanceComponent } from './account-balance/account-balance.compo
 export class ProfileComponent implements OnInit {
   @Input() partner!: PartnerInterface;
   profilePictureUrl = './img/default_pp.png';
-  accountBalance = 10000;
-  private readonly apiURL = 'https://diamondprojectapi-y6u04o8b.b4a.run';
+  private readonly apiURL = '';
 
   ngOnInit(): void {
     this.setProfilePicture();

@@ -12,7 +12,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnDestroy, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
-  selector: 'app-income-target',
+  selector: 'async-income-target',
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -27,7 +27,7 @@ import { Component, Input, OnDestroy, OnInit, OnChanges, SimpleChanges } from '@
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Target Amount</mat-label>
       <input matInput type="number" formControlName="targetAmount" placeholder="Enter target amount" />
-      <mat-hint class="current">Current target amount: {{partner.incomeTarget.targetAmount | currency:'₦':'symbol':'1.2-2'}}</mat-hint>
+      <mat-hint class="current" *ngIf="partner">Current target amount: {{partner.incomeTarget.targetAmount | currency:'₦':'symbol':'1.2-2'}}</mat-hint>
       <mat-error *ngIf="incomeTargetForm.get('targetAmount')?.hasError('required')">
         Target amount is required.
       </mat-error>
@@ -45,7 +45,7 @@ import { Component, Input, OnDestroy, OnInit, OnChanges, SimpleChanges } from '@
         <mat-option value="Monthly">Monthly</mat-option>
         <mat-option value="Yearly">Yearly</mat-option>
       </mat-select>
-      <mat-hint class="current">Current period: {{partner.incomeTarget.period | titlecase}}</mat-hint>
+      <mat-hint class="current" *ngIf="partner">Current period: {{partner.incomeTarget.period | titlecase}}</mat-hint>
       <mat-error *ngIf="incomeTargetForm.get('period')?.hasError('required')">
         Period is required.
       </mat-error>
