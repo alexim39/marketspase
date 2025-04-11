@@ -89,63 +89,76 @@ section {
     .custom-textarea {  
       min-width: 300px;
       min-height: 200px; 
+      width: 100%; /* Ensure it takes full width of the container */
+      box-sizing: border-box; /* Include padding and border in width */
     }
   }
 }
 
-/* Responsive styles remain unchanged */
+/* Responsive styles */
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
   section {
-      margin-top: 1em;
-      form {
-          display: flex;
-          flex-direction: column;
-          width: 100%;
-          height: auto;
-          mat-hint {
-              color: gray;
-              margin: 0.5em 0;
-          }
-          button {
-              width: 20%;
-              margin-top: 2em;
-          }
-          .custom-textarea {  
-              min-width: 300px;
-              min-height: 200px; 
-          }
-      }
-  }
-    
-}
+    margin-top: 1em;
 
+    form {
+      display: flex;
+      flex-direction: column;
+      width: 100%; /* Full width for mobile */
+      height: auto;
+
+      mat-hint {
+        color: gray;
+        margin: 0.5em 0;
+      }
+
+      button {
+        width: 100%; /* Full width for the button */
+        margin-top: 2em;
+      }
+
+      .custom-textarea {  
+        min-width: 100%; /* Ensure it fits within the container */
+        min-height: 150px; /* Adjust height for smaller screens */
+        width: 100%; /* Full width for mobile */
+        box-sizing: border-box; /* Include padding and border in width */
+      }
+    }
+  }
+}
 
 /* iPads/tablet (portrait and landscape) */
 @media only screen and (min-device-width: 601px) and (max-device-width: 1024px) {
   section {
-      margin-top: 1em;
-      form {
-          display: flex;
-          flex-direction: column;
-          width: 100%;
-          height: auto;
-          mat-hint {
-              color: gray;
-              margin: 0.5em 0;
-          }
-          button {
-              width: 20%;
-              margin-top: 1em;
-          }
-          .custom-textarea {  
-              min-width: 300px;
-              min-height: 200px; 
-          }
+    margin-top: 1em;
+
+    form {
+      display: flex;
+      flex-direction: column;
+      width: 100%; /* Full width for tablets */
+      height: auto;
+
+      mat-hint {
+        color: gray;
+        margin: 0.5em 0;
       }
+
+      button {
+        width: 50%; /* Adjust button width for tablets */
+        margin-top: 1em;
+      }
+
+      .custom-textarea {  
+        min-width: 100%; /* Ensure it fits within the container */
+        min-height: 200px; /* Adjust height for tablets */
+        width: 100%; /* Full width for tablets */
+        box-sizing: border-box; /* Include padding and border in width */
+      }
+    }
   }
 }
+
 `],
 })
 export class TestimonialWriteupSettingsComponent {

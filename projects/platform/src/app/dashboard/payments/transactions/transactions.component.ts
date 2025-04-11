@@ -14,6 +14,8 @@ import { TransactionInterface } from '../payment.service';
 import { TransactionFilterPipe } from './transaction.pipe';
 import { RouterModule } from '@angular/router';
 import { HelpDialogComponent } from '../../../_common/help-dialog.component';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { MatCardModule } from '@angular/material/card';
 
 /**  
  * @title Billing  
@@ -93,7 +95,8 @@ import { HelpDialogComponent } from '../../../_common/help-dialog.component';
     MatButtonModule,  
     //TransactionFilterPipe, 
     MatTabsModule,
-    RouterModule
+    RouterModule,
+    MatCardModule
   ],  
 })  
 export class TransactionsComponent implements OnInit, AfterViewInit {  
@@ -108,9 +111,16 @@ export class TransactionsComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;  
 
+  isHandset: boolean = false;
   constructor(
-    
-  ) {}  
+    private breakpointObserver: BreakpointObserver
+  ) {
+    this.breakpointObserver.observe([
+      Breakpoints.Handset,
+    ]).subscribe(result => {
+      this.isHandset = result.matches;
+    });
+  }  
 
   ngOnInit() {  
 

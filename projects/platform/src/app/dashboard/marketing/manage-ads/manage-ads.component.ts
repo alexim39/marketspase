@@ -12,6 +12,8 @@ import { AdsInterface } from './manage-ads.service';
 import { CommonModule } from '@angular/common';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { timeAgo, expiration } from '../../../_common/date-util';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { MatCardModule } from '@angular/material/card';
 
 /**
  * @title Manage Campaign
@@ -73,7 +75,7 @@ import { timeAgo, expiration } from '../../../_common/date-util';
     }
   }
   `],
-  imports: [MatSliderModule, CommonModule, MatPaginatorModule, MatInputModule, MatFormFieldModule, RouterModule, FormsModule, MatButtonModule, MatIconModule, MatTableModule],
+  imports: [MatSliderModule, CommonModule, MatCardModule, MatPaginatorModule, MatInputModule, MatFormFieldModule, RouterModule, FormsModule, MatButtonModule, MatIconModule, MatTableModule],
 })
 export class ManageAdsComponent implements OnInit {
 
@@ -89,9 +91,19 @@ export class ManageAdsComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
+  isHandset: boolean = false;
+
+
   constructor(
     private router: Router,
-  ) { }
+    private breakpointObserver: BreakpointObserver
+  ) {
+    this.breakpointObserver.observe([
+      Breakpoints.Handset,
+    ]).subscribe(result => {
+      this.isHandset = result.matches;
+    });
+  }
 
   ngOnInit(): void {  
     if (this.ads.data) {  

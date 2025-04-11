@@ -12,7 +12,7 @@
 
     <mat-nav-list>
       <!-- Dashboard Link -->
-      <a mat-list-item routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop()">
+      <a mat-list-item routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop(); drawer.close()">
         <div>
           <mat-icon>home</mat-icon> 
           <span>Dashboard</span>
@@ -29,8 +29,8 @@
       <div [@submenuToggle]="isSubmenuOpen('tools') ? 'open' : 'closed'" class="submenu">
         <a mat-list-item (click)="toggleSubSubmenu('tools-create-campaign')" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Ads</a>
         <div [@submenuToggle]="isSubSubmenuOpen('tools-create-campaign') ? 'open' : 'closed'" class="subsubmenu">
-          <a mat-list-item routerLink="marketing/new" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop()" title="New ad">New Ad</a>
-          <a mat-list-item routerLink="marketing/ads" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop()" title="Manage Ad">Manage Ad</a>
+          <a mat-list-item routerLink="marketing/new" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop(); drawer.close()" title="New ad">New Ad</a>
+          <a mat-list-item routerLink="marketing/ads" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop(); drawer.close()" title="Manage Ad">Manage Ad</a>
         </div>
       </div>
 
@@ -44,18 +44,18 @@
       <div [@submenuToggle]="isSubmenuOpen('analytics') ? 'open' : 'closed'" class="submenu">
         <a mat-list-item (click)="toggleSubSubmenu('analytics-toggle')" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Spase Plans</a>
         <div [@submenuToggle]="isSubSubmenuOpen('analytics-toggle') ? 'open' : 'closed'" class="subsubmenu">
-          <a mat-list-item routerLink="business/new" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop()" title="New Plan">New Plan</a>
-          <a mat-list-item routerLink="business/plans" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop()" title="Manage Plans">Manage Plan</a>
+          <a mat-list-item routerLink="business/new" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop(); drawer.close()" title="New Plan">New Plan</a>
+          <a mat-list-item routerLink="business/plans" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop(); drawer.close()" title="Manage Plans">Manage Plan</a>
         </div>
     
-        <a mat-list-item routerLink="analytics" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop()" title="Business Analytics">
+        <a mat-list-item routerLink="analytics" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop(); drawer.close()" title="Business Analytics">
           Business Analytics
         </a>
 
         <a mat-list-item (click)="toggleSubSubmenu('analytics-payment')" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Payments</a>
         <div [@submenuToggle]="isSubSubmenuOpen('analytics-payment') ? 'open' : 'closed'" class="subsubmenu">
-          <a mat-list-item routerLink="payment/withdrawal" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop()" title="Funds Withdrawal">Withdraw</a>
-          <a mat-list-item routerLink="payment/transactions" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop()" title="Transactions History">Transactions</a>
+          <a mat-list-item routerLink="payment/withdrawal" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop(); drawer.close()" title="Funds Withdrawal">Withdraw</a>
+          <a mat-list-item routerLink="payment/transactions" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop(); drawer.close()" title="Transactions History">Transactions</a>
         </div>
       </div>
 
@@ -70,10 +70,10 @@
         <!-- <a mat-list-item routerLink="settings/account" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop()" title="Account settings">Account Settings</a> -->
         <a mat-list-item (click)="toggleSubSubmenu('profile-settings')" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Account Settings</a>
         <div [@submenuToggle]="isSubSubmenuOpen('profile-settings') ? 'open' : 'closed'" class="subsubmenu">
-          <a mat-list-item routerLink="settings/account" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop()" title="Profile Setting">Profile Setting</a>
-          <a mat-list-item routerLink="settings/social-pages" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop()" title="Social Media Setting">Social Media Setting</a>
+          <a mat-list-item routerLink="settings/account" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop(); drawer.close()" title="Profile Setting">Profile Setting</a>
+          <a mat-list-item routerLink="settings/social-pages" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop(); drawer.close()" title="Social Media Setting">Social Media Setting</a>
         </div>
-        <a mat-list-item routerLink="settings/system" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop()" title="System settings">System Settings</a>
+        <a mat-list-item routerLink="settings/system" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop(); drawer.close()" title="System settings">System Settings</a>
       </div>
       
       <!-- Support Section -->
@@ -84,7 +84,7 @@
         </div>
       </a>
       <div [@submenuToggle]="isSubmenuOpen('help') ? 'open' : 'closed'" class="submenu">
-        <a mat-list-item routerLink="support/contact" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop()" title="Contact support">
+        <a mat-list-item routerLink="support/contact" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop(); drawer.close()" title="Contact support">
           Contact
         </a>
       </div>
@@ -144,6 +144,7 @@
     <async-dashboard-footer></async-dashboard-footer>
   </mat-sidenav-content>
 </mat-sidenav-container>
+
 
 <mat-menu #manage_accounts="matMenu">
   <a mat-menu-item routerLink="business/new" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop()"><mat-icon>open_in_new</mat-icon> New Plan</a>

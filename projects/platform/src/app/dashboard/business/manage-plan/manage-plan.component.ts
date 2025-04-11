@@ -13,6 +13,8 @@ import { PartnerInterface } from '../../../_common/services/partner.service';
 import { RouterModule } from '@angular/router';
 import { HelpDialogComponent } from '../../../_common/help-dialog.component';
 import { PlanInterface } from '../new-plan.service';
+import { MatCardModule } from '@angular/material/card';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 /**  
  * @title Manage plan  
@@ -88,7 +90,8 @@ import { PlanInterface } from '../new-plan.service';
     MatIconModule,
     MatButtonModule,
     MatTabsModule,
-    RouterModule
+    RouterModule,
+    MatCardModule
   ],
 })
 export class ManagePlanComponent implements AfterViewInit {
@@ -102,6 +105,16 @@ export class ManagePlanComponent implements AfterViewInit {
   isEmptyRecord = false;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  isHandset: boolean = false;
+
+   constructor(private breakpointObserver: BreakpointObserver) {
+      this.breakpointObserver.observe([
+        Breakpoints.Handset,
+      ]).subscribe(result => {
+        this.isHandset = result.matches;
+      });
+    }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes['plans'] && changes['plans'].currentValue) {

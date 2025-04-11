@@ -30,7 +30,7 @@
             </mat-form-field>  
           </div>  
         
-          <div class="table">  
+          <div class="table" *ngIf="!isHandset">  
             <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">  
               <ng-container matColumnDef="transactionId">  
                 <th mat-header-cell *matHeaderCellDef> Transaction ID </th>  
@@ -85,6 +85,56 @@
         
             <mat-paginator [pageSizeOptions]="[10, 20, 30, 60, 100]" showFirstLastButtons></mat-paginator>  
           </div>  
+
+          <!-- Mobile View -->
+          <div *ngIf="isHandset">
+            <mat-card class="table" *ngFor="let element of dataSource.filteredData">
+              <mat-card-content>
+                <div class="row">
+                  <span class="label">Transaction ID:</span>
+                  <span class="value">
+                    {{element.reference}} 
+                  </span>
+                </div>
+                <div class="row">
+                  <span class="label">Date:</span>
+                  <span class="value">
+                    {{element.createdAt | date}} 
+                  </span>
+                </div>
+                <div class="row">
+                  <span class="label">Amount:</span>
+                  <span class="value"> 
+                    {{element.amount | currency:'₦':'symbol':'1.2-2'}}
+                  </span>
+                </div>
+                <div class="row">
+                  <span class="label">Platform:</span>
+                  <span class="value">
+                    {{element.paymentMethod}} 
+                  </span>
+                </div>
+                <div class="row">
+                  <span class="label">Purpose:</span>
+                  <span class="value"> {{element.purpose}}  </span>
+                </div>
+                <div class="row">
+                  <span class="label">Status:</span>
+                  <span class="value">{{element.status | titlecase }}</span>
+                </div>
+                <div class="row">
+                  <span class="label"> Type:</span>
+                  <span class="value">{{element.transactionType}} </span>
+                </div>
+                <div class="row">
+                  <span class="label">Action:</span>
+                  <span class="value">
+                    <mat-icon title="Download">download</mat-icon>
+                  </span>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
         </ng-container>  
         
         <ng-container *ngIf="isEmptyRecord">  

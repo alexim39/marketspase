@@ -25,3 +25,63 @@ body { margin: 0; }
     }
   }
 }
+
+
+mat-card.table {
+  margin: 16px 0; /* Add spacing between cards */
+  padding: 16px; /* Add padding inside the card */
+  border-radius: 8px; /* Rounded corners for a modern look */
+  box-shadow: 0 5px 10px rgba(30, 30, 30, 0.1); /* Subtle shadow for depth */
+  background-color: #ffffff; /* White background for better readability */
+  transition: transform 0.2s ease, box-shadow 0.2s ease; /* Smooth hover effect */
+  border-bottom: 1px solid #686868; /* Subtle bottom border for separation */
+
+  &:hover {
+    transform: translateY(-4px); /* Slight lift on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+  }
+
+  mat-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px; /* Add spacing between rows */
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0; /* Add spacing between rows */
+      border-bottom: 1px solid #f0f0f0; /* Add a subtle divider */
+      font-size: 0.95rem; /* Adjust font size for readability */
+
+      &:last-child {
+        border-bottom: none; /* Remove border for the last row */
+      }
+
+      .label {
+        font-weight: bold;
+        //color: #007bff; /* Highlighted labels with a primary color */
+        flex: 1; /* Ensure labels take up equal space */
+      }
+
+      .value {
+        text-align: right;
+        color: #333; /* Darker text for better contrast */
+        flex: 1; /* Ensure values take up equal space */
+      }
+    }
+  }
+
+  /* Responsive adjustments for smaller screens */
+  @media (max-width: 600px) {
+    padding: 12px; /* Reduce padding for smaller screens */
+    margin: 12px 0; /* Adjust spacing between cards */
+
+    mat-card-content {
+      .row {
+        font-size: 0.9rem; /* Slightly smaller font size for mobile */
+        padding: 6px 0; /* Reduce padding for smaller screens */
+      }
+    }
+  }
+}
