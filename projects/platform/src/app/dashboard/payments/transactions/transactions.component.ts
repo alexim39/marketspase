@@ -115,9 +115,9 @@ export class TransactionsComponent implements OnInit, AfterViewInit {
   constructor(
     private breakpointObserver: BreakpointObserver
   ) {
-    this.breakpointObserver.observe([
-      Breakpoints.Handset,
-    ]).subscribe(result => {
+    this.breakpointObserver
+    .observe([Breakpoints.Handset, Breakpoints.Tablet])
+    .subscribe((result) => {
       this.isHandset = result.matches;
     });
   }  
