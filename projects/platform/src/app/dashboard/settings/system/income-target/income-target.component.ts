@@ -94,20 +94,22 @@ export class IncomeTargetComponent implements OnInit, OnDestroy, OnChanges {
   ) {}
 
   ngOnInit(): void {
-    // Initialize the form with default values
+    // Initialize the form with default values to prevent undefined errors
     this.incomeTargetForm = this.fb.group({
-    targetAmount: [this.partner.incomeTarget.targetAmount, [Validators.required, Validators.min(1000)]],
-    period: [this.partner.incomeTarget.period, Validators.required]
+      targetAmount: [this.partner?.incomeTarget?.targetAmount || 0, [Validators.required, Validators.min(1000)]],
+      period: [this.partner?.incomeTarget?.period || 'Monthly', Validators.required]
     });
   }
 
-   ngOnChanges(changes: SimpleChanges): void {
-    // Update the form values when the partner input changes
+  ngOnChanges(changes: SimpleChanges): void {
     if (changes['partner'] && changes['partner'].currentValue) {
-      this.incomeTargetForm.patchValue({
-        targetAmount: this.partner.incomeTarget.targetAmount,
-        period: this.partner.incomeTarget.period
-      });
+      const incomeTarget = this.partner?.incomeTarget;
+      if (incomeTarget) {
+        this.incomeTargetForm.patchValue({
+          targetAmount: incomeTarget.targetAmount || 0,
+          period: incomeTarget.period || 'Monthly'
+        });
+      }
     }
   }
 

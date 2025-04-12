@@ -35,7 +35,7 @@
 
 
       width: 50%;
-      form {
+      form, .saved-accounts{
         display: grid;
         gap: 1.5em;
 
@@ -55,6 +55,14 @@
             }
         }
        
+      }
+
+      .saved-accounts {
+        strong {
+          font-weight: bolder;
+          margin-bottom: -1em;
+          color: navy;
+        }
       }
     }
 

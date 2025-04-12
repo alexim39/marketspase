@@ -13,6 +13,15 @@ export interface TransactionInterface {
   }>;
 }
 
+// saved-account.model.ts
+export interface SavedAccountInterface {
+  _id: string;
+  bank: string;
+  bankCode: string;
+  accountNumber: string;
+  accountName: string;
+}
+
 @Injectable()
 export class PaymentService {
   
@@ -33,6 +42,7 @@ export class PaymentService {
    * @returns An observable of the submitted form data.
    */
   withdrawRequest(formObject: any): Observable<any> {
+    //console.log('withdrawRequest', formObject);
     return this.apiService.post<any>('transaction/withdraw-request', formObject);
   }
 }

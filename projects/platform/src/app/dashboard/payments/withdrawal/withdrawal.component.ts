@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { PartnerInterface } from '../../../_common/services/partner.service';
 import { MatIconModule } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
-import { PaymentService } from '../payment.service';
+import { PaymentService, SavedAccountInterface } from '../payment.service';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Subscription, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators';
@@ -18,6 +18,7 @@ import { HelpDialogComponent } from '../../../_common/help-dialog.component';
 import { MatSelectChange, MatSelectModule, MatSelect } from '@angular/material/select';
 import { MatOption } from '@angular/material/core';
 import { AccountBalanceService } from '../../profile/account-balance/account-balance.service';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 /**
  * @title Withdrawal components
@@ -32,8 +33,9 @@ import { AccountBalanceService } from '../../profile/account-balance/account-bal
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
-    MatProgressBarModule,
-    RouterModule, CommonModule, CommonModule, ReactiveFormsModule],
+    MatProgressBarModule, MatSlideToggleModule,
+    RouterModule, CommonModule, CommonModule, ReactiveFormsModule
+  ],
   styleUrls: ["withdrawal.component.scss"],
   templateUrl: "withdrawal.component.html",
 })
@@ -52,6 +54,8 @@ export class WithdrawalComponent implements OnInit, OnDestroy {
   @ViewChild('bankSelect', { static: false }) bankSelect!: MatSelect;
   @ViewChild('searchInput', { static: false }) searchInput!: ElementRef;
 
+  savedAccounts: SavedAccountInterface[] = [];  
+
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
@@ -60,7 +64,9 @@ export class WithdrawalComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+
     this.withdrawForm = this.fb.group({
+      saveAccount: [false, Validators.required],
       bank: ['', Validators.required],
       accountNumber: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(11)]],
       accountName: ['', Validators.required],
@@ -77,7 +83,11 @@ export class WithdrawalComponent implements OnInit, OnDestroy {
     ).subscribe(searchTerm => {
       this.filterBanks(searchTerm);
     });
+
+    this.getSavedAccounts();
   }
+
+
 
   private getBanks() {
     this.http.get('https://api.paystack.co/bank').subscribe((response: any) => {
@@ -134,6 +144,32 @@ export class WithdrawalComponent implements OnInit, OnDestroy {
       });
     }
   }
+
+
+
+  private getSavedAccounts() {
+    // Fetch saved accounts (this could come from a service)
+    this.savedAccounts = this.partner.savedAccounts || [];
+   /*  this.savedAccounts = [
+      { id: '1', bank: 'Access Bank', bankCode: '044', accountNumber: '0040342224', accountName: 'John Doe' },
+      { id: '2', bank: 'GTBank', bankCode: '058', accountNumber: '0123456789', accountName: 'Jane Smith' }
+    ]; */
+  }
+
+  populateForm(accountId: string) {
+    const selected = this.savedAccounts.find(acc => acc._id === accountId);
+    if (selected) {
+      this.withdrawForm.patchValue({
+        bank: selected.bankCode, // Set the bank field to the bank code
+        accountNumber: selected.accountNumber,
+        accountName: selected.accountName
+      });
+  
+      // Update the selected bank name for display purposes
+      this.selectedBankName = selected.bank;
+    }
+  }
+
 
   // Handle form submission
   onSubmit() {

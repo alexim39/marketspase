@@ -145,8 +145,18 @@ export class DashboardComponent implements OnDestroy {
       shareReplay()
     );
 
-  scrollToTop() {
+    private onMenuClick(drawer: any): void {
+      this.isHandset$.subscribe(isHandset => {
+        if (isHandset) {
+          drawer.close();
+        }
+      });
+    }
+
+  scrollToTop(drawer: any) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    this.onMenuClick(drawer); // Close the drawer if on mobile
   }
 
   signOut(): void {
@@ -170,7 +180,7 @@ export class DashboardComponent implements OnDestroy {
         }
       })
     );
-    this.scrollToTop();
+    this.scrollToTop(null); // Close the drawer if on mobile
   }
   
 

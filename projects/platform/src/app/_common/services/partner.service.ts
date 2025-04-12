@@ -43,7 +43,14 @@ export interface PartnerInterface {
     message: string;
     country: string;
     state: string;
-  }
+  },
+  savedAccounts?: Array<{
+    _id: string;   
+    bank: string;
+    bankCode: string;
+    accountNumber: string;
+    accountName: string;
+  }>
 }
 
 @Injectable()
