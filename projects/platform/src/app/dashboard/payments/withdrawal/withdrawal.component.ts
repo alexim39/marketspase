@@ -184,41 +184,37 @@ export class WithdrawalComponent implements OnInit, OnDestroy {
 
       this.subscriptions.push(
         this.paymentService.withdrawRequest(formData).subscribe({
-          next: (res) => {
+          next: (response) => {
             //console.log('Payment successful and balance updated!',res);
-            Swal.fire({
-              position: "bottom",
-              icon: 'success',
-              text: 'Thank you for the request. Your account will be credited soon',
-              confirmButtonColor: "rgb(5, 1, 17)",
-              timer: 10000,
-            }).then((result) => {
-              if (result.isConfirmed) {
-                // reload the page.
-                //location.reload();
-                this.accountBalanceService.notifyBalanceUpdated();
-              }
-            });
+            if (response.success) {
+              Swal.fire({
+                position: "bottom",
+                icon: 'success',
+                text:  response.message,//'Thank you for the request. Your account will be credited soon',
+                confirmButtonColor: "rgb(5, 1, 17)",
+                timer: 8000,
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  // reload the page.
+                  //location.reload();
+                  this.accountBalanceService.notifyBalanceUpdated();
+                }
+              });
+            }
           },
           error: (error: HttpErrorResponse) => {
             //console.error('Error confirming payment:', error);
-            if (error.status == 401) {
+             let errorMessage = 'Server error occurred, please try again.'; // default error message.
+              if (error.error && error.error.message) {
+                errorMessage = error.error.message; // Use backend's error message if available.
+              }
               Swal.fire({
                 position: "bottom",
-                icon: 'info',
-                text: 'Your balance is insufficient to complete request',
+                icon: 'error',
+                text: errorMessage,
                 showConfirmButton: false,
                 timer: 4000
               });
-            } else {
-              Swal.fire({
-                position: "bottom",
-                icon: 'info',
-                text: 'Server error occured, please try again',
-                showConfirmButton: false,
-                timer: 4000
-              })
-            }
           }
         })
       );

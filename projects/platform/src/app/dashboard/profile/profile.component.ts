@@ -7,7 +7,6 @@ import { AccountBalanceComponent } from './account-balance/account-balance.compo
 
 @Component({
   selector: 'async-profile',
-  standalone: true,
   imports: [MatCardModule, MatButtonModule, CommonModule, AccountBalanceComponent],
   template: `
     <mat-card class="profile-card">
@@ -36,7 +35,7 @@ import { AccountBalanceComponent } from './account-balance/account-balance.compo
     .profile-card {
       box-shadow: 0 2px 10px rgba(0,0,0,0.1);
       margin: 8em 0 0 -1em;
-      padding-right: 1em;
+      padding-right: 0.3em;
 
     }
     .profile-avatar img {
