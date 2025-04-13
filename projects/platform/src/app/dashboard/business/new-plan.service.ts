@@ -23,7 +23,7 @@ export class PlanService {
  * @param formObject The plan form data.
  * @returns An observable of the submitted form data.
  */
-  submit(formObject: PlanInterface): Observable<any> {
+  purchase(formObject: PlanInterface): Observable<any> {
     return this.apiService.post<PlanInterface>('plan', formObject);
   }
 

@@ -14,7 +14,10 @@
     <div class="title">
         <h3>Fund withdraw Request</h3>
         <div class="action-area">
-            <a mat-list-item routerLink="../../payment/transactions" routerLinkActive="active" (click)="scrollToTop()" title="Create Campaign" mat-raised-button><mat-icon>receipt_long</mat-icon>Transactions</a>
+            <button mat-raised-button title="Manage Accounts" [matMenuTriggerFor]="transactionMenu" aria-label="Manage Accounts" class="manage-accounts-button">
+                Manage Accounts
+                <i class="fa fa-angle-down"></i>
+              </button>
         </div>
     </div>
 
@@ -73,3 +76,9 @@
     </div>
 </section>
 </section>
+
+
+<mat-menu #transactionMenu="matMenu">
+    <a mat-menu-item routerLink="../../payment/transactions" routerLinkActive="active" (click)="scrollToTop()" title="View Transaction"><mat-icon>receipt_long</mat-icon> View Transactions</a> 
+    <button mat-menu-item (click)="openSavdAccount()"><mat-icon>manage_accounts</mat-icon> Manage Save Accounts</button>
+</mat-menu>

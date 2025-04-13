@@ -17,11 +17,11 @@ import { PayoutsInterface } from '../index.service';
           <span class="time">{{ getTimeAgo(payout.time) }}</span>
         </div>
         <!-- Duplicated List -->
-       <!--  <div class="payout-item" *ngFor="let payout of payouts">
+        <div class="payout-item" *ngFor="let payout of payouts">
           <span class="name">{{ payout.name }}</span>
           <span class="amount">{{ payout.amount }}</span>
           <span class="time">{{ getTimeAgo(payout.time) }}</span>
-        </div> -->
+        </div>
       </div>
     </div>
   </div>
@@ -49,7 +49,7 @@ import { PayoutsInterface } from '../index.service';
     .scroll-content {
       display: flex;
       flex-direction: column;
-      animation: scroll 20s linear infinite; /* Apply the scrolling animation */
+      animation: scroll 40s linear infinite; /* Apply the scrolling animation */
     }
 
     .payout-item {

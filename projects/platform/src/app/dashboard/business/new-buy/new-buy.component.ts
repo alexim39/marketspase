@@ -82,19 +82,21 @@ export class NewBuyComponent implements OnDestroy {
 
     // TODO: Send transaction update to the backend
     this.subscriptions.push(
-      this.planService.submit(transactionData).subscribe({
-        next: (response: any) => {
-          Swal.fire({
-            position: 'bottom',
-            icon: 'success',
-            text: response.message,//'Spase plan purchase completed',
-            confirmButtonColor: 'rgb(5, 1, 17)',
-            timer: 4000,
-          }).then((result) => {
-            //if (result.isConfirmed) {
-              this.accountBalanceService.notifyBalanceUpdated();
-            //}
-          })
+      this.planService.purchase(transactionData).subscribe({
+        next: (response) => {
+          if (response.success) {
+            Swal.fire({
+              position: 'bottom',
+              icon: 'success',
+              text: response.message,//'Spase plan purchase completed',
+              confirmButtonColor: 'rgb(5, 1, 17)',
+              timer: 4000,
+            }).then((result) => {
+              //if (result.isConfirmed) {
+                this.accountBalanceService.notifyBalanceUpdated();
+              //}
+            })
+          }
         },
         error: (error: HttpErrorResponse) => {
           let errorMessage = 'Server error occurred, please try again.'; // default error message.

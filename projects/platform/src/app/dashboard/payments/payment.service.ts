@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiService } from '../../_common/services/api.service';
+import { HttpParams } from '@angular/common/http';
 
 export interface TransactionInterface {
   message: string;
@@ -28,8 +29,8 @@ export class PaymentService {
   constructor(private apiService: ApiService) {}
   
    /**
-   * Submits the contact form data to the backend.
-   * @param formObject The contact form data.
+   * Submits the  form data to the backend.
+   * @param formObject The form data.
    * @returns An observable of the submitted form data.
    */
    getTransactions(partnerId: string): Observable<any> {
@@ -37,12 +38,22 @@ export class PaymentService {
   }
   
   /**
-   * Submits the contact form data to the backend.
-   * @param formObject The contact form data.
+   * Submits the form data to the backend.
+   * @param formObject The form data.
    * @returns An observable of the submitted form data.
    */
   withdrawRequest(formObject: any): Observable<any> {
     //console.log('withdrawRequest', formObject);
     return this.apiService.post<any>('transaction/withdraw-request', formObject);
+  }
+
+  
+   /**
+   * Submits the form data to the backend.
+   * @param formObject The form data.
+   * @returns An observable of the submitted form data.
+   */
+   removedSavedAcount( accountId: string, partnerId: string,): Observable<any> {
+    return this.apiService.delete<any>(`transaction/saved-accounts/${partnerId}/${accountId}`);
   }
 }

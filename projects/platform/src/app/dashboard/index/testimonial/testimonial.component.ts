@@ -21,8 +21,8 @@ import { TestimonialInterface } from '../index.service';
       <img [src]="testimonials[currentIndex].avatar" class="avatar" alt="User photo" />
       <div class="testimonial-content">
         <p class="message">"{{ testimonials[currentIndex].message }}"</p>
-        <p class="author">{{ testimonials[currentIndex].name }}</p>
-        <p class="location">{{ testimonials[currentIndex].location }}</p>
+        <p class="author">{{ testimonials[currentIndex].name | titlecase}}</p>
+        <p class="location">{{ testimonials[currentIndex].location | titlecase}}</p>
       </div>
     </div>
 

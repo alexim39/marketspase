@@ -73,4 +73,31 @@ export class IndexService {
      getRecentPayout(): Observable<any> {
       return this.apiService.get<any>(`dashboard/recent-payouts`);
     }
+
+     /**
+     * Get the form data to the backend.
+     * @param formObject The form data.
+     * @returns An observable of the submitted form data.
+    */
+     getDailyProfits(partnerId: string): Observable<any> {
+      return this.apiService.get<any>(`profit/daily-profit/${partnerId}`);
+    }
+
+     /**
+     * Get the form data to the backend.
+     * @param formObject The form data.
+     * @returns An observable of the submitted form data.
+    */
+     getWeeklyProfits(partnerId: string): Observable<any> {
+      return this.apiService.get<any>(`profit/weekly-profit/${partnerId}`);
+    }
+
+     /**
+     * Get the form data to the backend.
+     * @param formObject The form data.
+     * @returns An observable of the submitted form data.
+    */
+     getMonthlyProfits(partnerId: string): Observable<any> {
+      return this.apiService.get<any>(`profit/monthly-profit/${partnerId}`);
+    }
 }

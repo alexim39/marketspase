@@ -1,10 +1,11 @@
-import { Component, Input,  OnInit } from '@angular/core';
-import { MainGraphComponent } from './main-graph.component';
+import { Component, Input,  OnDestroy,  OnInit } from '@angular/core';
+import { WeeklyIncomeGraphComponent } from './weekly-income-graph.component';
 import { PartnerInterface } from '../../../_common/services/partner.service';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { IndexService } from '../index.service';
 import { RecentPayoutsComponent } from './recent-payment.component';
+import { MonthlyIncomeGraphComponent } from './montly-income-graph.component';
 
 /**
  * @title graphs container
@@ -16,7 +17,8 @@ import { RecentPayoutsComponent } from './recent-payment.component';
     <section class="container">
 
       <section class="main">
-        <async-main-graph *ngIf="partner" [partner]="partner"/>
+        <async-weekly-income-graph *ngIf="partner && weeklyProfits" [partner]="partner" [weeklyProfits]="weeklyProfits"/>
+        <async-monthly-income-graph *ngIf="partner && monthlyProfits" [partner]="partner" [monthlyProfits]="monthlyProfits"/>
       </section>
 
       <section class="side">
@@ -25,7 +27,7 @@ import { RecentPayoutsComponent } from './recent-payment.component';
 
     </section>
   `,
-    imports: [CommonModule, MainGraphComponent, RecentPayoutsComponent],
+    imports: [CommonModule, WeeklyIncomeGraphComponent, MonthlyIncomeGraphComponent, RecentPayoutsComponent],
   styles: [`
     .container {
       display: flex;
@@ -62,21 +64,46 @@ import { RecentPayoutsComponent } from './recent-payment.component';
     }
   `],
 })
-export class GraphsContainerComponent implements OnInit {
+export class GraphsContainerComponent implements OnInit, OnDestroy {
   
   @Input() partner!: PartnerInterface;
   payouts = [];
+  weeklyProfits: any;
+  monthlyProfits: any;
+  subscriptions: Subscription[] = [];
 
   constructor(
     private indexService: IndexService,
   ) {}
 
   ngOnInit(): void {
+    this.subscriptions.push(
       this.indexService.getRecentPayout().subscribe({
-      next: (getPayout: any) => {
-        this.payouts = getPayout.data;
-        //console.log('payouts', this.payouts);
-      }
-    })
+        next: (getPayout: any) => {
+          this.payouts = getPayout.data;
+          //console.log('payouts', this.payouts);
+        }
+      }),
+      this.indexService.getWeeklyProfits(this.partner._id).subscribe({
+        next: (weeklyProfits: any) => {
+          this.weeklyProfits = weeklyProfits.profits;
+          //console.log('getProfits', profits);
+        }
+      }),
+      this.indexService.getMonthlyProfits(this.partner._id).subscribe({
+        next: (monthlyProfits: any) => {
+          this.monthlyProfits = monthlyProfits.profits;
+          //console.log('getProfits', profits);
+        }
+      }),
+    )
+     
+  }
+
+  ngOnDestroy() {
+    // unsubscribe list
+    this.subscriptions.forEach(subscription => {
+      subscription.unsubscribe();
+    });
   }
 }

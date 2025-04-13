@@ -15,6 +15,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
 import { expiration } from '../../../../_common/date-util';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 /** @title Disabled select */
@@ -136,25 +137,29 @@ export class ManageAdsDetailComponent implements OnInit, OnDestroy {
       if (result.isConfirmed) {
         this.subscriptions.push(
           this.adsService.deleteAd(ad._id).subscribe({
-            next: (ads: AdsInterface) => {
+            next: (response) => {
               Swal.fire({
                 position: "bottom",
                 icon: 'success',
-                text: 'Your Ad is deleted successfully',
+                text: response.message, //'Your Ad is deleted successfully',
                 confirmButtonColor: 'rgb(5, 1, 17)',
                 timer: 8000,
               }).then (() => {
                 this.back();
               })
             },
-            error: () => {
+            error: (error: HttpErrorResponse) => {
+              let errorMessage = 'Server error occurred, please try again.';
+              if (error.error && error.error.message) {
+                errorMessage = error.error.message;
+              }
               Swal.fire({
-                position: "bottom",
+                position: 'bottom',
                 icon: 'error',
-                text: 'Server error occured, please and try again',
+                text: errorMessage,
                 showConfirmButton: false,
-                timer: 4000
-              })
+                timer: 4000,
+              });
             }
           })
         )

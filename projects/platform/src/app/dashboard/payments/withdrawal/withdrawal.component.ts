@@ -19,6 +19,8 @@ import { MatSelectChange, MatSelectModule, MatSelect } from '@angular/material/s
 import { MatOption } from '@angular/material/core';
 import { AccountBalanceService } from '../../profile/account-balance/account-balance.service';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { MatMenuModule } from '@angular/material/menu';
+import { SavedAccountsComponent } from './save-account-dialog/saved-account.component';
 
 /**
  * @title Withdrawal components
@@ -32,7 +34,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    MatButtonModule,
+    MatButtonModule, MatMenuModule,
     MatProgressBarModule, MatSlideToggleModule,
     RouterModule, CommonModule, CommonModule, ReactiveFormsModule
   ],
@@ -262,4 +264,15 @@ export class WithdrawalComponent implements OnInit, OnDestroy {
       data: { help: 'In this section, you can request for fund transfer into a regular bank account' },
     });
   }
+
+  openSavdAccount() {
+    this.dialog.open(SavedAccountsComponent, {
+      data: {
+        savedAccounts: this.savedAccounts,
+        partnerId: this.partner._id, // Include the partner ID
+      },
+    });
+  }
+
+ 
 }
