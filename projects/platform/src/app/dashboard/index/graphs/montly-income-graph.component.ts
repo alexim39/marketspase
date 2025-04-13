@@ -14,7 +14,6 @@ import { MatCardModule } from '@angular/material/card';
   styles: [`
     canvas {
       border: 1px solid #ddd;
-      background-color: #fff;
       display: block;
       margin: 20px auto;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);

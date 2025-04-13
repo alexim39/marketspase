@@ -58,7 +58,6 @@ import { PayoutsInterface } from '../index.service';
       padding: 10px 8px;
       border-bottom: 1px solid #f0f0f0;
       font-size: 0.9rem;
-      color: #444;
 
       .name {
         font-weight: 600;
