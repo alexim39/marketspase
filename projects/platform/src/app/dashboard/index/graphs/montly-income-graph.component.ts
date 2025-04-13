@@ -1,13 +1,16 @@
-import { AfterViewInit, Component, ElementRef, HostListener, Input, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { PartnerInterface } from '../../../_common/services/partner.service';
 import { MatCardModule } from '@angular/material/card';
+import { IndexService } from '../index.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'async-monthly-income-graph',
-  imports: [CommonModule, MatTableModule, CommonModule, MatButtonModule, MatCardModule],
+  imports: [CommonModule, MatTableModule, CommonModule, MatButtonModule, MatCardModule], 
+  providers: [IndexService],
   template: `
     <canvas #barCanvas width="1000"></canvas>
   `,
@@ -33,9 +36,10 @@ import { MatCardModule } from '@angular/material/card';
     }
   `],
 })
-export class MonthlyIncomeGraphComponent implements AfterViewInit {
+export class MonthlyIncomeGraphComponent implements AfterViewInit, OnInit {
   @Input() partner!: PartnerInterface;
-  @Input() monthlyProfits: any;
+  //@Input() monthlyProfits: any;
+  subscriptions: Subscription[] = [];
 
   @ViewChild('barCanvas', { static: true }) canvasRef!: ElementRef<HTMLCanvasElement>;
 
@@ -45,13 +49,28 @@ export class MonthlyIncomeGraphComponent implements AfterViewInit {
   ];
   data: number[] = Array(12).fill(0); // Default to 12 months with 0 profit
 
-  ngOnInit() {
-    if (this.monthlyProfits) {
-      //console.log('sent profit', this.monthlyProfits);
+  constructor(
+    private indexService: IndexService,
+  ) {}
 
-      this.labels = this.monthlyProfits.labels;
-      this.data = this.monthlyProfits.data;
-    }
+  ngOnInit() {
+    //this.subscriptions.push(
+      this.indexService.getMonthlyProfits(this.partner._id).subscribe({
+        next: (profits: any) => {
+          this.labels = profits.labels;
+          this.data = profits.data;
+        }
+      })
+   // )
+  }
+
+
+
+  ngOnDestroy() {
+    // unsubscribe list
+    this.subscriptions.forEach(subscription => {
+      subscription.unsubscribe();
+    });
   }
 
   ngAfterViewInit(): void {
@@ -167,11 +186,21 @@ export class MonthlyIncomeGraphComponent implements AfterViewInit {
         progress += 0.02;
         requestAnimationFrame(animate);
       } else {
+        progress = 1; // Ensure progress stops at 1
+
+        const now = new Date();
+        const currentMonthIndex = now.getMonth();
+        const monthNames = [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
+        const currentMonthText = monthNames[currentMonthIndex];
+
         // Draw the chart title after the animation completes
         ctx.textAlign = 'center';
         ctx.font = '18px Arial';
         ctx.fillStyle = '#000';
-        ctx.fillText('Monthly Income Graph', width / 2, margin / 2);
+        ctx.fillText(`Daily Income Graph for the month of ${currentMonthText}`, width / 2, margin / 2);      
       }
     };
 

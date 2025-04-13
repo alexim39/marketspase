@@ -225,23 +225,22 @@ export class ConfirmationComponent implements OnInit {
         this.subscriptions.push(
           this.getStartedService.signUp(passwordData).subscribe({
             next: (response) => {
+                this.isSpinning = false;
+                Swal.fire({
+                  //title: "You Should Login",
+                  position: 'bottom',
+                  icon: 'success',
+                  text: 'Account created successfully',//error.statusText,
+                  showCancelButton: false,
+                  confirmButtonColor: "rgb(5, 1, 17)",
+                  timer: 10000,
+                }).then((result) => {
+                  // Redirect to login page
+                  window.open('https://platform.marketspase.com', '_self');
+                });               
   
-              this.isSpinning = false;
-              Swal.fire({
-                //title: "You Should Login",
-                position: 'bottom',
-                icon: 'success',
-                text: response.message, //'Account created successfully',//error.statusText,
-                showCancelButton: false,
-                confirmButtonColor: "rgb(5, 1, 17)",
-                timer: 10000,
-              }).then((result) => {
-                // Redirect to login page
-                window.open('https://platform.marketspase.com', '_self');
-              });               
-
-              localStorage.removeItem('username');
-              localStorage.clear();
+                localStorage.removeItem('username');
+                localStorage.clear();
             },
             error: (error: HttpErrorResponse) => {
 
@@ -258,48 +257,6 @@ export class ConfirmationComponent implements OnInit {
                 showConfirmButton: false,
                 timer: 4000
               });
-
-              /* if (error.status === 400) {
-  
-                this.isSpinning = false;
-
-                Swal.fire({
-                  position: 'bottom',
-                  icon: 'error',
-                  text: 'Error with input information',//error.statusText,
-                  showConfirmButton: false,
-                  timer: 4000,
-                });
-  
-              }
-              if (error.status === 409) { // Account Exist
-  
-                this.isSpinning = false;
-
-                Swal.fire({
-                  //title: "You Should Login",
-                  position: 'bottom',
-                  icon: 'info',
-                  text: 'Account already exist, try login',//error.statusText,
-                  showCancelButton: false,
-                  confirmButtonColor: "rgb(5, 1, 17)",
-                  timer: 10000,
-                }).then((result) => {
-                  // Redirect to login page
-                  window.open('https://platform.marketspase.com', '_self');
-                });
-  
-              } else {
-                this.isSpinning = false;
-
-                Swal.fire({
-                  position: 'bottom',
-                  icon: 'info',
-                  text: 'Server error occured, please try again',//error.statusText,
-                  showConfirmButton: false,
-                  timer: 4000,
-                });
-              } */
             },
           })
         );

@@ -19,6 +19,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { AccountBalanceService } from '../../../profile/account-balance/account-balance.service';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import { PaystackService } from '../../../../_common/services/paystack.service';
+import { MatNativeDateModule } from '@angular/material/core';
 /**
  * @title Stepper vertical
  */
@@ -30,7 +31,7 @@ import { PaystackService } from '../../../../_common/services/paystack.service';
     MatStepperModule, MatDatepickerModule, CommonModule,
     FormsModule, RouterModule, MatProgressBarModule,
     ReactiveFormsModule, MatSlideToggleModule,
-    MatFormFieldModule,
+    MatFormFieldModule, MatNativeDateModule,
     MatInputModule,
   ],
   providers: [provideNativeDateAdapter(), CreateCampaignService, PaystackService],

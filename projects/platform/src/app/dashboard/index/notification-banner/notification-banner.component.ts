@@ -5,10 +5,11 @@ import { PartnerInterface } from '../../../_common/services/partner.service';
 import { IndexService } from '../index.service';
 import { PlanInterface, PlanService } from '../../business/new-plan.service';
 import { AdsInterface, AdsService } from '../../marketing/manage-ads/manage-ads.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'async-notification-banner',
-  imports: [CommonModule, MatIconModule],
+  imports: [CommonModule, MatIconModule, RouterModule],
   providers: [IndexService, PlanService],
   template: `
 
@@ -17,7 +18,7 @@ import { AdsInterface, AdsService } from '../../marketing/manage-ads/manage-ads.
       <div *ngIf="planVisible" class="info-alert">
       <mat-icon class="info-icon">info</mat-icon>
       <span>
-      There are no plan running on your account. You will not be able to earn if no plan is active. Navigate to the business section to start a new plan.
+      There are no plan running on your account. You will not be able to earn if no plan is active. Navigate to the business section to <a routerLink="business/new" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop()" title="New Plan">start a new plan</a>.
       </span>
       <mat-icon class="close-icon" (click)="closePlanAlert()">close</mat-icon>
     </div>
@@ -30,7 +31,7 @@ import { AdsInterface, AdsService } from '../../marketing/manage-ads/manage-ads.
       <div *ngIf="adVisible" class="info-alert">
       <mat-icon class="info-icon">info</mat-icon>
       <span>
-      There are no active ads running on your account. You will not be able to earn if no ads are active. Navigate to the marketing section to start an ad campaign.
+      There are no active ads running on your account. You will not be able to earn if no ads are active. Navigate to the marketing section to <a routerLink="marketing/new" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop()" title="New Ad">start an ad campaign</a>.
       </span>
       <mat-icon class="close-icon" (click)="closeAdAlert()">close</mat-icon>
     </div>
@@ -64,6 +65,13 @@ import { AdsInterface, AdsService } from '../../marketing/manage-ads/manage-ads.
       }
       .close-icon:hover {
         color: rgb(104, 39, 19);
+      }
+
+      a {
+        color: rgb(104, 39, 19);
+        text-decoration: underline;
+        cursor: pointer;
+        font-weight: bold;  
       }
 
       @media (max-width: 768px) {
@@ -135,5 +143,9 @@ export class NotificationBannerComponent implements OnInit {
 
   closeAdAlert() {
     this.adVisible = false;
+  }
+
+  scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }

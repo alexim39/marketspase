@@ -1,11 +1,10 @@
 import { Component, Input,  OnDestroy,  OnInit } from '@angular/core';
-import { WeeklyIncomeGraphComponent } from './weekly-income-graph.component';
 import { PartnerInterface } from '../../../_common/services/partner.service';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { IndexService } from '../index.service';
 import { RecentPayoutsComponent } from './recent-payment.component';
-import { MonthlyIncomeGraphComponent } from './montly-income-graph.component';
+import { WeeklyIncomeGraphComponent } from './weekly-income-graph.component';
 
 /**
  * @title graphs container
@@ -17,8 +16,8 @@ import { MonthlyIncomeGraphComponent } from './montly-income-graph.component';
     <section class="container">
 
       <section class="main">
-        <async-weekly-income-graph *ngIf="partner && weeklyProfits" [partner]="partner" [weeklyProfits]="weeklyProfits"/>
-        <async-monthly-income-graph *ngIf="partner && monthlyProfits" [partner]="partner" [monthlyProfits]="monthlyProfits"/>
+        <async-weekly-income-graph *ngIf="partner" [partner]="partner" [weeklyProfits]="weeklyProfits"/>
+        <!-- <async-monthly-income-graph *ngIf="partner" [partner]="partner"/> -->
       </section>
 
       <section class="side">
@@ -27,7 +26,7 @@ import { MonthlyIncomeGraphComponent } from './montly-income-graph.component';
 
     </section>
   `,
-    imports: [CommonModule, WeeklyIncomeGraphComponent, MonthlyIncomeGraphComponent, RecentPayoutsComponent],
+    imports: [CommonModule, WeeklyIncomeGraphComponent, RecentPayoutsComponent],
   styles: [`
     .container {
       display: flex;
@@ -69,7 +68,6 @@ export class GraphsContainerComponent implements OnInit, OnDestroy {
   @Input() partner!: PartnerInterface;
   payouts = [];
   weeklyProfits: any;
-  monthlyProfits: any;
   subscriptions: Subscription[] = [];
 
   constructor(
@@ -77,6 +75,8 @@ export class GraphsContainerComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+   
+
     this.subscriptions.push(
       this.indexService.getRecentPayout().subscribe({
         next: (getPayout: any) => {
@@ -87,15 +87,10 @@ export class GraphsContainerComponent implements OnInit, OnDestroy {
       this.indexService.getWeeklyProfits(this.partner._id).subscribe({
         next: (weeklyProfits: any) => {
           this.weeklyProfits = weeklyProfits.profits;
-          //console.log('getProfits', profits);
+          //console.log('getProfits', weeklyProfits);
         }
       }),
-      this.indexService.getMonthlyProfits(this.partner._id).subscribe({
-        next: (monthlyProfits: any) => {
-          this.monthlyProfits = monthlyProfits.profits;
-          //console.log('getProfits', profits);
-        }
-      }),
+     
     )
      
   }

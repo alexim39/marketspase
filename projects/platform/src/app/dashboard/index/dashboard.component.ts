@@ -36,7 +36,7 @@ import { RouterModule } from '@angular/router';
 <div class="testimonial-container">
   <div class="left-section">
     <div class="action-button">
-      <a mat-stroked-button  routerLink="settings/social-pages" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop()" title="Add testimonial">Submit</a>
+      <a mat-stroked-button routerLink="settings/social-pages" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="scrollToTop()" title="Add testimonial">Submit</a>
     </div>
     <async-dashboard-testimonials *ngIf="partner" [partner]="partner" [testimonials]="testimonials"/>
   </div>

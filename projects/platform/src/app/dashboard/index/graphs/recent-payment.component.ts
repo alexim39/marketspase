@@ -12,7 +12,7 @@ import { PayoutsInterface } from '../index.service';
       <div class="scroll-content">
         <!-- Original List -->
         <div class="payout-item" *ngFor="let payout of payouts">
-          <span class="name">{{ payout.name }}</span>
+          <span class="name">{{ payout.name | titlecase}}</span>
           <span class="amount">{{ payout.amount }}</span>
           <span class="time">{{ getTimeAgo(payout.time) }}</span>
         </div>
