@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
@@ -33,21 +33,33 @@ import { MatCardModule } from '@angular/material/card';
     }
   `],
 })
-export class WeeklyIncomeGraphComponent implements AfterViewInit, OnInit {
+export class WeeklyIncomeGraphComponent implements AfterViewInit, OnInit, OnChanges {
   @Input() partner!: PartnerInterface;
   @Input() weeklyProfits: any;
 
   @ViewChild('lineCanvas', { static: true }) canvasRef!: ElementRef<HTMLCanvasElement>;
 
   labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-  data = [0, 0, 0, 0, 0, 0, 0]; // Default to 5 days with 0 profit
+  data = [0, 0, 0, 0, 0, 0, 0]; // Default to 7 days with 0 profit
 
   ngOnInit() {
     if (this.weeklyProfits) {
-      //console.log('sent profit', this.weeklyProfits);
+      this.updateGraphData();
+    }
+  }
 
-      this.labels = this.weeklyProfits.labels;
-      this.data = this.weeklyProfits.data;
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['weeklyProfits'] && changes['weeklyProfits'].currentValue) {
+      //console.log('Updated weeklyProfits:', this.weeklyProfits);
+      this.updateGraphData(); // Update the graph data when weeklyProfits changes
+      this.drawChart(); // Redraw the chart with the updated data
+    }
+  }
+
+  private updateGraphData(): void {
+    if (this.weeklyProfits) {
+      this.labels = this.weeklyProfits.labels || this.labels; // Use provided labels or default
+      this.data = this.weeklyProfits.data || this.data; // Use provided data or default
     }
   }
 
@@ -78,10 +90,10 @@ export class WeeklyIncomeGraphComponent implements AfterViewInit, OnInit {
       ctx.font = '18px Arial';
       ctx.textAlign = 'center';
       ctx.fillStyle = '#000';
-      ctx.fillText('Weekly Income Graph', width / 2, margin / 2);
+      ctx.fillText(`Weekly Income Graph`, width / 2, margin / 2);
 
       // Draw the Y-axis grid and labels
-      const step = 50;
+      const step = Math.ceil(maxVal / 5); // Dynamically calculate step size
       ctx.font = '14px Arial';
       ctx.fillStyle = '#333';
       ctx.textAlign = 'right';

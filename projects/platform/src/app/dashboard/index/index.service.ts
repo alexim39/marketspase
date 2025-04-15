@@ -92,12 +92,5 @@ export class IndexService {
       return this.apiService.get<any>(`profit/weekly-profit/${partnerId}`);
     }
 
-     /**
-     * Get the form data to the backend.
-     * @param formObject The form data.
-     * @returns An observable of the submitted form data.
-    */
-     getMonthlyProfits(partnerId: string): Observable<any> {
-      return this.apiService.get<any>(`profit/monthly-profit/${partnerId}`);
-    }
+    
 }

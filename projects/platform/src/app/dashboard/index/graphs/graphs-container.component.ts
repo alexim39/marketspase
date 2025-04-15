@@ -16,7 +16,11 @@ import { WeeklyIncomeGraphComponent } from './weekly-income-graph.component';
     <section class="container">
 
       <section class="main">
-        <async-weekly-income-graph *ngIf="partner" [partner]="partner" [weeklyProfits]="weeklyProfits"/>
+      <async-weekly-income-graph
+        *ngIf="partner && hasWeeklyProfits()"
+        [partner]="partner"
+        [weeklyProfits]="weeklyProfits"
+      />
         <!-- <async-monthly-income-graph *ngIf="partner" [partner]="partner"/> -->
       </section>
 
@@ -64,41 +68,41 @@ import { WeeklyIncomeGraphComponent } from './weekly-income-graph.component';
   `],
 })
 export class GraphsContainerComponent implements OnInit, OnDestroy {
-  
   @Input() partner!: PartnerInterface;
   payouts = [];
-  weeklyProfits: any;
+  weeklyProfits: any = {}; // Initialize as an empty object
   subscriptions: Subscription[] = [];
 
-  constructor(
-    private indexService: IndexService,
-  ) {}
+  constructor(private indexService: IndexService) {}
 
   ngOnInit(): void {
-   
+    if (this.partner && this.partner._id) {
+      this.subscriptions.push(
+        this.indexService.getWeeklyProfits(this.partner._id).subscribe({
+          next: (weeklyProfits: any) => {
+            this.weeklyProfits = weeklyProfits.profits || {}; // Ensure a fallback value
+          },
+          error: (err) => {
+            console.error('Error fetching weekly profits:', err);
+            this.weeklyProfits = {}; // Fallback to an empty object on error
+          }
+        }),
 
-    this.subscriptions.push(
-      this.indexService.getRecentPayout().subscribe({
-        next: (getPayout: any) => {
-          this.payouts = getPayout.data;
-          //console.log('payouts', this.payouts);
-        }
-      }),
-      this.indexService.getWeeklyProfits(this.partner._id).subscribe({
-        next: (weeklyProfits: any) => {
-          this.weeklyProfits = weeklyProfits.profits;
-          //console.log('getProfits', weeklyProfits);
-        }
-      }),
-     
-    )
-     
+        this.indexService.getRecentPayout().subscribe({
+          next: (getPayout: any) => {
+            this.payouts = getPayout.data;
+            //console.log('payouts', this.payouts);
+          }
+        }),
+      );
+    }
+  }
+
+  hasWeeklyProfits(): boolean {
+    return this.weeklyProfits && Object.keys(this.weeklyProfits).length > 0;
   }
 
   ngOnDestroy() {
-    // unsubscribe list
-    this.subscriptions.forEach(subscription => {
-      subscription.unsubscribe();
-    });
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 }

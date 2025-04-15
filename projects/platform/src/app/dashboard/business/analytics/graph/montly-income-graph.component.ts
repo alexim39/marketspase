@@ -2,15 +2,15 @@ import { AfterViewInit, Component, ElementRef, HostListener, Input, OnChanges, O
 import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
-import { PartnerInterface } from '../../../_common/services/partner.service';
+import { PartnerInterface } from '../../../../_common/services/partner.service';
 import { MatCardModule } from '@angular/material/card';
-import { IndexService } from '../index.service';
 import { Subscription } from 'rxjs';
+import { AnalyticsService } from '../analytics.services';
 
 @Component({
   selector: 'async-monthly-income-graph',
   imports: [CommonModule, MatTableModule, CommonModule, MatButtonModule, MatCardModule], 
-  providers: [IndexService],
+  providers: [AnalyticsService],
   template: `
     <canvas #barCanvas width="1000"></canvas>
   `,
@@ -38,8 +38,7 @@ import { Subscription } from 'rxjs';
 })
 export class MonthlyIncomeGraphComponent implements AfterViewInit, OnInit {
   @Input() partner!: PartnerInterface;
-  //@Input() monthlyProfits: any;
-  subscriptions: Subscription[] = [];
+  @Input() monthlyProfits: any;
 
   @ViewChild('barCanvas', { static: true }) canvasRef!: ElementRef<HTMLCanvasElement>;
 
@@ -50,28 +49,17 @@ export class MonthlyIncomeGraphComponent implements AfterViewInit, OnInit {
   data: number[] = Array(12).fill(0); // Default to 12 months with 0 profit
 
   constructor(
-    private indexService: IndexService,
+    private indexService: AnalyticsService,
   ) {}
 
   ngOnInit() {
-    //this.subscriptions.push(
-      this.indexService.getMonthlyProfits(this.partner._id).subscribe({
-        next: (profits: any) => {
-          this.labels = profits.labels;
-          this.data = profits.data;
-        }
-      })
-   // )
+    console.log('partner income',this.partner)
+    console.log('profit income',this.monthlyProfits)
+    this.monthlyProfits.labels
+    this.monthlyProfits.data
+    
   }
 
-
-
-  ngOnDestroy() {
-    // unsubscribe list
-    this.subscriptions.forEach(subscription => {
-      subscription.unsubscribe();
-    });
-  }
 
   ngAfterViewInit(): void {
     this.resizeCanvas();

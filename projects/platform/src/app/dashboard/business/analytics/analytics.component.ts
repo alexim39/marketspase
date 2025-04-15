@@ -8,11 +8,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
   selector: 'async-analytics',
   providers: [AnalyticsService],
-  imports: [CommonModule, MatIconModule, RouterModule, MatButtonModule],
+  imports: [CommonModule, MatIconModule, RouterModule, MatButtonModule, MatMenuModule],
   template: `
 
   
@@ -32,9 +33,13 @@ import { MatButtonModule } from '@angular/material/button';
     <section class="async-container">
       <div class="title">
           <h3>Business Health Analytics</h3>
-          <!-- <div class="action-area">
-              <a mat-list-item routerLink="../../business/new" routerLinkActive="active" (click)="scrollToTop()" title="New Spase Plan" mat-raised-button><mat-icon>add</mat-icon>New Plan</a>
-          </div> -->
+          <div class="action-area">
+          <button mat-raised-button title="Manage Accounts" [matMenuTriggerFor]="analytics" aria-label="Manage Accounts" class="manage-accounts-button">
+                More Info
+                <i class="fa fa-angle-down"></i>
+              </button>
+              <!-- <a mat-list-item routerLink="../../business/new" routerLinkActive="active" (click)="scrollToTop()" title="New Spase Plan" mat-raised-button><mat-icon>add</mat-icon>New Plan</a> -->
+          </div>
       </div>
 
       <div class="content">
@@ -85,7 +90,10 @@ import { MatButtonModule } from '@angular/material/button';
     </section>
 </section>
 
-<canvas id="planChart"></canvas>
+<mat-menu #analytics="matMenu">
+  <a mat-menu-item routerLink="../../payment/transactions" routerLinkActive="active" (click)="scrollToTop()" title="View Transaction"><mat-icon>receipt_long</mat-icon> Monthly Income</a> 
+
+</mat-menu>
 
 
 
